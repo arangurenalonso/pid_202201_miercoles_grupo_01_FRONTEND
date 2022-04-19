@@ -11,7 +11,7 @@
     class="page-item"
     [ngClass]="paginador_hijo.first? 'disabled' : ''"
   >
-    <a class="page-link" [routerLink]="['/admin/departamneto/listado/page', 0]"> &laquo; </a>
+    <a class="page-link" [routerLink]="[urlToRedirect, 0]"> &laquo; </a>
   </li>
 
   <!--Atras-->
@@ -21,7 +21,7 @@
   >
     <a
       class="page-link"
-      [routerLink]="['/admin/departamneto/listado/page', paginador_hijo.numeroDePagina - 1]"
+      [routerLink]="[urlToRedirect, paginador_hijo.numeroDePagina - 1]"
     >
       &lt;
     </a>
@@ -38,7 +38,7 @@
     <a
       class="page-link"
       *ngIf="pagina - 1 != paginador_hijo.number"
-      [routerLink]="['/admin/departamneto/listado/page', pagina - 1]"
+      [routerLink]="[urlToRedirect, pagina - 1]"
     >
       {{ pagina }}</a
     >
@@ -52,7 +52,7 @@
   >
     <a
       class="page-link"
-      [routerLink]="['/admin/departamneto/listado/page', paginador_hijo.numeroDePagina + 1]"
+      [routerLink]="[urlToRedirect, paginador_hijo.numeroDePagina + 1]"
     >
       &gt;
     </a>
@@ -67,7 +67,7 @@
   >
     <a
       class="page-link"
-      [routerLink]="['/admin/departamneto/listado/page', paginador_hijo.totalPaginas - 1]"
+      [routerLink]="[urlToRedirect, paginador_hijo.totalPaginas - 1]"
     >
       &raquo;
     </a>

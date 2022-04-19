@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigateByUrl('/admin/departamneto/listado');
+      this.router.navigateByUrl('/admin/departamentos/listado');
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public onLogin(): void {
     console.log(this.usuario)
-    if (this.usuario.username == null || this.usuario.password == null) {
+    if (this.usuario.email == null || this.usuario.password == null) {
       swal.fire('Error Login', 'Username o password vacías!', 'error');
       return;
     }
@@ -50,13 +50,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log("username-" + objPayload.iss)
         console.log("tiempo de expiracion-" + new Date(objPayload.iat * 1000))
         console.log("tiempo de expiracion-" + new Date(objPayload.exp * 1000))
+        console.log(response)
         let _usuario = (response.usuario as Usuario);
         this.authService.guardarUsuario(_usuario);
         this.authService.guardarToken(response.tokens.access_token);
         this.notificationService.notify('success', 'Notification successfully opened.' )
-        swal.fire('Login', `Hola ${this.authService.usuario.persona.nombre}, has iniciado sesión con éxito!`, 'success');
+        swal.fire('Login', `Hola ${response.usuario.persona.nombre}, has iniciado sesión con éxito!`, 'success');
         this.showLoading = false;
-        this.router.navigateByUrl('/admin/departamneto/listado');
+        this.router.navigateByUrl('/admin/departamentos/listado');
       },
       err => {
           if(err.status==400){

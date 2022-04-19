@@ -24,10 +24,39 @@
           ></a>
           <ul class="sub-menu collapse" id="menu-departamento">
             <li>
-              <a class="ms-link" [routerLink]="['/admin/departamneto/listado']">Departamento List</a>
+              <a class="ms-link" [routerLink]="['/admin/departamentos/listado']"
+                >Departamento List</a
+              >
             </li>
             <li>
-              <a class="ms-link" [routerLink]="['/admin/departamneto/crear']">Departamento Create</a>
+              <a class="ms-link" [routerLink]="['/admin/departamentos/crear']"
+                >Departamento Create</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-propietario"
+            href="#"
+          >
+            <i class="icofont-funky-man fs-5"></i> <span>Propietario</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-propietario">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/propietario/listado']"
+                >Propietario List</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/propietario/crear']"
+                >Propietario Create</a
+              >
             </li>
           </ul>
         </li>
@@ -272,7 +301,7 @@
             >
               <div class="u-info me-2">
                 <p class="mb-0 text-end line-height-sm">
-                  <span class="font-weight-bold"
+                  <span class="font-weight-bold" *ngIf="userConected"
                     >{{ userConected.persona.nombre }}
                     {{ userConected.persona.apellido }}</span
                   >
@@ -280,7 +309,7 @@
                 <span
                   *ngFor="let permiso of userConected.permiso; last as last"
                 >
-                  <small>{{ permiso.role.name }}</small>
+                  <small >{{ permiso.role.name }}</small>
                   <span *ngIf="!last"> | </span>
                 </span>
               </div>
@@ -292,9 +321,18 @@
                 data-bs-display="static"
               >
                 <img
-                  class="avatar lg rounded-circle img-thumbnail"
-                  src="assets/images/profile_av.svg"
-                  alt="profile"
+                  *ngIf="userConected.foto"
+                  src="http://localhost:8080/api/uploads/img/{{
+                    userConected.foto
+                  }}"
+                  alt="{{ userConected.foto }}"
+                  class="avatar rounded"
+                />
+                <img
+                  *ngIf="!userConected.foto"
+                  src="http://localhost:8080/api/uploads/img/no-usuario.png"
+                  alt="no-usurio-foto"
+                  class="avatar rounded"
                 />
               </a>
               <div
@@ -303,16 +341,11 @@
                 <div class="card border-0 w280">
                   <div class="card-body pb-0">
                     <div class="d-flex py-1">
-                      <img
-                        class="avatar rounded-circle"
-                        src="assets/images/profile_av.svg"
-                        alt="profile"
-                      />
                       <div class="flex-fill ms-3">
                         <p class="mb-0">
-                          <span class="font-weight-bold">{{
-                            userConected.username
-                          }}</span>
+                          <span class="font-weight-bold">
+                          DNI:  {{ userConected.persona.dni }}</span
+                          >
                         </p>
                         <small class="">{{ userConected.email }}</small>
                       </div>

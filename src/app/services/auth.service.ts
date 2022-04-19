@@ -19,7 +19,7 @@ export class AuthService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   public login(usuario: Usuario): Observable<any> {
-    return this.http.post<any>(`${this.urlEndPoint}/api/auth/login?username=${usuario.username}&password=${usuario.password}`, usuario, { headers: this.httpHeaders });
+    return this.http.post<any>(`${this.urlEndPoint}/api/auth/login?username=${usuario.email}&password=${usuario.password}`, usuario, { headers: this.httpHeaders });
   }
 
   guardarToken(accessToken: string): void {
@@ -42,13 +42,18 @@ export class AuthService {
     sessionStorage.removeItem('usuario');
   }
   public get usuario(): Usuario {
-    console.log("Entro al metodo get de usuario")
+    console.log("Entro al metodo get de usuario ")
     if (this._usuario != null) {
+      console.log("Se obtiene de la variable")
+      console.log(this._usuario)
       return this._usuario;
     } else if (this._usuario == null && sessionStorage.getItem('usuario') != null) {
+      console.log("Se obtiene de storage")
+      console.log(this._usuario)
       this._usuario = JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
       return this._usuario;
     }
+    
     return new Usuario();
   }
 

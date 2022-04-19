@@ -8,11 +8,11 @@
           <h3 class="fw-bold mb-0">Departamento</h3>
           <div class="col-auto d-flex w-sm-100">
             <a
-              [routerLink]="['/admin/departamneto/crear']"
+              [routerLink]="['/admin/departamentos/crear']"
               class="btn btn-primary btn-set-task w-sm-100"
-              >
+            >
               <i class="icofont-plus-circle me-2 fs-6"></i>Agregar
-              </a>
+            </a>
           </div>
         </div>
       </div>
@@ -38,22 +38,36 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                    <tr *ngFor="let departamento of departamentos">
-                        
-                        <td>{{ departamento.id }}</td>
-                        <td>{{ departamento.depnumero }}</td>
-                        <td>{{ departamento.deptelef }}</td>
-                        <td>{{ departamento.estado?"activo":"inactivo" }}</td>
-                        <td>
-                          <button type="button" name="editar" class="btn btn-primary btn-sm"  [routerLink]="['/admin/departamneto/update', departamento.id]">editar</button>
-                        </td>
-                        <td>
-                          <button type="button" name="eliminar"class="btn btn-danger btn-sm" (click)='delete(departamento)'>eliminar</button>
-                        </td>
-                      </tr>
-                 
-              
+                <tr></tr>
+                <tr *ngFor="let departamento of departamentos">
+                  <td>{{ departamento.id }}</td>
+                  <td>{{ departamento.depnumero }}</td>
+                  <td>{{ departamento.deptelef }}</td>
+                  <td>{{ departamento.estado ? "activo" : "inactivo" }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      name="editar"
+                      class="btn btn-primary btn-sm"
+                      [routerLink]="[
+                        '/admin/departamentos/update',
+                        departamento.id
+                      ]"
+                    > 
+                      editar
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      name="eliminar"
+                      class="btn btn-danger btn-sm"
+                      (click)="delete(departamento)"
+                    >
+                      eliminar
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -64,6 +78,7 @@
     <paginator-nav
       *ngIf="paginador_padre"
       [paginador_hijo]="paginador_padre"
+      [componente_name_padre]="componente_name"
     ></paginator-nav>
   </div>
 </div>

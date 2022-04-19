@@ -1,1 +1,79 @@
-<p>listado works!</p>
+<div class="body d-flex py-lg-3 py-md-2">
+    <div class="container-xxl">
+        <div class="row align-items-center">
+            <div class="border-0 mb-4">
+                <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                    <h3 class="fw-bold mb-0">{{title}}</h3>
+                    <div class="col-auto d-flex w-sm-100">
+                        <a
+                        [routerLink]="['/admin/propietario/crear']"
+                        class="btn btn-primary btn-set-task w-sm-100"
+                        >
+                        <i class="icofont-plus-circle me-2 fs-6"></i>Add {{title}}
+                        </a>
+                     </div>
+                </div>
+            </div>
+        </div> <!-- Row end  -->
+        <div class="row clearfix g-3">
+            <div class="col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th colspan="2" style=" text-align: center" >Nombre y Apellido</th> 
+                                    <th>Mail</th>
+                                    <th>Phone</th>
+                                    <th>Cumpleaños</th> 
+                                    <th>estado</th> 
+                                    <th>Actions</th>  
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <tr *ngFor="let propietario of propietarios">
+                                    <td><strong>{{propietario.id}}</strong></td>
+                                    <td>
+                                            <a  [routerLink]="[
+                                            '/admin/propietario/update',
+                                            propietario.id
+                                          ]">
+                                                <img *ngIf="propietario.persona.usuario.foto"
+                                                src="http://localhost:8080/api/uploads/img/{{ propietario.persona.usuario.foto }}"
+                                                alt="{{ propietario.persona.usuario.foto }}"
+                                                class="avatar rounded"
+                                                />
+                                                <img *ngIf="!propietario.persona.usuario.foto"
+                                                src="http://localhost:8080/api/uploads/img/no-usuario.png"
+                                                alt="no-usuario-foto"
+                                                class="avatar rounded"
+                                                />
+                                              
+                                                <span class="fw-bold ms-1">{{propietario.persona.nombre}}</span>
+                                            </a>
+                                    </td>
+                                    <td>
+                                        {{propietario.persona.apellido}}
+                                    </td>
+                                    <td>{{propietario.persona.usuario.email}}</td>
+                                    <td>{{propietario.numeroCelular}}</td>
+                                    <td>{{propietario.birthdayDate}}</td>
+                                    <td *ngIf="propietario.persona.estado"><span class="badge bg-success">Activo</span></td>
+                                    <td *ngIf="!propietario.persona.estado"><span class="badge bg-danger">Inactivo</span></td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button>
+                                            <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Row End -->
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { DepartamentoService } from './services/departamentoservice';
 import { AuthGuard } from './guards/auth.guard';
+import { PropietarioService } from './services/propietarioservice';
 @NgModule({
   declarations: [
     AppComponent,    
@@ -25,7 +26,7 @@ import { AuthGuard } from './guards/auth.guard';
     HttpClientModule,
     NotificationModule
   ],
-  providers: [NotifierService, AuthGuard, AuthService, DepartamentoService,
+  providers: [NotifierService, AuthGuard, AuthService, DepartamentoService,PropietarioService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

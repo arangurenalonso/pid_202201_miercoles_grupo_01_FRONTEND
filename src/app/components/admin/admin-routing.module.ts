@@ -9,14 +9,14 @@ const routes: Routes = [
     component: AdminComponent, 
     children: [
       {
-        path: 'departamneto',
+        path: 'departamentos',
         loadChildren: () => import('./departamentos/departamentos.module').then(m=>m.DepartamentosModule)
       },
       {
         path: 'propietario',
         loadChildren: () => import('./propietario/propietario.module').then(m=>m.PropietarioModule)
       },
-      { path: '**', redirectTo: 'departamento' }
+      { path: '**', redirectTo: 'departamentos' }
     ]
   },
 ]

@@ -1,0 +1,314 @@
+<app-modal-mascota
+[mascotaSeleccionada]="mascotaSeleccionada"
+[propietario]="propietario"
+*ngIf="mascotaSeleccionada"
+></app-modal-mascota>
+
+
+<div class="body d-flex py-3" *ngIf="propietario">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+        >
+          <h3 class="fw-bold mb-0">
+            {{ propietario.persona.nombre }} {{ propietario.persona.apellido }}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+    <div
+      class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4"
+    >
+      <div class="col">
+        <div class="alert-success alert mb-0">
+          <div class="d-flex align-items-center">
+            <div class="avatar rounded no-thumbnail bg-success text-light">
+              <i class="fa fa-birthday-cake fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="flex-fill ms-3 text-truncate">
+              <div class="h6 mb-0">Birthday Date</div>
+              <span class="small"
+                >{{ propietario.birthdayDate | date: "dd-MMMM" }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="alert-danger alert mb-0">
+          <div class="d-flex align-items-center">
+            <div class="avatar rounded no-thumbnail bg-danger text-light">
+              <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="flex-fill ms-3 text-truncate">
+              <div class="h6 mb-0">Full Name</div>
+              <span class="small"
+                >{{ propietario.persona.nombre }}
+                {{ propietario.persona.apellido }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="alert-warning alert mb-0">
+          <div class="d-flex align-items-center">
+            <div class="avatar rounded no-thumbnail bg-warning text-light">
+              <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="flex-fill ms-3 text-truncate">
+              <div class="h6 mb-0">Email</div>
+              <span class="small">{{ propietario.persona.usuario.email }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="alert-info alert mb-0">
+          <div class="d-flex align-items-center">
+            <div class="avatar rounded no-thumbnail bg-info text-light">
+              <i class="fa fa-phone-square fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="flex-fill ms-3 text-truncate">
+              <div class="h6 mb-0">Contact No</div>
+              <span class="small">{{ propietario.numeroCelular }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+    <div
+      class="row g-3 mb-3 row-cols-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3 row-deck"
+    >
+      <div class="col">
+        <div class="card auth-detailblock">
+          <div
+            class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+          >
+            <h6 class="mb-0 fw-bold">Datos del Propietario</h6>
+            <a href="#" class="text-muted">Edit</a>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Nombre:</label>
+                <span
+                  ><strong>{{ propietario.persona.nombre }} </strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Apellido:</label>
+                <span
+                  ><strong>{{ propietario.persona.apellido }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">DNI:</label>
+                <span
+                  ><strong>{{ propietario.persona.dni }}</strong></span
+                >
+              </div> 
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5"
+                  >Fecha de Nacimiento:</label
+                >
+                <span
+                  ><strong>{{ propietario.birthdayDate }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Telefono:</label>
+                <span
+                  ><strong>{{ propietario.numeroCelular }}</strong></span
+                >
+              </div>
+
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5"
+                  >Fecha de Creación:</label
+                >
+                <span
+                  ><strong>{{ propietario.persona.createAt }}</strong></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div
+            class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+          >
+            <h6 class="mb-0 fw-bold">Información de usuario</h6>
+            <a href="#" class="text-muted">Edit</a>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Usuario</label>
+                <span
+                  ><strong>{{
+                    propietario.persona.usuario.email
+                  }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5"
+                  >Ultimo inicio de sesion:</label
+                >
+                <span
+                  ><strong>{{
+                    propietario.persona.usuario.lastLoginDateDisplay
+                  }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Activo:</label>
+                <span
+                  ><strong>{{
+                    propietario.persona.usuario.active
+                  }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Bloqueado</label>
+                <span
+                  ><strong>{{
+                    propietario.persona.usuario.notLocked
+                  }}</strong></span
+                >
+              </div>
+              <div class="col-12">
+                <label class="form-label col-6 col-sm-5">Permiso</label>
+                <span
+                  *ngFor="
+                    let permiso of propietario.persona.usuario.permiso;
+                    last as last
+                  "
+                >
+                  <strong>
+                    {{ permiso.role.name }}
+                    <span *ngIf="!last"> | </span>
+                  </strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div
+            class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+          >
+            <h6 class="mb-0 fw-bold">Subir Foto</h6>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-sm">
+                <img
+                  *ngIf="propietario.persona.usuario.foto"
+                  src="http://localhost:8080/api/uploads/img/{{
+                    propietario.persona.usuario.foto
+                  }}"
+                  alt="{{ propietario.persona.usuario.foto }}"
+                  class="img-thumbnail rounded"
+                />
+                <img
+                  *ngIf="!propietario.persona.usuario.foto"
+                  src="http://localhost:8080/api/uploads/img/no-usuario.png"
+                  alt="no-usurio-foto"
+                  class="img-thumbnail rounded"
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="inputGroupFile03"
+                  aria-describedby="inputGroupFileAddon03"
+                  aria-label="Upload"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="inputGroupFileAddon03"
+                >
+                  Subir Foto
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+    <div class="row g-3 mb-3">
+      <div class="">
+        <div class="card">
+          <div
+            class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+          >
+            <h6 class="mb-0 fw-bold">Mascota</h6>
+            <div class="col-auto d-flex w-sm-100">
+                <a
+                (click)="abrirModal(null)"
+                class="btn btn-primary btn-set-task w-sm-100"
+                >
+                <i class="icofont-plus-circle me-2 fs-6"></i>Add
+                </a>
+             </div>
+          </div>
+          <div class="card-body">
+            <div class="product-cart">
+              <div class="checkout-table table-responsive">
+                <table
+                  id="myCartTable"
+                  class="table display dataTable table-hover align-middle"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th >Id Mascota</th>
+                      <th>Tipo Mascota</th>
+                      <th >Nombre Mascota</th>
+                      <th >Raza</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let mascota of propietario.mascotas">
+                      <td>
+                        {{ mascota.id }}
+                      </td>
+                      <td>
+                        {{ mascota.tipoMascota }}
+                      </td>
+                      <td>
+                        {{ mascota.nombre }}
+                      </td>
+                      <td>
+                        {{ mascota.raza }}
+                      </td>
+                      <td>
+                        {{ mascota.createAt }}
+                      </td>
+                      <td>
+                        {{ mascota.isActive }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+  </div>
+</div>

@@ -7,21 +7,24 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class PaginatorComponent implements OnInit, OnChanges {
 
   @Input() paginador_hijo: any;
-
+  @Input() componente_name_padre: any;
+  
   paginas: number[];
 
   desde: number;
   hasta: number;
 
+  urlToRedirect:String;
+
   constructor() { }
 
   ngOnInit() {
+    this.urlToRedirect=`/admin/${this.componente_name_padre}/listado/page`
     this.initPaginator();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let paginadorActualizado = changes['paginador_hijo'];
-
     if (paginadorActualizado.previousValue) {
       this.initPaginator();
     }

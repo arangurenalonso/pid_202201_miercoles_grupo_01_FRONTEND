@@ -1,0 +1,139 @@
+<div class="abrir-modal animacion fadeIn " *ngIf="this.modalService.modalMascota"  (click)="cerrarModal() ">
+  
+    <div  class="modal color-fondo d-flex justify-content-center align-items-center  " tabindex="-1" role="dialog" style="display: block;"   >
+     <!--d-flex justify-content-center align-items-center-->
+      <div class="modal-dialog modal-lg ancho-modal" role="document" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ titulo }}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="cerrarModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--Inicio-->
+            <form #mascotaFormValid="ngForm" *ngIf="mascotaSeleccionada">
+              <div class="form-group row mb-4">
+                <label for="" class="col-form-label col-sm-2"
+                  >Tipo de mascota</label
+                >
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="mascotaSeleccionada.tipoMascota"
+                    name="tipo"
+                    #tipo="ngModel"
+                    required
+                    minlength="3"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="
+                    tipo.invalid && (tipo.dirty || tipo.touched)
+                    "
+                  >
+                    <div *ngIf="tipo.errors.required">Tipo de mascota es requerido!!</div>
+                    <div *ngIf="tipo.errors.minlength">
+                      minimo 3 caracteres
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label for="" class="col-form-label col-sm-2">nombre</label>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="mascotaSeleccionada.nombre"
+                    name="name"
+                    #name="ngModel"
+                    required
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="name.invalid && (name.dirty || name.touched)"
+                  >
+                    <div *ngIf="name.errors.required">
+                     El nombre es requerido 
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="form-group row mb-4">
+                <label for="" class="col-form-label col-sm-2">raza</label>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="mascotaSeleccionada.raza"
+                    name="raza"
+                    #raza="ngModel"
+                    required
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="raza.invalid && (raza.dirty || raza.touched)"
+                  >
+                    <div *ngIf="raza.errors.required">
+                     La raza es requerido 
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <button
+                      class="btn btn-primary"
+                      role="button"
+                      (click)="create()"
+                      *ngIf="!mascotaSeleccionada.id; else elseBlock"
+                      [disabled]="!mascotaFormValid.form.valid"
+                    >
+                      Crear
+                    </button>
+                    <ng-template #elseBlock>
+                      <button
+                        class="btn btn-primary"
+                        role="button"
+                        (click)="update()"
+                        [disabled]="!mascotaFormValid.form.valid"
+                      >
+                        Actualizar
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="cerrarModal()"
+                >
+                  Close
+                </button>
+              </div>
+              
+            </form>
+            <!--FIN-->
+
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    </div>

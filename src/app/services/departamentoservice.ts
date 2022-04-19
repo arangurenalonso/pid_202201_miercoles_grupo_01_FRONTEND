@@ -35,7 +35,7 @@ export class DepartamentoService {
     }
 
     if (e.status == 403) {
-      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
+      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.email} no tienes acceso a este recurso!`, 'warning');
       this.router.navigate(['/login']);
       return true;
     }
@@ -48,7 +48,7 @@ export class DepartamentoService {
         this.isNoAutorizado(e);
         return throwError(e);
       })
-    );
+    ); 
   }
 
 

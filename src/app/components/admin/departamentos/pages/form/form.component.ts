@@ -19,10 +19,10 @@ export class FormComponent implements OnInit {
   constructor(private departamentoService: DepartamentoService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.cargarCliente()
+    this.cargarDepartamento()
   }
 
-  public cargarCliente(): void {
+  public cargarDepartamento(): void {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
@@ -33,7 +33,7 @@ export class FormComponent implements OnInit {
             //(clienteObtenido) => this.departamento = clienteObtenido
           }
         )
-        this.titulo = 'Editar Cliente'
+        this.titulo = 'Editar Departamento'
       }
     })
   }
@@ -52,7 +52,7 @@ export class FormComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.router.navigate(['/admin/departamneto/listado'])
+        this.router.navigate(['/admin/departamentos/listado'])
       },
         err => {
           this.errores = err.error.errors as string[]
@@ -66,7 +66,7 @@ export class FormComponent implements OnInit {
   public update(): void {
     this.departamentoService.update(this.departamento).subscribe(
       response => {
-        this.router.navigate(['/admin/departamneto/listado'])
+        this.router.navigate(['/admin/departamentos/listado'])
         swal.fire({
 
           position: 'center',

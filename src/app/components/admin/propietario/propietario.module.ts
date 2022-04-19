@@ -2,19 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PropietarioRoutingModule } from './propietario-routing.module';
-import { EditComponent } from './pages/edit/edit.component';
-import { AddComponent } from './pages/add/add.component';
 import { ListadoComponent } from './pages/listado/listado.component';
+import { ModalMascotaComponent } from './pages/modal-mascota/modal-mascota.component';
+import { FormsModule } from '@angular/forms';
+import { DetalleComponent } from './pages/detalle/detalle.component';
 
 
 @NgModule({
   declarations: [
-    EditComponent,
-    AddComponent,
-    ListadoComponent
+    ListadoComponent,
+    DetalleComponent,
+    ModalMascotaComponent
   ],
   imports: [
-    CommonModule,
+    
+    CommonModule,    
+    FormsModule,
     PropietarioRoutingModule
   ]
 })

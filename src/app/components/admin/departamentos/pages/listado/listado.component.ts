@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class ListadoComponent implements OnInit {
   departamentos: Departamento[];
   paginador_padre: any;
+  componente_name:String;
   departamentoSeleccionado: Departamento;
   constructor(private departamentoService: DepartamentoService,
     private activatedRoute: ActivatedRoute) { }
@@ -31,6 +32,7 @@ export class ListadoComponent implements OnInit {
         .subscribe(response => {
           this.departamentos = response.contenido as Departamento[];
           this.paginador_padre = response;
+          this.componente_name="departamentos"
           console.log(response)
         });
 

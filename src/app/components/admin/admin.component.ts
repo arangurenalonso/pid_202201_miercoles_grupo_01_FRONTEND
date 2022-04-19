@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit {
 
 
   logout(): void {
-    let username = this.authService.usuario.username;
+    let username = this.authService.usuario.email;
     this.authService.logOut();
     Swal.fire('Logout', `Hola ${username}, has cerrado sesión con éxito!`, 'success');
     this.router.navigate(['/login']);
