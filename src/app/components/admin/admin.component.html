@@ -60,6 +60,31 @@
             </li>
           </ul>
         </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-visitante"
+            href="#"
+          >
+            <i class="icofont-truck-loaded fs-5"></i> <span>Visitante</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-visitante">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/visitante/listado']"
+                >Visitante List</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/visitante/crear']"
+                >Visitante Create</a
+              >
+            </li>
+          </ul>
+        </li>
         <!--
         <li>
           <a class="m-link" href="index.html"

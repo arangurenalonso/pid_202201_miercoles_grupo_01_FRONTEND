@@ -1,0 +1,159 @@
+<!--
+  VALIDATOR EN EL FORMULARIO
+  https://angular.io/api/forms/Validators
+-->
+<div class="container">
+  <!--
+    <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+      <li *ngFor="let err of errores">
+        {{ err }}
+      </li>
+    </ul>-->
+  <div class="card ">
+    <div class="card-header  bg-dark text-white">{{ titulo }}</div>
+    <div class="card-body">
+      <form #propietarioDTOForm="ngForm">
+        <!--NOMBE-->
+        <div class="form-group row mb-4">
+          <label for="" class="col-form-label col-sm-2"
+            >Nombre del propietario</label
+          >
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="propietarioDTO.nombre"
+              name="nombre"
+              #nombre="ngModel"
+              required
+            /><!---->
+            <div
+              class="alert alert-danger"
+              *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+            >
+              <div *ngIf="nombre.errors.required">El nombre es requerido</div>
+            </div>
+          </div>
+        </div>
+        <!--APELLIDO-->
+        <div class="form-group row mb-4">
+          <label for="" class="col-form-label col-sm-2">Apellido</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="propietarioDTO.apellido"
+              name="apellido"
+              #apellido="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+            >
+              <div *ngIf="apellido.errors.required">
+                El apellido es obligatorio
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--DNI-->
+        <div class="form-group row mb-4">
+          <label for="" class="col-form-label col-sm-2">DNI</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="propietarioDTO.dni"
+              name="dni"
+              #dni="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="dni.invalid && (dni.dirty || dni.touched)"
+            >
+              <div *ngIf="dni.errors.required">El DNI es obligatorio</div>
+            </div>
+          </div>
+        </div>
+        <!--Telefono-->
+        <div class="form-group row mb-4">
+          <label for="" class="col-form-label col-sm-2">Telefono</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="propietarioDTO.numeroCelular"
+              name="numeroCelular"
+              #numeroCelular="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="
+                numeroCelular.invalid &&
+                (numeroCelular.dirty || numeroCelular.touched)
+              "
+            >
+              <div *ngIf="numeroCelular.errors.required">
+                El Número de teléfono es requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--email-->
+        <div class="form-group row mb-4">
+          <label for="" class="col-form-label col-sm-2">email</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="propietarioDTO.email"
+              name="email"
+              #email="ngModel"
+              required
+            /><!-- -->
+            <div
+              class="alert alert-danger"
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+            >
+              <div *ngIf="email.errors.required">
+                El email es requerido
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+        <div class="form-group row">
+            <label for="" class="col-form-label col-sm-2">Fecha de nacimiento</label>
+          
+            <div class="col-sm-6">
+                <mat-form-field class="example-full-width" appearance="fill" class="datepicker-class">
+                    <mat-label>Elije una fecha</mat-label>
+                    <input  matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"   [(ngModel)]="propietarioDTO.birthdayDate" name="birthdayDate" disabled>                   
+                    <mat-datepicker-toggle matSuffix [for]="picker">                     
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>                            
+            </div>
+          </div>
+
+        <!-- Botones-->
+        <div class="form-group row ">
+          <div class="col-sm-6">
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="create()"
+              [disabled]="!propietarioDTOForm.form.valid"
+            >
+              Crear
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

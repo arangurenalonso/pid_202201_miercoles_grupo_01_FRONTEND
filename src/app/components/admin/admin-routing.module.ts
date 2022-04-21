@@ -16,6 +16,10 @@ const routes: Routes = [
         path: 'propietario',
         loadChildren: () => import('./propietario/propietario.module').then(m=>m.PropietarioModule)
       },
+      {
+        path: 'visitante',
+        loadChildren: () => import('./visitante/visitante.module').then(m=>m.VisitanteModule)
+      },
       { path: '**', redirectTo: 'departamentos' }
     ]
   },

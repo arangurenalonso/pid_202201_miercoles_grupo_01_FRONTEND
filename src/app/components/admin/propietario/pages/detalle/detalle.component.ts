@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FamiliarDTO } from 'src/app/dto/FamiliarDTO';
+import { Familiar } from 'src/app/model/familiar';
 import { Mascota } from 'src/app/model/Mascota';
 import { Propietario } from 'src/app/model/propietario';
 import { ModalService } from 'src/app/services/modal.service';
@@ -15,10 +17,14 @@ export class DetalleComponent implements OnInit {
   public titulo: String = "Crear Propietario"
   public errores: string[]
   mascotaSeleccionada:Mascota;
+  familiarSeleccionado:FamiliarDTO;
+
+  
 
   constructor(private propietarioService: PropietarioService, private router: Router, private activatedRoute: ActivatedRoute,private modalService:ModalService) {
     this.cargarInformacion()
     this.escucharMascotaModal()
+    this.escucharFamiliarModal()
    }
 
   ngOnInit(): void { 
@@ -52,14 +58,33 @@ export class DetalleComponent implements OnInit {
       this.cargarInformacion()
     })
   }
-
-  abrirModal(mascota:Mascota){
-    if(mascota!=null){
-      this.mascotaSeleccionada=mascota
-     
-    }
-    this.mascotaSeleccionada=new Mascota()
+  escucharFamiliarModal(){
+    this.modalService.notificarFamiliar.subscribe(familiar=>{
+      console.log("Notificacion correcta")
+      console.log(familiar)
+      this.cargarInformacion()
+    })
+  }
+  abrirModalMascota(mascota:Mascota){
+  
+    this.mascotaSeleccionada=(mascota!=null)?mascota:new Mascota()
     this.modalService.abrirMascotaModal()
+  }
+
+  abrirModalFamiliar(familiar:Familiar){
+
+    if(familiar!=null){
+      let familiarDTO=new FamiliarDTO()
+      familiarDTO.id=   familiar.id,
+      familiarDTO.birthdayDate=  familiar.birthdayDate,
+      familiarDTO.parentesco=  familiar.parentesco,
+      familiarDTO.nombre=  familiar.persona.nombre,
+      familiarDTO.apellido=  familiar.persona.apellido,
+      familiarDTO.dni=  familiar.persona.dni
+    }else{
+      this.familiarSeleccionado=new FamiliarDTO()
+    }
+    this.modalService.abrirFamiliarModal()
   }
 }
  

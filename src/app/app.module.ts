@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { DepartamentoService } from './services/departamentoservice';
 import { AuthGuard } from './guards/auth.guard';
 import { PropietarioService } from './services/propietarioservice';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,    
@@ -24,7 +25,8 @@ import { PropietarioService } from './services/propietarioservice';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NotificationModule
+    NotificationModule,
+    BrowserAnimationsModule,
   ],
   providers: [NotifierService, AuthGuard, AuthService, DepartamentoService,PropietarioService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

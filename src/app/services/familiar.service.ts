@@ -5,16 +5,19 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { AuthService } from "./auth.service";
-import { catchError, map, Observable, throwError } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { Propietario } from "../model/propietario";
+import { Mascota } from "../model/Mascota";
+import { Familiar } from "../model/familiar";
 import { PropietarioDTO } from "../dto/PropietarioDTO";
+import { FamiliarDTO } from "../dto/FamiliarDTO";
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class PropietarioService {
-    public urlEndPoint: string = environment.apiUrl + "/api/propietario";
+export class FamiliarService {
+    public urlEndPoint: string = environment.apiUrl + "/api/familiar";
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
@@ -42,49 +45,26 @@ export class PropietarioService {
         }
         return false;
     }
-    getPropietarios(page:number): Observable<any> {
-        return this.http.get(this.urlEndPoint + `?numeroDePagina=${page}`, { headers: this.agregarAuthorizationHeader() }).pipe(
+    create(familiar: FamiliarDTO, idPropietario:number): Observable<any> {
+      console.log(familiar)
+      return this.http.post(this.urlEndPoint+`/${idPropietario}`, familiar, { headers: this.agregarAuthorizationHeader() })
+        .pipe(
+         
           catchError(e => {
-            this.isNoAutorizado(e);
-            return throwError(e);
-          })
-        ); 
-      }
-      create(propietarioDTO: PropietarioDTO): Observable<any> {
-        return this.http.post(this.urlEndPoint, propietarioDTO, { headers: this.agregarAuthorizationHeader() })
-          .pipe(
-           
-            catchError(e => {
-              if (this.isNoAutorizado(e)) {
-                return throwError(e);
-              }
-    
-              if (e.status == 400) {
-                return throwError(e);
-              }
-    
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-            })
-          );
-      }
-
-      findPropietarioByID(id): Observable<any> {
-        return this.http.get<any>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
-          catchError(e => {
-    
             if (this.isNoAutorizado(e)) {
               return throwError(e);
             }
-    
-            this.router.navigate(['/admin/propietario/listado']);
+  
+            if (e.status == 400) {
+              return throwError(e);
+            }
+  
             console.error(e.error.mensaje);
-            Swal.fire('Error al editar', e.error.mensaje, 'error');
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
             return throwError(e);
           })
         );
-      }
+    }
 
 
 }
