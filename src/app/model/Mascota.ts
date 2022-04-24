@@ -1,3 +1,4 @@
+import { Persona } from "./persona";
 import { Propietario } from "./propietario";
 
 export class Mascota {
@@ -8,5 +9,6 @@ export class Mascota {
     createAt:Date;
     active:Boolean
     propietario:Propietario
+    personaRegistro:Persona
   }
- 
+  

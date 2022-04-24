@@ -36,6 +36,7 @@
                   <th>Mail</th>
                   <th>Phone</th>
                   <th>Cumpleaños</th>
+                  <th>Registrado por:</th>
                   <th>estado</th>
                   <th>Actions</th>
                 </tr>
@@ -78,12 +79,16 @@
                   <td>{{ propietario.persona.usuario.email }}</td>
                   <td>{{ propietario.numeroCelular }}</td>
                   <td>{{ propietario.birthdayDate | date: 'dd/MM/yyyy' }}</td>
+                  <td>
+                    {{ propietario.persona.personaRegistro.id }} - {{ propietario.persona.personaRegistro.nombre }}  {{ propietario.persona.personaRegistro.apellido }}
+                  </td> 
                   <td *ngIf="propietario.persona.estado">
                     <span class="badge bg-success">Activo</span>
                   </td>
                   <td *ngIf="!propietario.persona.estado">
                     <span class="badge bg-danger">Inactivo</span>
                   </td>
+                 
                   <td>
                     <div
                       class="btn-group"
@@ -114,9 +119,14 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> 
       </div>
     </div>
     <!-- Row End -->
+    <paginator-nav
+      *ngIf="paginador_padre"
+      [paginador_hijo]="paginador_padre"
+      [componente_name_padre]="componente_name"
+    ></paginator-nav>
   </div>
 </div>

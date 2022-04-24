@@ -32,9 +32,9 @@
                   <th>id</th>
                   <th>Número</th>
                   <th>Telefono</th>
+                  <th>Registrado por?</th>
                   <th>Estado</th>
-                  <th>Editar</th>
-                  <th>Eliminar</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,8 +43,16 @@
                   <td>{{ departamento.id }}</td>
                   <td>{{ departamento.depnumero }}</td>
                   <td>{{ departamento.deptelef }}</td>
-                  <td>{{ departamento.estado ? "activo" : "inactivo" }}</td>
                   <td>
+                    {{ departamento.personaRegistro.id }} - {{ departamento.personaRegistro.nombre }}  {{ departamento.personaRegistro.apellido }}
+                  </td>
+                  <td *ngIf="departamento.estado">
+                    <span class="badge bg-success">Activo</span>
+                  </td>
+                  <td *ngIf="!departamento.estado">
+                    <span class="badge bg-danger">Inactivo</span>
+                  </td>
+                  <td>  
                     <button
                       type="button"
                       name="editar"
@@ -56,8 +64,6 @@
                     > 
                       editar
                     </button>
-                  </td>
-                  <td>
                     <button
                       type="button"
                       name="eliminar"

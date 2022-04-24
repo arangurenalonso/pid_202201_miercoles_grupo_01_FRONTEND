@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MascotaDTO } from 'src/app/dto/MascotaDTO';
 import { Mascota } from 'src/app/model/Mascota';
 import { Propietario } from 'src/app/model/propietario';
 import { MascotaService } from 'src/app/services/mascota.service';
@@ -12,20 +13,20 @@ import Swal from 'sweetalert2';
 })
 export class ModalMascotaComponent implements OnInit {
 
-  @Input() mascotaSeleccionada: Mascota
+  @Input() mascotaSeleccionada: MascotaDTO
   @Input() propietario:Propietario
-
+  
   titulo: string = "Crear Mascota"
 
 
   constructor(public modalService: ModalService, private mascotaService: MascotaService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
   }
   cerrarModal() {
     this.mascotaSeleccionada=null
     this.modalService.cerrarMascotaModal()
-    this.propietario=null
+    //this.propietario=null 
   }
   create() {
     console.log("Entro a crear mascota")

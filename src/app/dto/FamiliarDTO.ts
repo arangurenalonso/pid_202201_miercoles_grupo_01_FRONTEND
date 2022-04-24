@@ -6,4 +6,5 @@ export class FamiliarDTO {
   nombre: String;
   apellido: String;
   dni: String;
-}
+  idPersonaRegistro:Number
+} 

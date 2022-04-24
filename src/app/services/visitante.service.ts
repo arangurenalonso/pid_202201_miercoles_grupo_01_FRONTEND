@@ -43,6 +43,8 @@ export class VisitanteService {
         return false;
     }
     create(visitante: VisitanteDTO): Observable<any> {
+      let usuarioConectado = this.authService.usuario
+      visitante.idPersonaRegistro = usuarioConectado.persona.id
       return this.http.post(this.urlEndPoint, visitante, { headers: this.agregarAuthorizationHeader() })
         .pipe(
          

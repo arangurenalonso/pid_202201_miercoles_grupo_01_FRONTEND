@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FamiliarDTO } from 'src/app/dto/FamiliarDTO';
+import { MascotaDTO } from 'src/app/dto/MascotaDTO';
 import { Familiar } from 'src/app/model/familiar';
 import { Mascota } from 'src/app/model/Mascota';
 import { Propietario } from 'src/app/model/propietario';
@@ -16,7 +17,7 @@ export class DetalleComponent implements OnInit {
   public propietario: Propietario 
   public titulo: String = "Crear Propietario"
   public errores: string[]
-  mascotaSeleccionada:Mascota;
+  mascotaSeleccionada:MascotaDTO;
   familiarSeleccionado:FamiliarDTO;
 
   
@@ -31,14 +32,16 @@ export class DetalleComponent implements OnInit {
     
   }
   public cargarInformacion(): void {
+    console.log("+++++++++++++++++++++++++CARGAR INFORMACION EN EL DETALLE")
     this.activatedRoute.params.subscribe(params => {
+      
       let id = params['id']
       if (id) {
         this.propietarioService.findPropietarioByID(id).subscribe(
           response=>{
-            console.log("Cargar Propietarios")
             console.log(response.detalle.data)
             this.propietario=response.detalle.data
+            console.log("----------------------------------CARGAR PROPIETARIO")
             console.log(this.propietario)
           }
         )
@@ -65,9 +68,23 @@ export class DetalleComponent implements OnInit {
       this.cargarInformacion()
     })
   }
-  abrirModalMascota(mascota:Mascota){
+  abrirModalMascota(mascota:MascotaDTO){
   
-    this.mascotaSeleccionada=(mascota!=null)?mascota:new Mascota()
+    this.mascotaSeleccionada=(mascota!=null)?mascota:new MascotaDTO()
+    this.modalService.abrirMascotaModal()
+
+
+    if(mascota!=null){
+      let mascotaDTO=new MascotaDTO()
+      mascotaDTO.id=   mascota.id,
+      mascotaDTO.tipoMascota=  mascota.tipoMascota,
+      mascotaDTO.nombre=  mascota.nombre,
+      mascotaDTO.raza=  mascota.raza,
+      mascotaDTO.createAt=  mascota.createAt,
+      mascotaDTO.active=  mascota.active
+    }else{
+      this.mascotaSeleccionada=new MascotaDTO()
+    }
     this.modalService.abrirMascotaModal()
   }
 

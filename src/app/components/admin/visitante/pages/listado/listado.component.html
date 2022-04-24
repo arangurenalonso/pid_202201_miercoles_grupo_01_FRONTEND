@@ -27,21 +27,35 @@
                 class="table table-hover align-middle mb-0"
                 style="width: 100%"
               >
-                <thead>
+                <thead class="text-center">
                   <tr>
                     <th>id</th>
                     <th>nombre</th>
                     <th>apellido</th>
                     <th>DNI</th>
+                    <th>Registrado por?</th>
+                    <th>estado</th>
+                    <th>acciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody  class="text-center">
                   <tr></tr>
                   <tr *ngFor="let visitante of visitantes">
                     <td>{{ visitante.id }}</td>
                     <td>{{ visitante.persona.nombre }}</td>
-                    <td>{{ visitante.persona.apellido }}</td>
-                    <td>{{ visitante.persona.dni ? "activo" : "inactivo" }}</td>
+                    <td>{{ visitante.persona.apellido }}</td>     
+                    <td>{{ visitante.persona.dni }}</td>           
+                    <td>
+                      {{ visitante.persona.personaRegistro.id }} - {{ visitante.persona.personaRegistro.nombre }}  {{ visitante.persona.personaRegistro.apellido }}
+                    </td>
+                    <td *ngIf="visitante.persona.estado">
+                      <span class="badge bg-success">Activo</span>
+                    </td>
+                    <td *ngIf="!visitante.persona.estado">
+                      <span class="badge bg-danger">Inactivo</span>
+                    </td>
+
+
                     <td>
                       <button
                         type="button"
@@ -54,8 +68,6 @@
                       > 
                         editar
                       </button>
-                    </td>
-                    <td>
                       <button
                         type="button"
                         name="eliminar"

@@ -41,6 +41,7 @@ export class FormComponent implements OnInit {
   }
   public create(): void {
     console.log(this.visitante)
+    
     this.visitanteService.create(this.visitante)
       .subscribe(response => {
         console.log("Visitante se creo con exito")

@@ -47,6 +47,8 @@ export class FamiliarService {
     }
     create(familiar: FamiliarDTO, idPropietario:number): Observable<any> {
       console.log(familiar)
+      let usuarioConectado = this.authService.usuario
+      familiar.idPersonaRegistro = usuarioConectado.persona.id
       return this.http.post(this.urlEndPoint+`/${idPropietario}`, familiar, { headers: this.agregarAuthorizationHeader() })
         .pipe(
          

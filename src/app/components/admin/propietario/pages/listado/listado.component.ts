@@ -14,27 +14,32 @@ export class ListadoComponent implements OnInit {
   paginador_padre: any;
   componente_name:String;
 
+  // departamentos: Departamento[]; 
+  // departamentoSeleccionado: Departamento;
+  // paginador_padre: any;
+  // componente_name:String;
+
   constructor(private propietarioService: PropietarioService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(">>>>>>>>>>>>Entro al componente de Listado de Propietario")
     this.listarPropietarios()
   }
   listarPropietarios() {
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
-        page = 0;
+        page = 0; 
       }
       this.propietarioService.getPropietarios(page)
         .subscribe(response => {
           console.log(response)
           console.log(response.detalle.data.contenido)
           this.propietarios = response.detalle.data.contenido as Propietario[];
-          console.log(this.propietarios)
-          this.paginador_padre = response;
+          this.paginador_padre = response.detalle.data;
+          console.log(response.detalle.data)
           this.componente_name="propietario"
-          
         });
 
     });

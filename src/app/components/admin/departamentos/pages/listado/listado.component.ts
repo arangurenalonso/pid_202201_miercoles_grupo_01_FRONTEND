@@ -10,14 +10,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listado.component.scss']
 })
 export class ListadoComponent implements OnInit {
-  departamentos: Departamento[];
+  
+  departamentos: Departamento[];  
   paginador_padre: any;
   componente_name:String;
   departamentoSeleccionado: Departamento;
+
+  
   constructor(private departamentoService: DepartamentoService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(">>>>>>>>>>>>Entro al componente de Listado de Departamente")
     this.listarDepartamentos()
 
   }
@@ -27,15 +31,15 @@ export class ListadoComponent implements OnInit {
 
       if (!page) {
         page = 0;
-      }
+      } 
       this.departamentoService.getDepartamentos(page)
         .subscribe(response => {
+          console.log("+Devolucion de la respuesta de la busqueda de departamento")
           this.departamentos = response.contenido as Departamento[];
           this.paginador_padre = response;
           this.componente_name="departamentos"
-          console.log(response)
         });
-
+ 
     });
   }
 

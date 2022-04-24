@@ -15,8 +15,6 @@ export class ModalFamiliarComponent implements OnInit {
   @Input() familiarSeleccionado: FamiliarDTO
   @Input() propietario:Propietario
   myFilter = (d: Date | null): boolean => {
-   
-    // Prevent Saturday and Sunday from being selected.
     return d <=new Date();
   };
   titulo: string = "Crear Familiar"
@@ -25,11 +23,13 @@ export class ModalFamiliarComponent implements OnInit {
   constructor(public modalService: ModalService, private familiarService: FamiliarService) { }
 
   ngOnInit(): void {
+    console.log("ABRIR MODAL<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    console.log(this.propietario);
   }
   cerrarModal() {
     this.familiarSeleccionado=null
     this.modalService.cerrarFamiliarModal()
-    this.propietario=null
+    //this.propietario=null 
   }
   create() {
     console.log(this.familiarSeleccionado)

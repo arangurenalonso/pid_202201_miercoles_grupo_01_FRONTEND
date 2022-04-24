@@ -1,12 +1,12 @@
 <app-modal-mascota
-[mascotaSeleccionada]="mascotaSeleccionada"
-[propietario]="propietario"
-*ngIf="mascotaSeleccionada"
+  [mascotaSeleccionada]="mascotaSeleccionada"
+  [propietario]="propietario"
+  *ngIf="mascotaSeleccionada"
 ></app-modal-mascota>
 <app-modal-familiar
-[familiarSeleccionado]="familiarSeleccionado"
-[propietario]="propietario" 
-*ngIf="familiarSeleccionado"
+  [familiarSeleccionado]="familiarSeleccionado"
+  [propietario]="propietario"
+  *ngIf="familiarSeleccionado"
 ></app-modal-familiar>
 
 <div class="body d-flex py-3" *ngIf="propietario">
@@ -48,8 +48,8 @@
               <i class="fa fa-user fa-lg" aria-hidden="true"></i>
             </div>
             <div class="flex-fill ms-3 text-truncate">
-              <div class="h6 mb-0 ">Full Name</div>
-              <span class="small "
+              <div class="h6 mb-0">Full Name</div>
+              <span class="small"
                 >{{ propietario.persona.nombre }}
                 {{ propietario.persona.apellido }}</span
               >
@@ -115,13 +115,15 @@
                 <span
                   ><strong>{{ propietario.persona.dni }}</strong></span
                 >
-              </div> 
+              </div>
               <div class="col-12">
                 <label class="form-label col-6 col-sm-5"
                   >Fecha de Nacimiento:</label
                 >
                 <span
-                  ><strong>{{ propietario.birthdayDate | date: 'dd/MM/yyyy'}}</strong></span
+                  ><strong>{{
+                    propietario.birthdayDate | date: "dd/MM/yyyy"
+                  }}</strong></span
                 >
               </div>
               <div class="col-12">
@@ -136,7 +138,9 @@
                   >Fecha de Creación:</label
                 >
                 <span
-                  ><strong>{{ propietario.persona.createAt }}</strong></span
+                  ><strong>{{
+                    propietario.persona.createAt | date: "dd/MM/yyyy"
+                  }}</strong></span
                 >
               </div>
             </div>
@@ -168,25 +172,39 @@
                 <span
                   ><strong>{{
                     propietario.persona.usuario.lastLoginDateDisplay
+                      | date: "M/d/yy, h:mm a"
                   }}</strong></span
                 >
               </div>
               <div class="col-12">
                 <label class="form-label col-6 col-sm-5">Activo:</label>
                 <span
-                  ><strong>{{
-                    propietario.persona.usuario.active
-                  }}</strong></span
+                  *ngIf="propietario.persona.estado"
+                  class="badge bg-success"
+                  ><strong>Activo</strong>
+                </span>
+
+                <span
+                  *ngIf="!propietario.persona.estado"
+                  class="badge bg-danger"
+                  ><strong>Inactivo</strong></span
                 >
               </div>
               <div class="col-12">
-                <label class="form-label col-6 col-sm-5">Bloqueado</label>
+                <label class="form-label col-6 col-sm-5">Bloqueado:</label>
                 <span
-                  ><strong>{{
-                    propietario.persona.usuario.notLocked
-                  }}</strong></span
+                  *ngIf="propietario.persona.usuario.isNotLocked"
+                  class="badge bg-success"
+                  ><strong>Disponible</strong>
+                </span>
+
+                <span
+                  *ngIf="!propietario.persona.usuario.isNotLocked"
+                  class="badge bg-danger"
+                  ><strong>Bloqueado</strong></span
                 >
               </div>
+
               <div class="col-12">
                 <label class="form-label col-6 col-sm-5">Permiso</label>
                 <span
@@ -251,22 +269,23 @@
         </div>
       </div>
     </div>
-    <!-- Row end  MASCOTA-->
+    <!-- Row end  Departamnetos-->
     <div class="row g-3 mb-3">
       <div class="">
         <div class="card">
           <div
             class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
           >
-            <h1 class="mb-0 fw-bold text-info">Mascota</h1>
+            <h1 class="mb-0 fw-bold text-info">Departamento Propietario</h1>
+            <!--
             <div class="col-auto d-flex w-sm-100">
-                <a
-                (click)="abrirModalMascota(null)"
+              <a
+               
                 class="btn btn-primary btn-set-task w-sm-100"
-                >
+              >
                 <i class="icofont-plus-circle me-2 fs-6"></i>Add
-                </a>
-             </div>
+              </a>
+            </div>-->
           </div>
           <div class="card-body">
             <div class="product-cart">
@@ -278,12 +297,67 @@
                 >
                   <thead>
                     <tr>
-                      <th >Id Mascota</th>
+                      <th>Id Departamento</th>
+                      <th>Número de departamento</th>
+                      <th>Telefono Departamento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let propietarioDepartamento of propietario.propietarioDepartamentos">
+                      <td>
+                        {{ propietarioDepartamento.departamento.id }}
+                      </td>
+                      <td>
+                        {{ propietarioDepartamento.departamento.depnumero }}
+                      </td>
+                      <td>
+                        {{ propietarioDepartamento.departamento.deptelef }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+
+    <!-- Row  MASCOTA-->
+    <div class="row g-3 mb-3">
+      <div class="">
+        <div class="card">
+          <div
+            class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+          >
+            <h1 class="mb-0 fw-bold text-info">Mascota</h1>
+            <div class="col-auto d-flex w-sm-100">
+              <a
+                (click)="abrirModalMascota(null)"
+                class="btn btn-primary btn-set-task w-sm-100"
+              >
+                <i class="icofont-plus-circle me-2 fs-6"></i>Add
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="product-cart">
+              <div class="checkout-table table-responsive">
+                <table
+                  id="myCartTable"
+                  class="table display dataTable table-hover align-middle"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th>Id Mascota</th>
                       <th>Tipo Mascota</th>
-                      <th >Nombre Mascota</th>
-                      <th >Raza</th>
-                      <th >Fecha de Creacón</th>
-                      <th >Estado</th>
+                      <th>Nombre Mascota</th>
+                      <th>Raza</th>
+                      <th>Persona que registro</th>
+                      <th>Fecha de Creacón</th>
+                      <th>Estado</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -301,7 +375,12 @@
                         {{ mascota.raza }}
                       </td>
                       <td>
-                        {{ mascota.createAt | date: 'dd/MM/yyyy'}}
+                        {{ mascota.personaRegistro.id }} -
+                        {{ mascota.personaRegistro.nombre }}
+                        {{ mascota.personaRegistro.apellido }}
+                      </td>
+                      <td>
+                        {{ mascota.createAt | date: "dd/MM/yyyy" }}
                       </td>
                       <td>
                         {{ mascota.active }}
@@ -316,9 +395,9 @@
       </div>
     </div>
     <!-- Row end  -->
-
-     <!-- Row end  MASCOTA-->
-     <div class="row g-3 mb-3">
+    
+    <!-- Row Familiar-->
+    <div class="row g-3 mb-3">
       <div class="">
         <div class="card">
           <div
@@ -326,13 +405,13 @@
           >
             <h1 class="mb-0 fw-bold text-info">Familiar</h1>
             <div class="col-auto d-flex w-sm-100">
-                <a
+              <a
                 (click)="abrirModalFamiliar(null)"
                 class="btn btn-primary btn-set-task w-sm-100"
-                >
+              >
                 <i class="icofont-plus-circle me-2 fs-6"></i>Add
-                </a>
-             </div>
+              </a>
+            </div>
           </div>
           <div class="card-body">
             <div class="product-cart">
@@ -344,11 +423,12 @@
                 >
                   <thead>
                     <tr>
-                      <th >Id</th>
+                      <th>Id</th>
                       <th>Parentesco</th>
-                      <th >Nombre</th>
-                      <th >DNI</th>
-                      <th >Fecha de Cumpleaños</th>
+                      <th>Nombre</th>
+                      <th>DNI</th>
+                      <th>Persona que registro</th>
+                      <th>Fecha de Cumpleaños</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -360,13 +440,20 @@
                         {{ familiar.parentesco }}
                       </td>
                       <td>
-                        {{ familiar.persona.nombre }} {{ familiar.persona.apellido }}
+                        {{ familiar.persona.nombre }}
+                        {{ familiar.persona.apellido }}
                       </td>
                       <td>
                         {{ familiar.persona.dni }}
                       </td>
                       <td>
-                        {{ familiar.birthdayDate | date: 'dd/MM'}}
+                        {{ familiar.persona.personaRegistro.id }} -
+                        {{ familiar.persona.personaRegistro.nombre }}
+                        {{ familiar.persona.personaRegistro.apellido }}
+                      </td>
+                      
+                      <td>
+                        {{ familiar.birthdayDate | date: "dd/MM" }}
                       </td>
                     </tr>
                   </tbody>

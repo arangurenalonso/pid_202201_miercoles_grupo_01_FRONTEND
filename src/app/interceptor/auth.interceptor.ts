@@ -14,6 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(httpRequest: HttpRequest<any>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(">>>>>>>>>>Entro al interceptor<<<<<<<<<<")
     if (httpRequest.url.includes(`${this.authService.urlEndPoint}/api/auth/iniciarSesion`)) {
       return httpHandler.handle(httpRequest);
     }

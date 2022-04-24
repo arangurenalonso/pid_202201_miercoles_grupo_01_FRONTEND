@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { DepartamentosRoutingModule } from './departamentos-routing.module';
 import { ListadoComponent } from './pages/listado/listado.component';
-import { PaginatorComponent } from '../../paginator/paginator.component';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './pages/form/form.component';
+import { SharedModule } from '../../shared/shared/shared.module';
 
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     ListadoComponent,
-    PaginatorComponent,
-    FormComponent
+    FormComponent,
   ],
   imports: [
     CommonModule,    
     FormsModule,
-    DepartamentosRoutingModule
+    DepartamentosRoutingModule,
+    SharedModule
   ]
 })
 export class DepartamentosModule { }

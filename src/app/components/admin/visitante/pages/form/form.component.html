@@ -68,12 +68,20 @@
               name="dni"
               #dni="ngModel"
               required
-            /><!-- -->
+              minlength="8"
+              maxlength="8"
+            />
             <div
               class="alert alert-danger"
               *ngIf="dni.invalid && (dni.dirty || dni.touched)"
             >
-              <div *ngIf="dni.errors.required">El apellido es requerido</div>
+              <div *ngIf="dni.errors.required">El DNI es requerido</div>
+              <div *ngIf="dni.errors?.['minlength']">
+                DNI debe tener 8 Caracteres.
+              </div>
+              <div *ngIf="dni.errors?.['maxlength']">
+                DNI debe tener 8 Caracteres.
+              </div>
             </div>
           </div>
         </div>

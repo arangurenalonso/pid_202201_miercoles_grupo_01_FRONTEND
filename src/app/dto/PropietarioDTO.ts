@@ -1,3 +1,4 @@
+import { Departamento } from "../model/departamento";
 
 export class PropietarioDTO {
   birthdayDate: Date;
@@ -7,5 +8,7 @@ export class PropietarioDTO {
   dni: String;
   email: String;
   password: String;
+  idPersonaRegistro:Number
+  departamentos:Departamento[]
 }
- 
+   

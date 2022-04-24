@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DepartamentoDTO } from 'src/app/dto/departamentoDTO';
 import { Departamento } from 'src/app/model/departamento';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
 import swal from 'sweetalert2';
@@ -9,7 +10,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  public departamento: Departamento = new Departamento()
+  public departamento: DepartamentoDTO = new DepartamentoDTO()
   public titulo: String = "Crear Departamento"
   public errores: string[]
   /**

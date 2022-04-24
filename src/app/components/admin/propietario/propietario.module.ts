@@ -14,19 +14,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ModalFamiliarComponent } from './pages/modal-familiar/modal-familiar.component';
+import { SharedModule } from '../../shared/shared/shared.module';
 @NgModule({
   declarations: [
     ListadoComponent,
     DetalleComponent,
     ModalMascotaComponent,
     AddComponent,
-    ModalFamiliarComponent
+    ModalFamiliarComponent,
   ],
   imports: [
     
     CommonModule,    
     FormsModule,
     PropietarioRoutingModule,
+    SharedModule,
 
     MatDatepickerModule,
     MatInputModule,

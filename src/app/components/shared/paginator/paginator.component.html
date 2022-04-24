@@ -5,12 +5,9 @@
     HTML Entity Names
         https://www.w3schools.com/charsets/ref_html_entities_4.asp
 -->
-<ul class="pagination" >
+<ul class="pagination">
   <!--Primera Pagina-->
-  <li
-    class="page-item"
-    [ngClass]="paginador_hijo.first? 'disabled' : ''"
-  >
+  <li class="page-item" [ngClass]="paginador_hijo.first ? 'disabled' : ''">
     <a class="page-link" [routerLink]="[urlToRedirect, 0]"> &laquo; </a>
   </li>
 
@@ -30,24 +27,27 @@
   <li
     class="page-item"
     *ngFor="let pagina of paginas"
-    [ngClass]="pagina - 1 == paginador_hijo.number ? 'active' : ''"
+    [ngClass]="pagina - 1 == paginador_hijo.numeroDePagina ? 'active' : ''"
   >
-    <span class="page-link" *ngIf="pagina - 1 == paginador_hijo.number">
-      {{ pagina }}
-    </span>
-    <a
-      class="page-link"
-      *ngIf="pagina - 1 != paginador_hijo.number"
-      [routerLink]="[urlToRedirect, pagina - 1]"
-    >
-      {{ pagina }}</a
-    >
+
+      <span class="page-link" *ngIf="pagina - 1 == paginador_hijo.numeroDePagina">
+        {{ pagina }}
+      </span>
+      <a
+        class="page-link"
+        *ngIf="pagina - 1 != paginador_hijo.numeroDePagina"
+        [routerLink]="[urlToRedirect, pagina - 1]"
+      >
+        {{ pagina }}</a
+      >
   </li>
   <!--Adelante-->
   <li
     class="page-item"
     [ngClass]="
-      paginador_hijo.numeroDePagina >= paginador_hijo.totalPaginas - 1 ? 'disabled' : ''
+      paginador_hijo.numeroDePagina >= paginador_hijo.totalPaginas - 1
+        ? 'disabled'
+        : ''
     "
   >
     <a
@@ -59,12 +59,7 @@
   </li>
 
   <!--Ultima Pagina-->
-  <li
-    class="page-item"
-    [ngClass]="
-      paginador_hijo.last? 'disabled' : ''
-    "
-  >
+  <li class="page-item" [ngClass]="paginador_hijo.last ? 'disabled' : ''">
     <a
       class="page-link"
       [routerLink]="[urlToRedirect, paginador_hijo.totalPaginas - 1]"

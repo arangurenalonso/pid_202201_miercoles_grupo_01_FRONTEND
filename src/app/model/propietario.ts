@@ -1,3 +1,4 @@
+import { PropietarioDepartamento } from "./departamento copy";
 import { Familiar } from "./familiar";
 import { Mascota } from "./Mascota";
 import { Persona } from "./persona";
@@ -10,6 +11,6 @@ export class Propietario {
   familiares:Familiar[]=[];
   numeroCelular:String;
   persona:Persona
+  propietarioDepartamentos:PropietarioDepartamento[]=[]
 
-
-  } 
+  }  

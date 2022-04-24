@@ -8,6 +8,7 @@ import { AuthService } from "./auth.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { Propietario } from "../model/propietario";
 import { Mascota } from "../model/Mascota";
+import { MascotaDTO } from "../dto/MascotaDTO";
 
 
 @Injectable({
@@ -42,8 +43,11 @@ export class MascotaService {
         }
         return false;
     }
-    create(mascota: Mascota, idPropietario:number): Observable<any> {
+    create(mascota: MascotaDTO, idPropietario:number): Observable<any> {
       console.log(mascota)
+       
+      let usuarioConectado = this.authService.usuario
+      mascota.idPersonaRegistro = usuarioConectado.persona.id
       return this.http.post(this.urlEndPoint+`/${idPropietario}`, mascota, { headers: this.agregarAuthorizationHeader() })
         .pipe(
          

@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
+    console.log("INICIALIZO EL COMPONENTE de usuario")
     this.userConected=this.authService.usuario
   }
 

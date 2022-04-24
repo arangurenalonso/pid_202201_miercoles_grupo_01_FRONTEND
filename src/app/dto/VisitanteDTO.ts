@@ -4,4 +4,5 @@ export class VisitanteDTO {
     nombre: String;
     apellido: String;
     dni: String;
+    idPersonaRegistro:Number
   }

@@ -8,5 +8,6 @@ export class Persona {
     estado:boolean;
     createAt:Date;
     usuario:Usuario
+    personaRegistro:Persona
   }
   

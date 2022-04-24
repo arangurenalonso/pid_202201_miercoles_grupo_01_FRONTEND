@@ -6,8 +6,8 @@ export class Usuario {
     password:string;
     lastLoginDateDisplay:Date;
     lastLoginDate:Date;
-    active:boolean=true;
-    notLocked:boolean=true;
+    isActive:boolean;
+    isNotLocked:boolean;
     persona:Persona;
     permiso:Permiso[]=[];  
     foto: string;

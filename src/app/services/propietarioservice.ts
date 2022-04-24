@@ -11,80 +11,84 @@ import { PropietarioDTO } from "../dto/PropietarioDTO";
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class PropietarioService {
-    public urlEndPoint: string = environment.apiUrl + "/api/propietario";
-    private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  public urlEndPoint: string = environment.apiUrl + "/api/propietario";
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-    private agregarAuthorizationHeader() {
-        let token = this.authService.token;
-        if (token != null) {
-            return this.httpHeaders.append('Authorization', 'Bearer ' + token);
-        }
-        return this.httpHeaders;
+  private agregarAuthorizationHeader() {
+    let token = this.authService.token;
+    if (token != null) {
+      return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
-    private isNoAutorizado(e): boolean {
-        if (e.status == 401) {
-            if (this.authService.isAuthenticated()) {
-                this.authService.logOut();
-            }
-            this.router.navigate(['/login']);
-            return true;
-        }
-
-        if (e.status == 403) {
-            Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.email} no tienes acceso a este recurso!`, 'warning');
-            this.router.navigate(['/login']);
-            return true;
-        }
-        return false;
+    return this.httpHeaders;
+  }
+  private isNoAutorizado(e): boolean {
+    if (e.status == 401) {
+      if (this.authService.isAuthenticated()) {
+        this.authService.logOut();
+      }
+      this.router.navigate(['/login']);
+      return true;
     }
-    getPropietarios(page:number): Observable<any> {
-        return this.http.get(this.urlEndPoint + `?numeroDePagina=${page}`, { headers: this.agregarAuthorizationHeader() }).pipe(
-          catchError(e => {
-            this.isNoAutorizado(e);
-            return throwError(e);
-          })
-        ); 
-      }
-      create(propietarioDTO: PropietarioDTO): Observable<any> {
-        return this.http.post(this.urlEndPoint, propietarioDTO, { headers: this.agregarAuthorizationHeader() })
-          .pipe(
-           
-            catchError(e => {
-              if (this.isNoAutorizado(e)) {
-                return throwError(e);
-              }
-    
-              if (e.status == 400) {
-                return throwError(e);
-              }
-    
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-            })
-          );
-      }
 
-      findPropietarioByID(id): Observable<any> {
-        return this.http.get<any>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
-          catchError(e => {
-    
-            if (this.isNoAutorizado(e)) {
-              return throwError(e);
-            }
-    
-            this.router.navigate(['/admin/propietario/listado']);
-            console.error(e.error.mensaje);
-            Swal.fire('Error al editar', e.error.mensaje, 'error');
+    if (e.status == 403) {
+      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.email} no tienes acceso a este recurso!`, 'warning');
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
+  }
+  getPropietarios(page: number): Observable<any> {
+    console.log("+Entro al metodo de obtener Propietarios")
+    return this.http.get(this.urlEndPoint + `?numeroDePagina=${page}`, { headers: this.agregarAuthorizationHeader() })
+    .pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    ); 
+  }
+  create(propietarioDTO: PropietarioDTO): Observable<any> {
+    let usuarioConectado = this.authService.usuario
+    propietarioDTO.idPersonaRegistro = usuarioConectado.persona.id
+    return this.http.post(this.urlEndPoint, propietarioDTO, { headers: this.agregarAuthorizationHeader() })
+      .pipe(
+
+        catchError(e => {
+          if (this.isNoAutorizado(e)) {
             return throwError(e);
-          })
-        );
-      }
+          }
+
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
+          console.error(e.error.mensaje);
+          Swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
+  findPropietarioByID(id): Observable<any> {
+    return this.http.get<any>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+
+        if (this.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+
+        this.router.navigate(['/admin/propietario/listado']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al editar', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
 
 
 }
