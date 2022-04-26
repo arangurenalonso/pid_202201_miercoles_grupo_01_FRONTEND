@@ -31,6 +31,8 @@
                 <tr>
                   <th>id</th>
                   <th>Número</th>
+                  <th>Piso</th>
+                  <th>Aforo</th>
                   <th>Telefono</th>
                   <th>Registrado por?</th>
                   <th>Estado</th>
@@ -42,9 +44,11 @@
                 <tr *ngFor="let departamento of departamentos">
                   <td>{{ departamento.id }}</td>
                   <td>{{ departamento.depnumero }}</td>
+                  <td>{{ departamento.piso }}</td>
+                  <td>{{ departamento.aforo }}</td>
                   <td>{{ departamento.deptelef }}</td>
                   <td>
-                    {{ departamento.personaRegistro.id }} - {{ departamento.personaRegistro.nombre }}  {{ departamento.personaRegistro.apellido }}
+                    {{ departamento.personaRegistro.nombre }}  {{ departamento.personaRegistro.apellido }}
                   </td>
                   <td *ngIf="departamento.estado">
                     <span class="badge bg-success">Activo</span>

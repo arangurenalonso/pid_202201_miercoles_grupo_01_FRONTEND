@@ -3,11 +3,17 @@
   https://angular.io/api/forms/Validators
 -->
 <div class="container">
-  <ul class="alert alert-danger" *ngIf="errores?.length > 0">
-    <li *ngFor="let err of errores">
-      {{ err }}
-    </li>
-  </ul>
+  <div class="alert alert-danger" *ngIf="errores" >
+    <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+    <div class="text-danger" *ngFor="let err of errores | keyvalue">
+      <b *ngIf="err.key=='nombre'"> Campo 'Nombre': </b> 
+      <b *ngIf="err.key=='apellido'"> Campo 'Apellido': </b> 
+      <b *ngIf="err.key=='dni'"> Campo 'DNI': </b> 
+      <b *ngIf="err.key=='numeroCelular'"> Campo 'Número de numeroCelular': </b>
+       <b *ngIf="err.key=='email'"> Campo 'Aforo': </b>
+      {{err.value}} 
+    </div>
+  </div>
   <div class="card bg-dark text-white">
     <div class="card-header text-success">
       <h1>{{ titulo }}</h1>

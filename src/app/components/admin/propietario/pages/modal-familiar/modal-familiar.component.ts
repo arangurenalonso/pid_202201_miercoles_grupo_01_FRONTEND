@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FamiliarDTO } from 'src/app/dto/FamiliarDTO';
+import { Respuesta } from 'src/app/dto/Respuesta';
 import { Propietario } from 'src/app/model/propietario';
 import { FamiliarService } from 'src/app/services/familiar.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -14,6 +15,7 @@ export class ModalFamiliarComponent implements OnInit {
 
   @Input() familiarSeleccionado: FamiliarDTO
   @Input() propietario:Propietario
+  public errores: any
   myFilter = (d: Date | null): boolean => {
     return d <=new Date();
   };
@@ -46,16 +48,12 @@ export class ModalFamiliarComponent implements OnInit {
       this.cerrarModal()
       
     },
-      err => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: `Error al registrar al familiar - ${err.error.detalle.mensaje}`,
-          showConfirmButton: false
-        })
-        console.error("Error en el creado de mascota")
-        console.error(err)
-      }
+      
+    err => {
+      console.log(err)
+      let respuesta: Respuesta = err.error
+      this.errores = respuesta.detalle.data
+    }
     )
    }
   update() { }

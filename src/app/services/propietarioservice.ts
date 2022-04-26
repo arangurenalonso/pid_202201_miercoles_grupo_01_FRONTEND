@@ -57,18 +57,22 @@ export class PropietarioService {
     propietarioDTO.idPersonaRegistro = usuarioConectado.persona.id
     return this.http.post(this.urlEndPoint, propietarioDTO, { headers: this.agregarAuthorizationHeader() })
       .pipe(
-
         catchError(e => {
-          if (this.isNoAutorizado(e)) {
+          if (this.authService.isNoAutorizado(e)) {
+            //this.router.navigate(['/admin/departamneto/listado']);
             return throwError(e);
           }
-
-          if (e.status == 400) {
-            return throwError(e);
-          }
-
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error, 'error');
+          Swal.fire({
+  
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log(e)
           return throwError(e);
         })
       );

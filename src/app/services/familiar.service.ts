@@ -6,10 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { AuthService } from "./auth.service";
 import { catchError, Observable, throwError } from "rxjs";
-import { Propietario } from "../model/propietario";
-import { Mascota } from "../model/Mascota";
-import { Familiar } from "../model/familiar";
-import { PropietarioDTO } from "../dto/PropietarioDTO";
 import { FamiliarDTO } from "../dto/FamiliarDTO";
 
 
@@ -22,49 +18,31 @@ export class FamiliarService {
 
     constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-    private agregarAuthorizationHeader() {
-        let token = this.authService.token;
-        if (token != null) {
-            return this.httpHeaders.append('Authorization', 'Bearer ' + token);
-        }
-        return this.httpHeaders;
-    }
-    private isNoAutorizado(e): boolean {
-        if (e.status == 401) {
-            if (this.authService.isAuthenticated()) {
-                this.authService.logOut();
-            }
-            this.router.navigate(['/login']);
-            return true;
-        }
-
-        if (e.status == 403) {
-            Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.email} no tienes acceso a este recurso!`, 'warning');
-            this.router.navigate(['/login']);
-            return true;
-        }
-        return false;
-    }
+    
     create(familiar: FamiliarDTO, idPropietario:number): Observable<any> {
       console.log(familiar)
       let usuarioConectado = this.authService.usuario
       familiar.idPersonaRegistro = usuarioConectado.persona.id
-      return this.http.post(this.urlEndPoint+`/${idPropietario}`, familiar, { headers: this.agregarAuthorizationHeader() })
-        .pipe(
+      return this.http.post(this.urlEndPoint+`/${idPropietario}`, familiar, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+      .pipe(
          
-          catchError(e => {
-            if (this.isNoAutorizado(e)) {
-              return throwError(e);
-            }
-  
-            if (e.status == 400) {
-              return throwError(e);
-            }
-  
-            console.error(e.error.mensaje);
-            Swal.fire(e.error.mensaje, e.error.error, 'error');
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
             return throwError(e);
+          }
+          Swal.fire({
+  
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
           })
+          console.log(e)
+          return throwError(e);
+        })
         );
     }
 

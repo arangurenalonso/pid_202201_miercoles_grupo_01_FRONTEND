@@ -5,7 +5,6 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import Swal from 'sweetalert2';
-import { Departamento } from '../model/departamento';
 import { DepartamentoDTO } from '../dto/departamentoDTO';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
@@ -40,6 +39,29 @@ export class DepartamentoService {
     );
   }
 
+  getDepartamento(id): Observable<DepartamentoDTO> {
+    return this.http.get<DepartamentoDTO>(`${this.urlEndPoint}/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
+      
+      catchError(e => {
+        if (this.authService.isNoAutorizado(e)) {
+          //this.router.navigate(['/admin/departamneto/listado']);
+          return throwError(e);
+        }
+        Swal.fire({
+
+          position: 'center',
+          
+          title: `${e.error.reason} `,
+          icon: 'error',
+          text: `${e.error.detalle.mensaje} `,
+          showConfirmButton: false,
+          timer: 2500
+        })
+        console.log(e)
+        return throwError(e);
+      })
+    );
+  }
 
   create(departamento: DepartamentoDTO): Observable<any> {
     console.log(departamento)
@@ -52,34 +74,23 @@ export class DepartamentoService {
           if (this.authService.isNoAutorizado(e)) {
             return throwError(e);
           }
+          Swal.fire({
 
-          if (e.status == 400) {
-            return throwError(e);
-          }
-
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error, 'error');
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log(e)
           return throwError(e);
         })
+       
       );
   }
 
-
-  getDepartamento(id): Observable<DepartamentoDTO> {
-    return this.http.get<DepartamentoDTO>(`${this.urlEndPoint}/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
-      catchError(e => {
-
-        if (this.authService.isNoAutorizado(e)) {
-          return throwError(e);
-        }
-
-        this.router.navigate(['/admin/departamneto/listado']);
-        console.error(e.error.mensaje);
-        Swal.fire('Error al editar', e.error.mensaje, 'error');
-        return throwError(e);
-      })
-    );
-  }
   update(departamento: DepartamentoDTO): Observable<any> {
     return this.http.put<any>(`${this.urlEndPoint}/${departamento.id}`, departamento, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
       catchError(e => {

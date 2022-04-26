@@ -3,5 +3,7 @@ export class DepartamentoDTO {
     depnumero: string;
     deptelef: string;
     estado:boolean;
+    piso:number;
+    aforo:number;
     idPersonaRegistro:Number
   }

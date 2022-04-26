@@ -1,7 +1,16 @@
 <div class="abrir-modal animacion fadeIn " *ngIf="this.modalService.modalMascota"  (click)="cerrarModal() ">
-  
+ 
     <div  class="modal color-fondo d-flex justify-content-center align-items-center  " tabindex="-1" role="dialog" style="display: block;"   >
      <!--d-flex justify-content-center align-items-center-->
+     <div class="alert alert-danger" *ngIf="errores" (click)="$event.stopPropagation()" >
+      <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+      <div class="text-danger" *ngFor="let err of errores | keyvalue">
+        <b *ngIf="err.key=='nombre'"> Campo 'Nombre Mascota': </b> 
+        <b *ngIf="err.key=='tipoMascota'"> Campo 'Tipo Mascota': </b> 
+        <b *ngIf="err.key=='raza'"> Campo 'Raza': </b>
+        {{err.value}} 
+      </div>
+    </div>
       <div class="modal-dialog modal-lg ancho-modal" role="document" (click)="$event.stopPropagation()">
         <div class="modal-content">
           <div class="modal-header">

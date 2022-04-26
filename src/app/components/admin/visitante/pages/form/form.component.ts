@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Respuesta } from 'src/app/dto/Respuesta';
 import { VisitanteDTO } from 'src/app/dto/VisitanteDTO';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
 import { VisitanteService } from 'src/app/services/visitante.service';
@@ -14,7 +15,7 @@ export class FormComponent implements OnInit {
 
   public visitante: VisitanteDTO = new VisitanteDTO()
   public titulo: String = "Crear Visitante"
-  public errores: string[]
+  public errores: any
   /**
    * NGModel -> Realiza un binding an objeto asignado; es decir enlaza al objeto cliente y rellena los datos del formulario
    *            conforme se rellena los datos
@@ -41,7 +42,7 @@ export class FormComponent implements OnInit {
   }
   public create(): void {
     console.log(this.visitante)
-    
+
     this.visitanteService.create(this.visitante)
       .subscribe(response => {
         console.log("Visitante se creo con exito")
@@ -55,20 +56,14 @@ export class FormComponent implements OnInit {
         })
         this.router.navigate(['/admin/visitante/listado'])
       },
-        err => {
-          // this.errores = err.error.errors as string[]
-          swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: `Error al registrar al visitante - ${err.error.detalle.mensaje}`,
-            showConfirmButton: false
-          })
-          console.error(err)
 
+        err => {
+          let respuesta: Respuesta = err.error
+          this.errores = respuesta.detalle.data
         }
       )
   }
-  
+
   public update(): void {
     // this.departamentoService.update(this.departamento).subscribe(
     //   response => {

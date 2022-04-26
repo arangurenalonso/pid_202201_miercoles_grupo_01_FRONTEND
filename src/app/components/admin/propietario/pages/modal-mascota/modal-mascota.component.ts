@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MascotaDTO } from 'src/app/dto/MascotaDTO';
+import { Respuesta } from 'src/app/dto/Respuesta';
 import { Mascota } from 'src/app/model/Mascota';
 import { Propietario } from 'src/app/model/propietario';
 import { MascotaService } from 'src/app/services/mascota.service';
@@ -15,7 +16,7 @@ export class ModalMascotaComponent implements OnInit {
 
   @Input() mascotaSeleccionada: MascotaDTO
   @Input() propietario:Propietario
-  
+  public errores: any
   titulo: string = "Crear Mascota"
 
 
@@ -26,7 +27,7 @@ export class ModalMascotaComponent implements OnInit {
   cerrarModal() {
     this.mascotaSeleccionada=null
     this.modalService.cerrarMascotaModal()
-    //this.propietario=null 
+    this.errores=null 
   }
   create() {
     console.log("Entro a crear mascota")
@@ -44,9 +45,11 @@ export class ModalMascotaComponent implements OnInit {
       this.cerrarModal()
       
     },
-      err => {
-        console.error("Error en el creado de mascota"+err)
-      }
+    err => {
+      console.log(err)
+      let respuesta: Respuesta = err.error
+      this.errores = respuesta.detalle.data
+    }
     )
    }
   update() { }

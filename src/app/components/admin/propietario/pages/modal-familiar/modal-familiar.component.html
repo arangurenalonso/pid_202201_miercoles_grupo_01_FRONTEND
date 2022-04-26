@@ -10,6 +10,16 @@
     style="display: block"
   >
     <!--d-flex justify-content-center align-items-center-->
+    <div class="alert alert-danger" *ngIf="errores" (click)="$event.stopPropagation()" >
+      <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+      <div class="text-danger" *ngFor="let err of errores | keyvalue">
+        <b *ngIf="err.key=='nombre'"> Campo 'Nombre': </b> 
+        <b *ngIf="err.key=='apellido'"> Campo 'Apellido': </b> 
+        <b *ngIf="err.key=='dni'"> Campo 'DNI': </b>
+        <b *ngIf="err.key=='parentesco'"> Campo 'Parentesco': </b>
+        {{err.value}}   
+      </div>
+    </div>
     <div
       class="modal-dialog modal-lg ancho-modal"
       role="document"
@@ -41,7 +51,7 @@
                   type="text"
                   class="form-control"
                   [(ngModel)]="familiarSeleccionado.nombre"
-                  name="nombre"
+                  name="nombre"  
                   #nombre="ngModel"
                   required
                 /><!---->
@@ -63,7 +73,7 @@
                   type="text"
                   class="form-control"
                   [(ngModel)]="familiarSeleccionado.apellido"
-                  name="apellido"
+                  name="apellido" 
                   #apellido="ngModel"
                   required
                 />
@@ -84,7 +94,7 @@
               <label for="" class="col-form-label col-sm-2">DNI</label>
               <div class="col-sm-6">
                 <input
-                  type="text"
+                  type="text" 
                   class="form-control"
                   [(ngModel)]="familiarSeleccionado.dni"
                   name="dni"

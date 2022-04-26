@@ -3,16 +3,22 @@
   https://angular.io/api/forms/Validators
 -->
 <div class="container">
-  <ul class="alert alert-danger" *ngIf="errores?.length > 0">
-    <li *ngFor="let err of errores">
-      {{ err }}
-    </li>
-  </ul>
+  <div class="alert alert-danger" *ngIf="errores" >
+    <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+    <div class="text-danger" *ngFor="let err of errores | keyvalue">
+      <b *ngIf="err.key=='depnumero'"> Campo 'Número de Departamento': </b> 
+      <b *ngIf="err.key=='deptelef'"> Campo 'Número de Telefono: </b> 
+      <b *ngIf="err.key=='piso'"> Campo 'Piso: </b> 
+      <b *ngIf="err.key=='aforo'"> Campo 'Aforo': </b>
+      {{err.value}} 
+    </div>
+  </div>
   <div class="card bg-dark text-white">
     <div class="card-header">{{ titulo }}</div>
     <div class="card-body">
       <form #departamentoForm="ngForm">
-        <div class="form-group row">
+        <!--Nùmero de departamentoW-->
+        <div class="form-group row my-5">
           <label for="" class="col-form-label col-sm-2"
             >Número de Departamento</label
           >
@@ -26,24 +32,27 @@
               required
               minlength="3"
               maxlength="3"
-            /><!---->
+            />
             <div
               class="alert alert-danger"
               *ngIf="
                 depnumero.invalid && (depnumero.dirty || depnumero.touched)
               "
             >
-              <div *ngIf="depnumero.errors.required">Número</div>
+              <div *ngIf="depnumero.errors.required">
+                El campo 'Número de departamento es obligatorio'
+              </div>
               <div *ngIf="depnumero.errors.minlength">
-                El nombre del departamento debe tener 3 digitos
+                El Número de departamento debe tener 3 digitos
               </div>
               <div *ngIf="depnumero.errors.maxlength">
-                El nombre del departamento debe tener 3 digitos
+                El Número de departamento debe tener 3 digitos
               </div>
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <!--Telefono-->
+        <div class="form-group row my-5">
           <label for="" class="col-form-label col-sm-2">Telefono</label>
           <div class="col-sm-6">
             <input
@@ -64,7 +73,53 @@
             </div>
           </div>
         </div>
-
+         <!--Piso y Aforo-->
+        <div class="form-group row my-5">
+          <!--Piso-->
+          <label for="" class="col-form-label col-sm-2">Piso</label>
+          <div class="col-sm-4">
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="departamento.piso"
+              name="piso"
+              #piso="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="piso.invalid && (piso.dirty || piso.touched)"
+            >
+              <div *ngIf="piso.errors.required">
+                El campo 'piso' es obligatorio
+              </div>
+            </div>
+          </div>
+            <!--Aforo-->
+            <label for="" class="col-form-label col-sm-2">Aforo</label>
+            <div class="col-sm-4">
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="departamento.aforo"
+                name="aforo"
+                #aforo="ngModel"
+                required
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="aforo.invalid && (aforo.dirty || aforo.touched)"
+              >
+                <div *ngIf="aforo.errors.required">
+                  El campo 'aforo' es obligatorio
+                </div>
+              </div>
+            </div>
+        </div>
+       
+         <div class="form-group row">
+         
+        </div>
         <div class="form-group row">
           <div class="col-sm-6">
             <button

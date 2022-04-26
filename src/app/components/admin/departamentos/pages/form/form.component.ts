@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DepartamentoDTO } from 'src/app/dto/departamentoDTO';
+import { Respuesta } from 'src/app/dto/Respuesta';
 import { Departamento } from 'src/app/model/departamento';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
+import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-form',
@@ -12,7 +14,7 @@ import swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   public departamento: DepartamentoDTO = new DepartamentoDTO()
   public titulo: String = "Crear Departamento"
-  public errores: string[]
+  public errores: any
   /**
    * NGModel -> Realiza un binding an objeto asignado; es decir enlaza al objeto cliente y rellena los datos del formulario
    *            conforme se rellena los datos
@@ -36,7 +38,7 @@ export class FormComponent implements OnInit {
         )
         this.titulo = 'Editar Departamento'
       }
-    })
+    }) 
   }
   public create(): void {
     console.log("Clicked!")
@@ -56,10 +58,8 @@ export class FormComponent implements OnInit {
         this.router.navigate(['/admin/departamentos/listado'])
       },
         err => {
-          this.errores = err.error.errors as string[]
-          console.error(err)
-          console.error("Codigo del error desde el backend" + err.status)
-          console.error(err.error)
+          let respuesta:Respuesta=err.error
+          this.errores=respuesta.detalle.data
         }
       )
   }
@@ -79,10 +79,13 @@ export class FormComponent implements OnInit {
 
       },
       err => {
-        this.errores = err.error.errors as string[]
-        console.error(err)
-        console.error("Codigo del error desde el backend" + err.status)
-        console.error(err.error)
+        let respuesta:Respuesta=err.error
+       
+        console.log("ERROR EN LA PETICION:")
+        console.log(err)
+        
+        this.errores=respuesta.detalle.data
+        
       }
     )
   }

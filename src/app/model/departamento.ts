@@ -5,5 +5,7 @@ export class Departamento {
     depnumero: string;
     deptelef: string;
     estado:boolean;
-    personaRegistro:Persona
+    personaRegistro:Persona;
+    piso:number;
+    aforo:number;
   }
