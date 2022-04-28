@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ModalFamiliarComponent } from './pages/modal-familiar/modal-familiar.component';
 import { SharedModule } from '../../shared/shared/shared.module';
+import { ModalPropietariodepartamentoComponent } from './pages/modal-propietariodepartamento/modal-propietariodepartamento.component';
 @NgModule({
   declarations: [
     ListadoComponent,
@@ -22,6 +23,7 @@ import { SharedModule } from '../../shared/shared/shared.module';
     ModalMascotaComponent,
     AddComponent,
     ModalFamiliarComponent,
+    ModalPropietariodepartamentoComponent,
   ],
   imports: [
     

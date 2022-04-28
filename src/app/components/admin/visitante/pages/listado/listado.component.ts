@@ -17,10 +17,10 @@ export class ListadoComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.listarDepartamentos()
+    this.listarVisitante()
 
   }
-  listarDepartamentos() {
+  listarVisitante() {
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
 
@@ -39,27 +39,27 @@ export class ListadoComponent implements OnInit {
     });
   }
 
+  public changeActiveVisitante(visitante: Visitante): void {
+    let tipoObjeto:String="Visitante"
+    Swal.fire({
+      title: visitante.persona.estado? `Está seguro que desea DESACTIVAR al ${tipoObjeto}?`:`Está seguro que desea ACTIVAR al ${tipoObjeto}?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.visitanteService.changeActive(visitante).subscribe(
+          (response) => {
+            Swal.fire(response.detalle.mensaje, '', 'success')
+            this.listarVisitante()
+          }
+        )
+      } else if (result.isDenied) {
 
-  delete(visitante: Visitante): void {
-    // Swal.fire({
-    //   title: `Está seguro de eliminar el departamento ${departamento.depnumero}?`,
-    //   showDenyButton: true,
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Si',
-    //   denyButtonText: `No`,
-    // }).then((result) => {
-    //   /* Read more about isConfirmed, isDenied below */
-    //   if (result.isConfirmed) {
-    //     this.departamentoService.delete(departamento.id).subscribe(
-    //       () => {
-    //         Swal.fire('Departamento Eliminado con exito!', '', 'success')
-    //         this.listarDepartamentos()
-    //       }
-    //     )
-    //   } else if (result.isDenied) {
-    //     Swal.fire(`Departamento ${departamento.depnumero} no fue eliminado`, '', 'info')
-    //   }
-    // })
+      }
+    })
   }
 }
  

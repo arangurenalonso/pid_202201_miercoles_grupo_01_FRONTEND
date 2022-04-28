@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from "./auth.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { VisitanteDTO } from "../dto/VisitanteDTO";
+import { Visitante } from "../model/visitante";
 
 
 @Injectable({
@@ -56,4 +57,28 @@ export class VisitanteService {
       ); 
     }
 
+    changeActive(visitante: Visitante): Observable<any> {
+
+      return this.http.delete(this.urlEndPoint+`/changeActive/${visitante.id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+  
+        .pipe(
+         
+          catchError(e => {
+            if (this.authService.isNoAutorizado(e)) {
+              return throwError(e);
+            }
+            Swal.fire({
+  
+              position: 'center',
+              
+              title: `${e.error.reason} `,
+              icon: 'error',
+              text: `${e.error.detalle.mensaje} `,
+              showConfirmButton: false,
+              timer: 2500
+            })
+            return throwError(e);
+          })
+        );
+    }
 }

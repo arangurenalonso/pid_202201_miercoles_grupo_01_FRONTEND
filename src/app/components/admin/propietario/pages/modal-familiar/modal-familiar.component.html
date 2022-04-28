@@ -27,7 +27,8 @@
     >
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title text-success">{{ titulo }}</h1>
+          <h1 class="modal-title text-success"  *ngIf="!familiarSeleccionado.id">Registrar Familiar</h1>
+          <h1 class="modal-title text-success"  *ngIf="familiarSeleccionado.id">Actualizar Familiar</h1>
           <button
             type="button"
             class="close"
@@ -40,7 +41,7 @@
         </div>
         <div class="modal-body">
           <!--Inicio-->
-          <form #mascotaFormValid="ngForm" autocomplete="nope" *ngIf="familiarSeleccionado">
+          <form #familiarFormValid="ngForm" autocomplete="nope" *ngIf="familiarSeleccionado">
             <!--NOMBE-->
             <div class="form-group row mb-4">
               <label for="" class="col-form-label col-sm-2"
@@ -129,7 +130,8 @@
                 <input
                 type="date"
                 class="form-control"
-                [(ngModel)]="familiarSeleccionado.birthdayDate"
+                (ngModelChange)="familiarSeleccionado.birthdayDate = $event"
+                [ngModel]="familiarSeleccionado.birthdayDate | date:'yyyy-MM-dd'"
                 name="numeroCelular"
                 #birthdayDate="ngModel"
                 required
@@ -157,7 +159,7 @@
                     role="button"
                     (click)="create()"
                     *ngIf="!familiarSeleccionado.id; else elseBlock"
-                    [disabled]="!mascotaFormValid.form.valid"
+                    [disabled]="!familiarFormValid.form.valid"
                   >
                     Crear
                   </button>
@@ -166,7 +168,7 @@
                       class="btn btn-primary"
                       role="button"
                       (click)="update()"
-                      [disabled]="!mascotaFormValid.form.valid"
+                      [disabled]="!familiarFormValid.form.valid"
                     >
                       Actualizar
                     </button>

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from "./auth.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { FamiliarDTO } from "../dto/FamiliarDTO";
+import { Familiar } from "../model/familiar";
 
 
 @Injectable({
@@ -46,5 +47,53 @@ export class FamiliarService {
         );
     }
 
+    actualizar(familiar: FamiliarDTO, idPropietario:number): Observable<any> {
+      let usuarioConectado = this.authService.usuario
+      familiar.idPersonaRegistro = usuarioConectado.persona.id
+      return this.http.post(this.urlEndPoint+`/actualizar`, familiar, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+      .pipe(
+         
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+          Swal.fire({
+  
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log(e)
+          return throwError(e);
+        })
+        );
+    }
+    changeActive(familiar: Familiar): Observable<any> {
 
+      return this.http.delete(this.urlEndPoint+`/changeActive/${familiar.id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+
+        .pipe(
+         
+          catchError(e => {
+            if (this.authService.isNoAutorizado(e)) {
+              return throwError(e);
+            }
+            Swal.fire({
+
+              position: 'center',
+              
+              title: `${e.error.reason} `,
+              icon: 'error',
+              text: `${e.error.detalle.mensaje} `,
+              showConfirmButton: false,
+              timer: 2500
+            })
+            return throwError(e);
+          })
+        );
+    }
 }

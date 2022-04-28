@@ -14,22 +14,22 @@ import Swal from 'sweetalert2';
 export class ModalFamiliarComponent implements OnInit {
 
   @Input() familiarSeleccionado: FamiliarDTO
-  @Input() propietario:Propietario
+  @Input() propietario: Propietario
   public errores: any
   myFilter = (d: Date | null): boolean => {
-    return d <=new Date();
+    return d <= new Date();
   };
-  titulo: string = "Crear Familiar"
 
 
   constructor(public modalService: ModalService, private familiarService: FamiliarService) { }
 
   ngOnInit(): void {
-    console.log("ABRIR MODAL<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+  
     console.log(this.propietario);
   }
   cerrarModal() {
-    this.familiarSeleccionado=null
+    this.familiarSeleccionado = null
+    this.errores=null 
     this.modalService.cerrarFamiliarModal()
     //this.propietario=null 
   }
@@ -37,26 +37,47 @@ export class ModalFamiliarComponent implements OnInit {
     console.log(this.familiarSeleccionado)
     console.log(this.propietario)
     this.familiarService.create(this.familiarSeleccionado, this.propietario.id).subscribe
-    (response => {
-      console.log("Familiar creado con exito"+response)
-      this.modalService.notificarFamiliar.emit(response.detalle.data);
-      Swal.fire({
-        icon: 'success',
-        title: "Familiar creado correctamente!!",
-        text: `${this.familiarSeleccionado.nombre} es el nuevo familiar de ${this.propietario.persona.nombre}`,
-      })
-      this.cerrarModal()
-      
-    },
-      
-    err => {
-      console.log(err)
-      let respuesta: Respuesta = err.error
-      this.errores = respuesta.detalle.data
-    }
-    )
+      (response => {
+        console.log("Familiar creado con exito" + response)
+        this.modalService.notificarFamiliar.emit(response.detalle.data);
+        Swal.fire({
+          icon: 'success',
+          title: "Familiar creado correctamente!!",
+          text: `${this.familiarSeleccionado.nombre} es el nuevo familiar de ${this.propietario.persona.nombre}`,
+        })
+        this.cerrarModal()
+
+      },
+
+        err => {
+          console.log(err)
+          let respuesta: Respuesta = err.error
+          this.errores = respuesta.detalle.data
+        }
+      )
+  }
+  update() {
+    console.log(this.familiarSeleccionado)
+    this.familiarService.actualizar(this.familiarSeleccionado, this.propietario.id).subscribe
+      (response => {
+        console.log("Familiar actualizado con exito" + response)
+        this.modalService.notificarFamiliar.emit(response.detalle.data);
+        Swal.fire({
+          icon: 'success',
+          title: "Familiar actualizado correctamente!!",
+          text: `${this.familiarSeleccionado.nombre} ${this.familiarSeleccionado.apellido} ha sido actualizado correctamente`,
+        })
+        this.cerrarModal()
+
+      },
+
+        err => {
+          console.log(err)
+          let respuesta: Respuesta = err.error
+          this.errores = respuesta.detalle.data
+        }
+      )
+
    }
-  update() { }
 
 }
- 

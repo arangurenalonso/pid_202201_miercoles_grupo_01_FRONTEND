@@ -82,12 +82,21 @@
                   <td>
                     {{ propietario.persona.personaRegistro.id }} - {{ propietario.persona.personaRegistro.nombre }}  {{ propietario.persona.personaRegistro.apellido }}
                   </td> 
-                  <td *ngIf="propietario.persona.estado">
-                    <span class="badge bg-success">Activo</span>
-                  </td>
-                  <td *ngIf="!propietario.persona.estado">
-                    <span class="badge bg-danger">Inactivo</span>
-                  </td>
+                  <td
+                  (click)="changeActivePropietario(propietario); $event.stopPropagation()"
+                >
+                  <span
+                    *ngIf="propietario.persona.estado"
+                    class="badge bg-success"
+                    ><strong>Activo</strong>
+                  </span>
+
+                  <span
+                    *ngIf="!propietario.persona.estado"
+                    class="badge bg-danger"
+                    ><strong>Inactivo</strong></span
+                  >
+                </td>
                  
                   <td>
                     <div
@@ -109,9 +118,11 @@
                       </button>
                       <button
                         type="button"
+                        (click)="changeActivePropietario(propietario); $event.stopPropagation()"
                         class="btn btn-outline-secondary deleterow"
                       >
-                        <i class="icofont-ui-delete text-danger"></i>
+                        <i class="icofont-ui-delete text-danger" *ngIf="propietario.persona.estado"></i> 
+                        <i class="icofont-exclamation-circle text-info" *ngIf="!propietario.persona.estado"></i>
                       </button>
                     </div>
                   </td>

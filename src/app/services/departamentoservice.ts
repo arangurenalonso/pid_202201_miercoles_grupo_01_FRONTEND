@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import Swal from 'sweetalert2';
 import { DepartamentoDTO } from '../dto/departamentoDTO';
+import { Departamento } from '../model/departamento';
 //import { JwtHelperService } from '@auth0/angular-jwt';
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class DepartamentoService {
@@ -124,5 +125,30 @@ export class DepartamentoService {
         return throwError(e);
       })
     );
+  }
+
+  changeActive(departamento: Departamento): Observable<any> {
+
+    return this.http.delete(this.urlEndPoint+`/changeActive/${departamento.id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+
+      .pipe(
+       
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+          Swal.fire({
+
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          return throwError(e);
+        })
+      );
   }
 }

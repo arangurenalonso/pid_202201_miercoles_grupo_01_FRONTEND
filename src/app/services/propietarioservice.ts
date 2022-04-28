@@ -93,6 +93,28 @@ export class PropietarioService {
       })
     );
   }
+  changeActive(propietario: Propietario): Observable<any> {
 
+    return this.http.delete(this.urlEndPoint+`/changeActive/${propietario.id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
 
+      .pipe(
+       
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+          Swal.fire({
+
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          return throwError(e);
+        })
+      );
+  }
 }

@@ -42,7 +42,7 @@
               <tbody>
                 <tr></tr>
                 <tr *ngFor="let departamento of departamentos">
-                  <td>{{ departamento.id }}</td>
+                  <td class="cursor-pointer-g">{{ departamento.id }}</td>
                   <td>{{ departamento.depnumero }}</td>
                   <td>{{ departamento.piso }}</td>
                   <td>{{ departamento.aforo }}</td>
@@ -50,12 +50,22 @@
                   <td>
                     {{ departamento.personaRegistro.nombre }}  {{ departamento.personaRegistro.apellido }}
                   </td>
-                  <td *ngIf="departamento.estado">
-                    <span class="badge bg-success">Activo</span>
-                  </td>
-                  <td *ngIf="!departamento.estado">
-                    <span class="badge bg-danger">Inactivo</span>
-                  </td>
+                  <td
+                  (click)="changeActiveDepartamento(departamento); $event.stopPropagation()"
+                >
+                  <span
+                    *ngIf="departamento.estado"
+                    class="badge bg-success"
+                    ><strong>Activo</strong>
+                  </span>
+
+                  <span
+                    *ngIf="!departamento.estado"
+                    class="badge bg-danger"
+                    ><strong>Inactivo</strong></span
+                  >
+                </td>
+
                   <td>  
                     <button
                       type="button"
@@ -69,13 +79,14 @@
                       editar
                     </button>
                     <button
-                      type="button"
-                      name="eliminar"
-                      class="btn btn-danger btn-sm"
-                      (click)="delete(departamento)"
-                    >
-                      eliminar
-                    </button>
+                        type="button"
+                        name="eliminar"
+                        class="btn  btn-sm"
+                        (click)="changeActiveDepartamento(departamento); $event.stopPropagation()"
+                      >
+                      <span  class="btn  btn-sm btn-danger" *ngIf="departamento.estado">Desactivar</span>
+                      <span  class="btn  btn-sm btn-warning" *ngIf="!departamento.estado">Activar</span> 
+                      </button>
                   </td>
                 </tr>
               </tbody>

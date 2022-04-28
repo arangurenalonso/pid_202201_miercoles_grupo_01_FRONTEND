@@ -48,12 +48,22 @@
                     <td>
                       {{ visitante.persona.personaRegistro.id }} - {{ visitante.persona.personaRegistro.nombre }}  {{ visitante.persona.personaRegistro.apellido }}
                     </td>
-                    <td *ngIf="visitante.persona.estado">
-                      <span class="badge bg-success">Activo</span>
-                    </td>
-                    <td *ngIf="!visitante.persona.estado">
-                      <span class="badge bg-danger">Inactivo</span>
-                    </td>
+                    <td
+                    (click)="changeActiveVisitante(visitante); $event.stopPropagation()"
+                  >
+                    <span
+                      *ngIf="visitante.persona.estado"
+                      class="badge bg-success"
+                      ><strong>Activo</strong>
+                    </span>
+
+                    <span
+                      *ngIf="!visitante.persona.estado"
+                      class="badge bg-danger"
+                      ><strong>Inactivo</strong></span
+                    >
+                  </td>
+                  
 
 
                     <td>
@@ -71,10 +81,11 @@
                       <button
                         type="button"
                         name="eliminar"
-                        class="btn btn-danger btn-sm"
-                        (click)="delete(visitante)"
+                        class="btn  btn-sm"
+                        (click)="changeActiveVisitante(visitante); $event.stopPropagation()"
                       >
-                        eliminar
+                      <span  class="btn  btn-sm btn-danger" *ngIf="visitante.persona.estado">Desactivar</span>
+                      <span  class="btn  btn-sm btn-warning" *ngIf="!visitante.persona.estado">Activar</span> 
                       </button>
                     </td>
                   </tr>

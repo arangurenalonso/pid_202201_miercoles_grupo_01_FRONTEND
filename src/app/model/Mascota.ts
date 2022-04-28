@@ -7,7 +7,7 @@ export class Mascota {
     nombre:String;
     raza:String;
     createAt:Date;
-    active:Boolean
+    isActive:Boolean
     propietario:Propietario
     personaRegistro:Persona
   }

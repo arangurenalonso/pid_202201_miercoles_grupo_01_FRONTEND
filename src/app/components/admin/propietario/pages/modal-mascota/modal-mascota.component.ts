@@ -15,42 +15,59 @@ import Swal from 'sweetalert2';
 export class ModalMascotaComponent implements OnInit {
 
   @Input() mascotaSeleccionada: MascotaDTO
-  @Input() propietario:Propietario
+  @Input() propietario: Propietario
   public errores: any
   titulo: string = "Crear Mascota"
 
-
   constructor(public modalService: ModalService, private mascotaService: MascotaService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
   cerrarModal() {
-    this.mascotaSeleccionada=null
+    this.mascotaSeleccionada = null
     this.modalService.cerrarMascotaModal()
-    this.errores=null 
+    this.errores = null
   }
   create() {
     console.log("Entro a crear mascota")
-    console.log("mascota: "+this.mascotaSeleccionada)
-    console.log("propietario: "+this.propietario)
+    console.log("mascota: " + this.mascotaSeleccionada)
+    console.log("propietario: " + this.propietario)
     this.mascotaService.create(this.mascotaSeleccionada, this.propietario.id).subscribe
-    (response => {
-      console.log("Mascota creado con exito"+response)
-      this.modalService.notificarMascota.emit(response.detalle.data);
-      Swal.fire({
-        icon: 'success',
-        title: "Mascota creada correctamente!!",
-        text: `${this.mascotaSeleccionada.nombre} es la nueva mascota de ${this.propietario.persona.nombre}`,
-      })
-      this.cerrarModal()
-      
-    },
-    err => {
-      console.log(err)
-      let respuesta: Respuesta = err.error
-      this.errores = respuesta.detalle.data
-    }
-    )
-   }
-  update() { }
+      (response => {
+        console.log("Mascota creado con exito" + response)
+        this.modalService.notificarMascota.emit(response.detalle.data);
+        Swal.fire({
+          icon: 'success',
+          title: "Mascota creada correctamente!!",
+          text: `${this.mascotaSeleccionada.nombre} es la nueva mascota de ${this.propietario.persona.nombre}`,
+        })
+        this.cerrarModal()
+
+      },
+        err => {
+          console.log(err)
+          let respuesta: Respuesta = err.error
+          this.errores = respuesta.detalle.data
+        }
+      )
+  }
+  update() { 
+    this.mascotaService.actualizar(this.mascotaSeleccionada).subscribe
+      (response => {
+        this.modalService.notificarMascota.emit(response.detalle.data);
+        Swal.fire({
+          icon: 'success',
+          title: "Mascota actualizada correctamente!!",
+          text: `${this.mascotaSeleccionada.nombre} actualizado correctamente`,
+        })
+        this.cerrarModal()
+
+      },
+        err => {
+          console.log(err)
+          let respuesta: Respuesta = err.error
+          this.errores = respuesta.detalle.data
+        }
+      )
+  }
 }

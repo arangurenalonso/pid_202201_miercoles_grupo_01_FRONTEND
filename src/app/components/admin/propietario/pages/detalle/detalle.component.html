@@ -9,6 +9,12 @@
   *ngIf="familiarSeleccionado"
 ></app-modal-familiar>
 
+<app-modal-propietariodepartamento
+[propietariodepartamento]="propietariodepartamento"
+  [propietario]="propietario"
+  *ngIf="propietariodepartamento.length>0"
+></app-modal-propietariodepartamento>
+
 <div class="body d-flex py-3" *ngIf="propietario">
   <div class="container-xxl">
     <div class="row align-items-center">
@@ -248,8 +254,10 @@
                   class="img-thumbnail rounded"
                 />
               </div>
+
               <div class="input-group mb-3">
                 <input
+                  (change)="seleccionarFoto($event)"
                   type="file"
                   class="form-control"
                   id="inputGroupFile03"
@@ -257,12 +265,26 @@
                   aria-label="Upload"
                 />
                 <button
+                  (click)="subirFoto()"
+                  [disabled]="!fotoSeleccionada"
                   class="btn btn-outline-secondary"
                   type="button"
                   id="inputGroupFileAddon03"
                 >
                   Subir Foto
                 </button>
+              </div>
+              <div *ngIf="progreso > 0" class="progress" style="height: 40px">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  role="progressbar"
+                  [ngStyle]="{ width: progreso + '%' }"
+                  attr.aria-valuenow="{{ progreso }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {{ progreso }}%
+                </div>
               </div>
             </div>
           </div>
@@ -277,15 +299,14 @@
             class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
           >
             <h1 class="mb-0 fw-bold text-info">Departamento Propietario</h1>
-            <!--
             <div class="col-auto d-flex w-sm-100">
               <a
-               
+                (click)="abrirModalDepartamentoPropietario()"
                 class="btn btn-primary btn-set-task w-sm-100"
               >
-                <i class="icofont-plus-circle me-2 fs-6"></i>Add
+                <i class="icofont-gears me-2 fs-6"></i>Mantto
               </a>
-            </div>-->
+            </div>
           </div>
           <div class="card-body">
             <div class="product-cart">
@@ -300,10 +321,15 @@
                       <th>Id Departamento</th>
                       <th>Número de departamento</th>
                       <th>Telefono Departamento</th>
+                      <th>estado</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let propietarioDepartamento of propietario.propietarioDepartamentos">
+                    <tr
+                      *ngFor="
+                        let propietarioDepartamento of propietario.propietarioDepartamentos
+                      "
+                    >
                       <td>
                         {{ propietarioDepartamento.departamento.id }}
                       </td>
@@ -313,6 +339,15 @@
                       <td>
                         {{ propietarioDepartamento.departamento.deptelef }}
                       </td>
+                      <td>
+                      <span *ngIf="propietarioDepartamento.estado" class="badge bg-success"
+                        ><strong>Activo</strong>
+                      </span>
+
+                      <span *ngIf="!propietarioDepartamento.estado" class="badge bg-danger"
+                        ><strong>Inactivo</strong></span
+                      >
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -361,7 +396,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let mascota of propietario.mascotas">
+                    <tr
+                      *ngFor="let mascota of propietario.mascotas"
+                      (click)="abrirModalMascota(mascota)"
+                    >
                       <td>
                         {{ mascota.id }}
                       </td>
@@ -382,8 +420,18 @@
                       <td>
                         {{ mascota.createAt | date: "dd/MM/yyyy" }}
                       </td>
-                      <td>
-                        {{ mascota.active }}
+                      <td
+                        (click)="
+                          changeActiveMascota(mascota); $event.stopPropagation()
+                        "
+                      >
+                        <span *ngIf="mascota.isActive" class="badge bg-success"
+                          ><strong>Activo</strong>
+                        </span>
+
+                        <span *ngIf="!mascota.isActive" class="badge bg-danger"
+                          ><strong>Inactivo</strong></span
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -395,7 +443,7 @@
       </div>
     </div>
     <!-- Row end  -->
-    
+
     <!-- Row Familiar-->
     <div class="row g-3 mb-3">
       <div class="">
@@ -429,10 +477,14 @@
                       <th>DNI</th>
                       <th>Persona que registro</th>
                       <th>Fecha de Cumpleaños</th>
+                      <th>Estado</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let familiar of propietario.familiares">
+                    <tr
+                      *ngFor="let familiar of propietario.familiares"
+                      (click)="abrirModalFamiliar(familiar)"
+                    >
                       <td>
                         {{ familiar.id }}
                       </td>
@@ -446,14 +498,30 @@
                       <td>
                         {{ familiar.persona.dni }}
                       </td>
+                      
                       <td>
                         {{ familiar.persona.personaRegistro.id }} -
                         {{ familiar.persona.personaRegistro.nombre }}
                         {{ familiar.persona.personaRegistro.apellido }}
                       </td>
-                      
+
                       <td>
                         {{ familiar.birthdayDate | date: "dd/MM" }}
+                      </td>
+                      <td
+                        (click)="changeActiveFamiliar(familiar); $event.stopPropagation()"
+                      >
+                        <span
+                          *ngIf="familiar.persona.estado"
+                          class="badge bg-success"
+                          ><strong>Activo</strong>
+                        </span>
+
+                        <span
+                          *ngIf="!familiar.persona.estado"
+                          class="badge bg-danger"
+                          ><strong>Inactivo</strong></span
+                        >
                       </td>
                     </tr>
                   </tbody>

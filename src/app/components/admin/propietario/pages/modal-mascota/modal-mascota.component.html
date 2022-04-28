@@ -14,7 +14,8 @@
       <div class="modal-dialog modal-lg ancho-modal" role="document" (click)="$event.stopPropagation()">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title text-success">{{ titulo }}</h1>
+            <h1 class="modal-title text-success"  *ngIf="!mascotaSeleccionada.id">Registrar Mascota</h1>
+          <h1 class="modal-title text-success"  *ngIf="mascotaSeleccionada.id">Actualizar Mascota</h1>
             <button
               type="button"
               class="close"

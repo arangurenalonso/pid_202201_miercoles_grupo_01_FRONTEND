@@ -17,7 +17,8 @@ export class ListadoComponent implements OnInit {
   departamentoSeleccionado: Departamento;
 
   
-  constructor(private departamentoService: DepartamentoService,
+  constructor(
+    private departamentoService: DepartamentoService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -42,7 +43,7 @@ export class ListadoComponent implements OnInit {
  
     });
   }
-
+ 
 
   delete(departamento: Departamento): void {
     Swal.fire({
@@ -65,5 +66,26 @@ export class ListadoComponent implements OnInit {
       }
     })
   }
+  public changeActiveDepartamento(departamento: Departamento): void {
+    let tipoObjeto:String="Departamento"
+    Swal.fire({
+      title: departamento.estado? `Está seguro que desea DESACTIVAR el ${tipoObjeto}?`:`Está seguro que desea ACTIVAR el ${tipoObjeto}?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.departamentoService.changeActive(departamento).subscribe(
+          (response) => {
+            Swal.fire(response.detalle.mensaje, '', 'success')
+            this.listarDepartamentos()
+          }
+        )
+      } else if (result.isDenied) {
 
+      }
+    })
+  }
 }

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PropietarioDTO } from 'src/app/dto/PropietarioDTO';
 import { Respuesta } from 'src/app/dto/Respuesta';
 import { Departamento } from 'src/app/model/departamento';
-import { PropietarioDepartamento } from 'src/app/model/departamento copy';
+import { PropietarioDepartamento } from 'src/app/model/propietarioDepartamento';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
 import { PropietarioService } from 'src/app/services/propietarioservice';
 import Swal from 'sweetalert2';

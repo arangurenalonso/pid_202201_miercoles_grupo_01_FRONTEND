@@ -5,9 +5,6 @@ export class MascotaDTO {
   tipoMascota: String;
   nombre: String;
   raza: String;
-  createAt: Date;
-  active: Boolean
-  propietario: Propietario
   idPersonaRegistro: Number
 
 }

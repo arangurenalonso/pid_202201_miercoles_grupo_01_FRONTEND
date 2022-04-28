@@ -1,4 +1,4 @@
-import { PropietarioDepartamento } from "./departamento copy";
+import { PropietarioDepartamento } from "./propietarioDepartamento";
 import { Familiar } from "./familiar";
 import { Mascota } from "./Mascota";
 import { Persona } from "./persona";
