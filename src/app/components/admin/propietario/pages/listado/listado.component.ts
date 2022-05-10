@@ -15,11 +15,6 @@ export class ListadoComponent implements OnInit {
   paginador_padre: any;
   componente_name:String;
 
-  // departamentos: Departamento[]; 
-  // departamentoSeleccionado: Departamento;
-  // paginador_padre: any;
-  // componente_name:String;
-
   constructor(private propietarioService: PropietarioService,
     private activatedRoute: ActivatedRoute) { }
 

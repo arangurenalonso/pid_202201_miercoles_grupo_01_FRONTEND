@@ -112,7 +112,6 @@ export class ModalPropietariodepartamentoComponent implements OnInit {
       console.log("RESULTADO EXITOSO")
       console.log(response)
       this.modalService.notificarPropietarioDepartamento.emit();
-      //this.modalService.notificarPropietarioDepartamento.emit();
       Swal.fire({
         icon: 'success',
         title: "Actualización correcta!!",

@@ -1,5 +1,5 @@
 
-import { Injectable } from "@angular/core";
+import {EventEmitter,Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -17,7 +17,11 @@ export class FileService {
 
     constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-
+    private _notificarUploadFoto=new EventEmitter<any>();
+    get notificarUploadFoto():EventEmitter<any>{
+        return this._notificarUploadFoto
+      }
+      
     subirFoto(archivo: File, id): Observable<HttpEvent<{}>> {
 
         let formData = new FormData();

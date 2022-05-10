@@ -1,0 +1,182 @@
+<app-modal-buscar-visitante
+  *ngIf="modalService.switchModalBuscarVisitante"
+></app-modal-buscar-visitante>
+
+<div class="body d-flex py-lg-3 py-md-2">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+        >
+          <h1 class="fw-bold mb-0 text-primary">Programar Visita</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="row clearfix g-3">
+      <div class="col-lg-6">
+        <div class="card mb-3">
+          <div
+            class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+          >
+            <h2 class="m-0 fw-bold">Fecha de Visita</h2>
+          </div>
+          <div class="card-body">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-6">
+                <label class="form-label text-secondary"
+                  >Fecha de Llegada</label
+                >
+                <input
+                  type="date"
+                  class="form-control w-100"
+                  [ngModel]="fechaHoraLlegada | date: 'yyyy-MM-dd'"
+                  [readonly]="isHabilitado"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-secondary">Hora Llegada</label>
+                <input
+                  type="time"
+                  class="form-control w-100"
+                  name="horaLlegada"
+                  id="horaLlegada"
+                  [ngModel]="fechaHoraLlegada | date: 'hh:mm'"
+                  [readonly]="isHabilitado"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div
+            class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+          >
+            <h2 class="m-0 fw-bold">Motivo de Visita</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <textarea
+                [(ngModel)]="motivoVisita"
+                class="form-control"
+                id="exampleFormControlTextarea3"
+                rows="2"
+                (keyup)="escribirMotivoVisita()"
+              ></textarea>
+              <div
+              class="alert alert-danger"
+              *ngIf="isMotivoVisitaSelected"
+            >
+              <div>El Campo Motivo es obligatorio y debe ser mayor a 5 caracteres</div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card mb-3">
+          <div
+            class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+          >
+            <h2 class="m-0 fw-bold">Datos Del Visitante</h2>
+            <button
+              type="button"
+              name="editar"
+              class="btn btn-primary btn-sm"
+              (click)="abrirModalBuscarVisitante()"
+            >
+              Buscar Visitante
+            </button>
+          </div>
+          <div class="card-body" *ngIf="visitanteSeleccionado">
+            <div class="col-md-6">
+              <label class="form-label text-secondary">Nombre Completo: </label>
+              <p class="mx-5">
+                {{ visitanteSeleccionado.persona.nombre }}
+                {{ visitanteSeleccionado.persona.apellido }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-secondary">DNI: </label>
+              <p class="mx-5">{{ visitanteSeleccionado.persona.dni }}</p>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="isVisitanteSeleccionado">
+            <div>Debe Seleccionar a un Visitante</div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div
+            class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+          >
+            <h2 class="m-0 fw-bold">Datos del Propietario</h2>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label text-secondary"
+                  >Seleccione al Propietario</label
+                >
+                <select
+                  class="form-control"
+                  (change)="cargarDepartamentos()"
+                  [(ngModel)]="propietarioSeleccionado.id"
+                >
+                  <option value="-1">[Seleccione]</option>
+                  <option *ngFor="let aux of propietarios" value="{{ aux.id }}">
+                    {{ aux.persona.nombre }} {{ aux.persona.apellido }}
+                  </option>
+                </select>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="isPropietarioSeleccionado"
+                >
+                  <div>Debe Seleccionar un Propietario</div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="departamentos.length > 0">
+              
+
+
+                <label class="form-label text-secondary">Seleccione el departamento</label>
+                <div>
+                <mat-radio-group
+                  aria-labelledby="example-radio-group-label"
+                  class="example-radio-group"
+                  [(ngModel)]="departamentoSeleccionado">
+                  <mat-radio-button class="example-radio-button" *ngFor="let dep of departamentos" [value]="dep" (click)="selecionarDepartamento(dep)">
+                    {{dep.depnumero}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+
+
+
+                <div
+                  class="alert alert-danger"
+                  *ngIf="isDepartamentoSeleccionado"
+                >
+                  <div>Debe Seleccionar un Departamento</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            name="editar"
+            class="btn btn-dark w-100"
+            (click)="registrarVisita()"
+          >
+            Registrar Visita
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Row End -->
+  </div>
+</div>

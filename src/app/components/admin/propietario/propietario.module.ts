@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ModalFamiliarComponent } from './pages/modal-familiar/modal-familiar.component';
 import { SharedModule } from '../../shared/shared/shared.module';
 import { ModalPropietariodepartamentoComponent } from './pages/modal-propietariodepartamento/modal-propietariodepartamento.component';
+import { ModalPropietarioDatosUpdateComponent } from './pages/modal-propietario-datos-update/modal-propietario-datos-update.component';
 @NgModule({
   declarations: [
     ListadoComponent,
@@ -24,6 +25,7 @@ import { ModalPropietariodepartamentoComponent } from './pages/modal-propietario
     AddComponent,
     ModalFamiliarComponent,
     ModalPropietariodepartamentoComponent,
+    ModalPropietarioDatosUpdateComponent,
   ],
   imports: [
     

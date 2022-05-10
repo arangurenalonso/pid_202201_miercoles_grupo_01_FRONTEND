@@ -58,8 +58,6 @@ export class DetalleComponent implements OnInit {
       if (id) {
         this.propietarioService.findPropietarioByID(id).subscribe(
           response=>{
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZZ")
-            console.log(response.detalle.data)
             let propietario:Propietario=response.detalle.data
             this.propietario=propietario
             this.propietariodepartamento=propietario.propietarioDepartamentos
@@ -118,7 +116,6 @@ export class DetalleComponent implements OnInit {
   }
   escucharlDepartamentoPropietari(){
     this.modalService.notificarPropietarioDepartamento.subscribe((a)=>{
-      console.log("LA ESCUCHA FUE EXITOSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
       this.cargarInformacion()
     })
   }
@@ -184,15 +181,13 @@ export class DetalleComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.progreso = Math.round((event.loaded / event.total) * 100)
           } else if (event.type === HttpEventType.Response) {
-            console.log(event)
-            console.log(event.body)
             let response: any = event.body;
             this.cargarInformacion()
-            //this.cliente = response.cliente as Cliente
+            this.filseService.notificarUploadFoto.emit(event.body)
             Swal.fire({
               icon: 'success',
               title: "la foto se ha subido completamente!!",
-              text: `${response.mensaje}`,
+              text: `${event.body}`,
             })
           }
         })

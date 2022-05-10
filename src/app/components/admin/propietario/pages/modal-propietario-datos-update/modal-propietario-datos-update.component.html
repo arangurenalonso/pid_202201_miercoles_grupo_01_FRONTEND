@@ -1,0 +1,72 @@
+<div class="abrir-modal animacion fadeIn " *ngIf="this.modalService.modalMascota"  (click)="cerrarModal() ">
+ 
+    <div  class="modal color-fondo d-flex justify-content-center align-items-center  " tabindex="-1" role="dialog" style="display: block;"   >
+     <!--d-flex justify-content-center align-items-center-->
+     <div class="alert alert-danger" *ngIf="errores" (click)="$event.stopPropagation()" >
+      <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+      <div class="text-danger" *ngFor="let err of errores | keyvalue">
+        <b *ngIf="err.key=='nombre'"> Campo 'Nombre Mascota': </b> 
+        <b *ngIf="err.key=='tipoMascota'"> Campo 'Tipo Mascota': </b> 
+        <b *ngIf="err.key=='raza'"> Campo 'Raza': </b>
+        {{err.value}} 
+      </div> 
+    </div>
+      <div class="modal-dialog modal-lg ancho-modal" role="document" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title text-success"  *ngIf="!mascotaSeleccionada.id">Registrar Mascota</h1>
+          <h1 class="modal-title text-success"  *ngIf="mascotaSeleccionada.id">Actualizar Mascota</h1>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="cerrarModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--Inicio-->
+            <form #mascotaFormValid="ngForm" *ngIf="mascotaSeleccionada">
+             
+                
+                
+              <div class="modal-footer">
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <button
+                      class="btn btn-primary"
+                      role="button"
+                      (click)="update()"
+                      *ngIf="!mascotaSeleccionada.id"
+                      [disabled]="!mascotaFormValid.form.valid"
+                    >
+                      Crear
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="cerrarModal()"
+                >
+                  Close
+                </button>
+              </div>
+              
+            </form>
+            <!--FIN-->
+
+
+
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    </div>

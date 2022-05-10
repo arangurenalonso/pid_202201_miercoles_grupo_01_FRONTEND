@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
         this.departamentoService.getDepartamento(id).subscribe(
           response=>{
             console.log(response)
-            this.departamento=response
+            this.departamento=response.detalle.data
             //(clienteObtenido) => this.departamento = clienteObtenido
           }
         )

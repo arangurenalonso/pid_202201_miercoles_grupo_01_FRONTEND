@@ -117,4 +117,24 @@ export class PropietarioService {
         })
       );
   }
+
+  getAllPropietarios(): Observable<any> {
+    return this.http.get(this.urlEndPoint + `/all`, { headers: this.agregarAuthorizationHeader() })
+    .pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    ); 
+  }
+
+  buscarDepartamentoXPropietario(prop:Propietario): Observable<any> {
+    return this.http.post(this.urlEndPoint + `/buscarDepartamentos`,prop, { headers: this.agregarAuthorizationHeader() })
+    .pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    ); 
+  }
 }

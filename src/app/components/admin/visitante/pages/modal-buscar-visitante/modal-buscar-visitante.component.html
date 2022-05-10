@@ -1,0 +1,150 @@
+<div class="abrir-modal animacion fadeIn" (click)="cerrarModal()">
+  <div
+    class="modal color-fondo d-flex justify-content-center align-items-center"
+    tabindex="-1"
+    role="dialog"
+    style="display: block"
+  >
+    <div
+      class="modal-dialog modal-lg ancho-modal"
+      role="document"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-success">
+            {{ titulo }}
+          </h1>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="cerrarModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--Inicio-->
+          <div class="row">
+            <div class="row col-lg-6">
+              <div class="input-group rounded">
+                <input
+                  type="text"
+                  (keyup)="buscarVisitante()"
+                  class="form-control rounded"
+                  placeholder="Search"
+                  aria-label="Search"
+                  [(ngModel)]="filtro"
+                  aria-describedby="search-addon"
+                />
+                <span
+                  class="input-group-text border-0"
+                  id="search-addon"
+                  (click)="buscarVisitante()"
+                >
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+            <div class="row col-lg-4">
+              <label class="form-label text-secondary">Buscar por:</label>
+              <mat-radio-group [(ngModel)]="filtroBy">
+                <mat-radio-button [value]="'nombreyapellido'"
+                  >Nombre y Apellido</mat-radio-button
+                >
+                <mat-radio-button [value]="'dni'">DNI</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="row col-lg-2 d-flex justify-content-end">
+              <div>
+                <a
+                [routerLink]="['/admin/visitante/crear']"
+                class="btn btn-primary  "
+              >
+                <i class="icofont-plus-circle me-2 fs-6"></i>Agregar
+              </a>
+              </div>
+             
+            </div>
+          </div>
+
+          <table
+            *ngIf="visitantes"
+            id="myProjectTable"
+            class="table table-hover align-middle mb-0"
+            style="width: 100%"
+          >
+            <thead class="text-center">
+              <tr>
+                <th>id</th>
+                <th>nombre</th>
+                <th>apellido</th>
+                <th>DNI</th>
+                <th>Registrado por?</th>
+                <th>estado</th>
+                <th>acciones</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr></tr>
+              <tr *ngFor="let visitante of visitantes">
+                <td>{{ visitante.id }}</td>
+                <td>{{ visitante.persona.nombre }}</td>
+                <td>{{ visitante.persona.apellido }}</td>
+                <td>{{ visitante.persona.dni }}</td>
+                <td>
+                  {{ visitante.persona.personaRegistro.id }} -
+                  {{ visitante.persona.personaRegistro.nombre }}
+                  {{ visitante.persona.personaRegistro.apellido }}
+                </td>
+                <td>
+                  <span
+                    *ngIf="visitante.persona.estado"
+                    class="badge bg-success"
+                    ><strong>Activo</strong>
+                  </span>
+
+                  <span
+                    *ngIf="!visitante.persona.estado"
+                    class="badge bg-danger"
+                    ><strong>Inactivo</strong></span
+                  >
+                </td>
+                <td (click)="seleccionarVisitante(visitante)">
+                  <i class="icofont-block-right display-4 link"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--FIN-->
+          <mat-paginator
+          class=""
+          *ngIf="paginator"
+            [length]="paginator.totalElementos"
+            [pageSize]="pageSize"
+            [pageIndex]="pageNumber"
+            [showFirstLastButtons]="true"
+            [pageSizeOptions]="pagSizeOption"
+            
+            aria-label="Select page"
+            (page)="handlePage($event)"
+          >
+          </mat-paginator>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              (click)="cerrarModal()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Visitante } from '../model/visitante';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,23 @@ export class ModalService {
   modalMascota:boolean=false;
   modalFamiliar:boolean=false;
   modalPropietarioDepartamento:boolean=false;
+  
+  switchModalBuscarVisitante:boolean=false;
+  
+  private _notificarAbrirModalBuscarVisitante=new EventEmitter<any>();
+  private _notificarCerrarModalBuscarVisitante=new EventEmitter<any>();
 
   private _notificarMascota=new EventEmitter<any>();
   private _notificarFamiliar=new EventEmitter<any>();
   private _notificarPropietarioDepartamento=new EventEmitter<any>();
   private _notificarAbrirModalPropietarioDepartamento=new EventEmitter<any>();
-  constructor() { }
-
-
+  
+  get notificarAbrirModalBuscarVisitante():EventEmitter<any>{
+    return this._notificarAbrirModalBuscarVisitante
+  }
+  get notificarCerrarModalBuscarVisitante():EventEmitter<any>{
+    return this._notificarCerrarModalBuscarVisitante
+  }
   get notificarMascota():EventEmitter<any>{
     return this._notificarMascota
   }
@@ -26,12 +36,25 @@ export class ModalService {
   }
 
   get notificarAbrirModalPropietarioService():EventEmitter<any>{
-    console.log("PASOOOOOOOOOOOOOOOOOO 2")
     return this._notificarAbrirModalPropietarioDepartamento
   }
+ 
+  constructor() { }
+
+  abrirModalBuscarVisitante(){
+    console.log("BBBBBBBBBBBBBBBBBBBBBBBB")
+    this.switchModalBuscarVisitante=true
+    this._notificarAbrirModalBuscarVisitante.emit()
+  }
+
+
+  cerrarModalBuscarVisitante(visitante:Visitante){
+    this.switchModalBuscarVisitante=false
+    this._notificarCerrarModalBuscarVisitante.emit(visitante)
+  }
+
 
   abrirPropietarioDepartamentoModal(){
-    console.log("PASOOOOOOOOOOOOOOOOOO 1")
     this.notificarAbrirModalPropietarioService.emit()
     this.modalPropietarioDepartamento=true
   }
@@ -46,7 +69,6 @@ export class ModalService {
     this.modalMascota=false
   }
   abrirFamiliarModal(){
-    console.log("Abrir el modal Familiar")
     this.modalFamiliar=true
   }
   cerrarFamiliarModal(){

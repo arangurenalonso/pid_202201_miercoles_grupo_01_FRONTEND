@@ -57,6 +57,18 @@ export class VisitanteService {
       ); 
     }
 
+    buscarVisitante(filtroURL:string): Observable<any> {
+      return this.http.get(this.urlEndPoint+filtroURL , { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+      .pipe(
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+          return throwError(e);
+        })
+      ); 
+    }
+
     changeActive(visitante: Visitante): Observable<any> {
 
       return this.http.delete(this.urlEndPoint+`/changeActive/${visitante.id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
@@ -80,5 +92,46 @@ export class VisitanteService {
             return throwError(e);
           })
         );
+    }
+
+    buscarPorId(id): Observable<any> {
+      return this.http.get<Visitante>(`${this.urlEndPoint}/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
+        
+        catchError(e => {
+          if (this.authService.isNoAutorizado(e)) {
+            //this.router.navigate(['/admin/departamneto/listado']);
+            return throwError(e);
+          }
+          Swal.fire({
+  
+            position: 'center',
+            
+            title: `${e.error.reason} `,
+            icon: 'error',
+            text: `${e.error.detalle.mensaje} `,
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log(e)
+          return throwError(e);
+        })
+      );
+    }    
+
+    update(visitante: VisitanteDTO): Observable<any> {
+      return this.http.put<any>(`${this.urlEndPoint}/${visitante.id}`, visitante, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
+        catchError(e => {
+  
+          if (this.authService.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+  
+  
+          console.error(e.error.mensaje);
+          Swal.fire(e.error.mensaje, e.error.error, 'error');
+  
+          return throwError(e);
+        })
+      );
     }
 }

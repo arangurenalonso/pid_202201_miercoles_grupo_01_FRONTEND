@@ -40,7 +40,7 @@ export class DepartamentoService {
     );
   }
 
-  getDepartamento(id): Observable<DepartamentoDTO> {
+  getDepartamento(id): Observable<any> {
     return this.http.get<DepartamentoDTO>(`${this.urlEndPoint}/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
       
       catchError(e => {
@@ -100,9 +100,6 @@ export class DepartamentoService {
           return throwError(e);
         }
 
-        if (e.status == 400) {
-          return throwError(e);
-        }
 
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');

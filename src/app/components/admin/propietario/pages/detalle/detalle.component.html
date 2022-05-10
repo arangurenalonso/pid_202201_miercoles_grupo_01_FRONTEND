@@ -239,7 +239,7 @@
           <div class="card-body">
             <div class="row g-3">
               <div class="col-sm">
-                <img
+                <img width="100%"
                   *ngIf="propietario.persona.usuario.foto"
                   src="http://localhost:8080/api/uploads/img/{{
                     propietario.persona.usuario.foto
@@ -247,7 +247,7 @@
                   alt="{{ propietario.persona.usuario.foto }}"
                   class="img-thumbnail rounded"
                 />
-                <img
+                <img width="100%"
                   *ngIf="!propietario.persona.usuario.foto"
                   src="http://localhost:8080/api/uploads/img/no-usuario.png"
                   alt="no-usurio-foto"

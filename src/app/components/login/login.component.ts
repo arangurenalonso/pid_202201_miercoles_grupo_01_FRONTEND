@@ -43,12 +43,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.showLoading = true;
     this.authService.login(this.usuario).subscribe(
       response => {
-        console.log(response)
-        console.log(response)
         let objPayload = JSON.parse(atob(response.tokens.access_token.split(".")[1]))
         console.log("roles-" + objPayload.roles)
         console.log("username-" + objPayload.iss)
-        console.log("tiempo de expiracion-" + new Date(objPayload.iat * 1000))
+        console.log("tiempo de Inicio del Token-" + new Date(objPayload.iat * 1000))
         console.log("tiempo de expiracion-" + new Date(objPayload.exp * 1000))
         console.log(response)
         let _usuario = (response.usuario as Usuario);

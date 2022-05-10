@@ -24,14 +24,10 @@ constructor(private http: HttpClient,private router: Router) {
   private _token: string;
 
   public get usuario(): Usuario {
-    console.log("Entro al metodo get de usuario ")
+    console.log("<<<< Obtener Usuario Conectado >>>>")
     if (this._usuario != null) {
-      console.log("Se obtiene de la variable")
-      console.log(this._usuario)
       return this._usuario;
     } else if (this._usuario == null && sessionStorage.getItem('usuario') != null) {
-      console.log("Se obtiene de storage")
-      console.log(this._usuario)
       this._usuario = JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
       return this._usuario;
     }
@@ -40,12 +36,10 @@ constructor(private http: HttpClient,private router: Router) {
   }
 
   public get token(): string {
-    console.log("Entro al metodo get del token")
+    console.log("<<<< Obtener Token >>>>")
     if (this._token != null) {
-      console.log("Devuelvo el token desde la memoria")
       return this._token;
     } else if (this._token == null && sessionStorage.getItem('token') != null) {
-      console.log("Devuelvo el token desde el session storage")
       this._token = sessionStorage.getItem('token');
       return this._token;
     }
@@ -76,7 +70,6 @@ constructor(private http: HttpClient,private router: Router) {
     this._usuario.lastLoginDate = new Date(usuario.lastLoginDate)
     this._usuario.lastLoginDateDisplay = new Date(usuario.lastLoginDateDisplay)
     this._usuario.password = "*******************"
-    console.log(this._usuario)
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
   obtenerDatosToken(accessToken: string): any {
@@ -87,40 +80,35 @@ constructor(private http: HttpClient,private router: Router) {
   }
 
   isAuthenticated(): boolean {
-    console.log("Entro a Is Authenticated Payload")
+    console.log("<<<<  Metodo Is Authenticated >>>>")
     let payload = this.obtenerDatosToken(this.token);
     if (payload != null && payload.iss && payload.iss.length > 0) {
-      console.log("Usuario authenticado")
       return true;
     }
-    console.log("Usuario NO authenticado")
     return false;
   }
   hasRole(role: string): boolean {
+    console.log("<<<<  Metodo Has Role >>>>")
     let isHasRol:boolean=false
     this.usuario.permiso.forEach(permiso => {
       if (permiso.role.name==role) {
-        console.log("Usuario tiene el rol")
         isHasRol=true;
       }
     });
-    console.log("Usuario NO tiene el rol")
     return isHasRol;
   }
 
   public agregarAuthorizationHeader(cabecera:HttpHeaders) {
-    console.log("Entro a agregar AuthorizaciònHeader")
+    console.log("<<< Entro a agregar AuthorizaciònHeader >>>")
     let token = this.token;
     if (token != null) {
-      console.log( 'Bearer ' + token)
-      console.log(cabecera)
       return cabecera.append('Authorization', 'Bearer ' + token);
     }
     return cabecera;
   }
 
   public isNoAutorizado(e): boolean {
-    console.log("---Entro al metodo isNoAutorizado")
+    
     if (e.status == 401) {
       if (this.isAuthenticated()) {
         this.logOut();

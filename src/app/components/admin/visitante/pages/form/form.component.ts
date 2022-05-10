@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Respuesta } from 'src/app/dto/Respuesta';
 import { VisitanteDTO } from 'src/app/dto/VisitanteDTO';
+import { Visitante } from 'src/app/model/visitante';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
 import { VisitanteService } from 'src/app/services/visitante.service';
 import swal from 'sweetalert2';
@@ -30,12 +31,12 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        // this.departamentoService.getDepartamento(id).subscribe(
-        //   response=>{
-        //     console.log(response)
-        //     this.departamento=response
-        //     (clienteObtenido) => this.departamento = clienteObtenido
-        //   })
+        this.visitanteService.buscarPorId(id).subscribe(
+          response=>{
+            console.log(response)
+            this.visitante=response.detalle.data
+            console.log(this.visitante)
+          })
         this.titulo = 'Editar Visitante'
       }
     })
@@ -65,25 +66,25 @@ export class FormComponent implements OnInit {
   }
 
   public update(): void {
-    // this.departamentoService.update(this.departamento).subscribe(
-    //   response => {
-    //     this.router.navigate(['/admin/departamentos/listado'])
-    //     swal.fire({
+    this.visitanteService.update(this.visitante).subscribe(
+      response => {
+        this.router.navigate(['/admin/visitante/listado'])
+        swal.fire({
 
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: `${response.reason} -> Id: Departamento ${response.detalle.data.id}`,
-    //       showConfirmButton: false,
-    //       timer: 2500
-    //     })
+          position: 'center',
+          icon: 'success',
+          title: `${response.reason} -> Id: Departamento ${response.detalle.data.id}`,
+          showConfirmButton: false,
+          timer: 2500
+        })
 
-    //   },
-    //   err => {
-    //     this.errores = err.error.errors as string[]
-    //     console.error(err)
-    //     console.error("Codigo del error desde el backend" + err.status)
-    //     console.error(err.error)
-    //   }
-    // )
+      },
+      err => {
+        this.errores = err.error.errors as string[]
+        console.error(err)
+        console.error("Codigo del error desde el backend" + err.status)
+        console.error(err.error)
+      }
+    )
   }
 }
