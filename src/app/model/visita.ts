@@ -5,7 +5,7 @@ import { Visitante } from "./visitante"
 
 
 export class Visita {
-  id: Number
+  id: Number 
   fechaHoraLlegada: Date
   fechaHoraSalida: Date
   motivoVisita: string
@@ -14,9 +14,9 @@ export class Visita {
   estado: number;
   createAt: Date;
 
-  propietario_id: Propietario
-  departamento_id: Departamento
-  visitante_id: Visitante
-  idPersonaRegistro: Persona
+  propietario: Propietario
+  departamento: Departamento
+  visitante: Visitante
+  personaRegistro: Persona
 
 }

@@ -13,7 +13,6 @@ export class ModalBuscarVisitanteComponent implements OnInit {
   public titulo:String ="Buscar Visitante"
   public visitantes: Visitante[];
   public paginator
-
   public pagSizeOption=[2,3,4,5]
   public pageNumber=0;
   public pageSize=4;

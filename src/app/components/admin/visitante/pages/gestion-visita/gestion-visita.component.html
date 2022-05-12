@@ -1,1 +1,173 @@
-<p>gestion-visita works!</p>
+<div class="body d-flex py-lg-3 py-md-2">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+        >
+          <h3 class="fw-bold mb-0">Gestión Visita</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="row col-lg-5">
+        <div class="input-group rounded">
+          <input
+            type="text"
+            (keyup)="buscarVisitaNombre()"
+            class="form-control rounded"
+            placeholder="Buscar Nombre Visitante"
+            aria-label="Search"
+            [(ngModel)]="filtroNombre"
+            aria-describedby="search-addon"
+          />
+          <span
+            class="input-group-text border-0"
+            id="search-addon"
+            (click)="buscarVisitaNombre()"
+          >
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+      <div class="row col-lg-5">
+        <div class="input-group rounded">
+          <input
+            type="text"
+            (keyup)="buscarVisitaDNI()"
+            class="form-control rounded"
+            placeholder="Buscar DNI Visitante"
+            aria-label="Search"
+            [(ngModel)]="filtroDni"
+            aria-describedby="search-addon"
+          />
+          <span
+            class="input-group-text border-0"
+            id="search-addon"
+            (click)="buscarVisitaDNI()"
+          >
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+      <div class="row col-lg-2">
+        <mat-form-field appearance="fill">
+          <mat-label>Elija un Estado</mat-label>
+          <!-- [formControl]="selected"
+          PUEDE CAUSAR ERROR
+          -->
+          <mat-select
+          
+            [formControl]="selected"
+            (selectionChange)="cambioEstado($event)"
+            [(value)]="selectedEstado"         
+            [compareWith]="compareCategoryObjects"  
+            [(ngModel)]="selectedEstado"
+          >
+
+            <mat-option
+              *ngFor="let estado of estados"
+              value="{{ estado.id }}"
+              >{{ estado.descripcion }}</mat-option
+            >
+          </mat-select>
+          <mat-error *ngIf="selected.hasError('required')"
+            >Debe seleccionar un valor</mat-error
+          >
+          <mat-error
+            *ngIf="
+              selected.hasError('pattern') &&
+              !selected.hasError('required')
+            "
+          >
+            Tu selección es inválida
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Row end  -->
+    <div class="row clearfix g-3">
+      <div class="col-sm-12">
+        <div class="card mx-1 my-3">
+          
+          <div class="card-body">
+            <table
+              id="myProjectTable"
+              class="table table-hover align-middle mb-0"
+              style="width: 100%"
+            >
+              <thead class="text-center">
+                <tr>
+                  <th>id</th>
+                  <th>Fecha Llegada</th>
+                  <th>Visitante</th>
+                  <th>Propietario</th>
+                  <th>Departamento</th>
+                  <th>Fecha Salida</th>
+                  <th>Estado</th>
+                  <th>acciones</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr></tr>
+                <tr *ngFor="let visita of visitas">
+                  <td>{{ visita.id }}</td>
+                  <td>{{ visita.fechaHoraLlegada | date: "dd/MM/yyyy" }}</td>
+                  <td>
+                    {{ visita.visitante.persona.nombre }}
+                    {{ visita.visitante.persona.apellido }} -
+                    {{ visita.visitante.persona.dni }}
+                  </td>
+                  <td>
+                    {{ visita.propietario.persona.nombre }}
+                    {{ visita.propietario.persona.apellido }}
+                  </td>
+                  <td>{{ visita.departamento.depnumero }}</td>
+                  <td>{{ visita.fechaHoraSalida }}</td>
+                  <td>
+                    <!--
+                    <span *ngIf="visita.estado == 0" class="text-danger"
+                      ><strong>Cancelada</strong></span
+                    >
+                    <span *ngIf="visita.estado == 1" class="text-info"
+                      ><strong>Programada</strong></span
+                    >
+                    -->
+                    <span *ngIf="visita.estado == 2" class="text-warning"
+                      ><strong>En Proceso</strong></span
+                    >
+                    <span *ngIf="visita.estado == 3" class="text-muted"
+                      ><strong>Finalizada</strong></span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      name="editar"
+                      class="btn btn-primary btn-sm"
+                      [routerLink]="['/admin/visitante/update']"
+                    >
+                      Finalizar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!--FIN-->
+            <mat-paginator
+              *ngIf="paginator"
+              [length]="paginator.totalElementos"
+              [pageSize]="pageSize"
+              [pageIndex]="pageNumber"
+              [showFirstLastButtons]="true"
+              [pageSizeOptions]="pagSizeOption"
+              aria-label="Select page"
+              (page)="pageEvent($event)"
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
