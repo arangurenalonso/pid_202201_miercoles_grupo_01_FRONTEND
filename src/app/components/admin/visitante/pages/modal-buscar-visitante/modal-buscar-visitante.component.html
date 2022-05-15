@@ -82,6 +82,8 @@
                 <th>nombre</th>
                 <th>apellido</th>
                 <th>DNI</th>
+                <th>Registrado por?</th>
+                <th>estado</th>
                 <th>acciones</th>
               </tr>
             </thead>
@@ -92,7 +94,24 @@
                 <td>{{ visitante.persona.nombre }}</td>
                 <td>{{ visitante.persona.apellido }}</td>
                 <td>{{ visitante.persona.dni }}</td>
-                
+                <td>
+                  {{ visitante.persona.personaRegistro.id }} -
+                  {{ visitante.persona.personaRegistro.nombre }}
+                  {{ visitante.persona.personaRegistro.apellido }}
+                </td>
+                <td>
+                  <span
+                    *ngIf="visitante.persona.estado"
+                    class="badge bg-success"
+                    ><strong>Activo</strong>
+                  </span>
+
+                  <span
+                    *ngIf="!visitante.persona.estado"
+                    class="badge bg-danger"
+                    ><strong>Inactivo</strong></span
+                  >
+                </td>
                 <td (click)="seleccionarVisitante(visitante)">
                   <i class="icofont-block-right display-4 link"></i>
                 </td>

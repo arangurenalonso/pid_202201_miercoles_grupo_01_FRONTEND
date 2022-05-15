@@ -41,17 +41,7 @@ export class GestionVisitaComponent implements OnInit {
     this.listarVisitas()
 
   }
-  listarVisitas() {
-    let filtroURL = `/page?numeroDePagina=${this.pageNumber}&pageSize=${this.pageSize}&sortBy=visPer.nombre&sortDir=asc&filtroNombre=${this.filtroNombre}&filtroDNI=${this.filtroDni}&estado=${this.selectedEstado}`
 
-    console.log(filtroURL)
-    this.visitaService.listarConFiltro(filtroURL)
-      .subscribe(response => {
-        console.log(response)
-        this.paginator = response.detalle.data;
-        this.visitas = response.detalle.data.contenido as Visita[];
-      });
-  }
   cambioEstado(e) {
     this.listarVisitas()
   }
@@ -65,7 +55,17 @@ export class GestionVisitaComponent implements OnInit {
     console.log(object2)//El valor del  [(ngModel)] por defecto
     return object1 && object2 && object1 == object2;
 }
- 
+  listarVisitas() {
+    let filtroURL = `/page?numeroDePagina=${this.pageNumber}&pageSize=${this.pageSize}&sortBy=visPer.nombre&sortDir=asc&filtroNombre=${this.filtroNombre}&filtroDNI=${this.filtroDni}&estado=${this.selectedEstado}`
+
+    console.log(filtroURL)
+    this.visitaService.listarConFiltro(filtroURL)
+      .subscribe(response => {
+        console.log(response)
+        this.paginator = response.detalle.data;
+        this.visitas = response.detalle.data.contenido as Visita[];
+      });
+  }
   pageEvent(e: PageEvent) {
     this.pageSize = e.pageSize
     this.pageNumber = e.pageIndex

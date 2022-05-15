@@ -320,6 +320,7 @@
                     <tr>
                       <th>Id Departamento</th>
                       <th>Número de departamento</th>
+                      <th>Telefono Departamento</th>
                       <th>estado</th>
                     </tr>
                   </thead>
@@ -334,6 +335,9 @@
                       </td>
                       <td>
                         {{ propietarioDepartamento.departamento.depnumero }}
+                      </td>
+                      <td>
+                        {{ propietarioDepartamento.departamento.deptelef }}
                       </td>
                       <td>
                       <span *ngIf="propietarioDepartamento.estado" class="badge bg-success"
