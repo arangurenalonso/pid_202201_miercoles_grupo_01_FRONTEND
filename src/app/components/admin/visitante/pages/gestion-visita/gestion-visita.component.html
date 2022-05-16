@@ -1,3 +1,5 @@
+<app-modal-finalizar-visita 
+></app-modal-finalizar-visita>
 <div class="body d-flex py-lg-3 py-md-2">
   <div class="container-xxl">
     <div class="row align-items-center">
@@ -5,7 +7,7 @@
         <div
           class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
         >
-          <h3 class="fw-bold mb-0">Gestión Visita</h3>
+          <h1 class="fw-bold mb-0 text-primary">Gestión Visita</h1>
         </div>
       </div>
     </div>
@@ -99,20 +101,21 @@
               <thead class="text-center">
                 <tr>
                   <th>id</th>
-                  <th>Fecha Llegada</th>
+                  
                   <th>Visitante</th>
                   <th>Propietario</th>
                   <th>Departamento</th>
-                  <th>Fecha Salida</th>
+                  <th>Hora y Fecha Llegada</th>
+                  <th   *ngIf="selectedEstado != 2">Hora y Fecha Salida</th>
                   <th>Estado</th>
-                  <th>acciones</th>
+                  <th   *ngIf="selectedEstado != 3">acciones</th>
                 </tr>
               </thead>
               <tbody class="text-center">
                 <tr></tr>
                 <tr *ngFor="let visita of visitas">
                   <td>{{ visita.id }}</td>
-                  <td>{{ visita.fechaHoraLlegada | date: "dd/MM/yyyy" }}</td>
+                  
                   <td>
                     {{ visita.visitante.persona.nombre }}
                     {{ visita.visitante.persona.apellido }} -
@@ -123,7 +126,8 @@
                     {{ visita.propietario.persona.apellido }}
                   </td>
                   <td>{{ visita.departamento.depnumero }}</td>
-                  <td>{{ visita.fechaHoraSalida }}</td>
+                  <td>{{ visita.fechaHoraLlegada | date: "hh:mm - dd/MM/yyyy" }}</td>
+                  <td   *ngIf="selectedEstado != 2">{{ visita.fechaHoraSalida | date: "hh:mm - dd/MM/yyyy"  }}</td>
                   <td>
                     <!--
                     <span *ngIf="visita.estado == 0" class="text-danger"
@@ -145,7 +149,8 @@
                       type="button"
                       name="editar"
                       class="btn btn-primary btn-sm"
-                      [routerLink]="['/admin/visitante/update']"
+                      *ngIf="selectedEstado != 3"
+                      (click)="abrirModalFinalizarVisita(visita.id)"
                     >
                       Finalizar
                     </button>

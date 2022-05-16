@@ -11,6 +11,7 @@ import { ModalBuscarVisitanteComponent } from './pages/modal-buscar-visitante/mo
 import {MatRadioModule} from '@angular/material/radio';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
+import { ModalFinalizarVisitaComponent } from './pages/modal-finalizar-visita/modal-finalizar-visita.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {MatSelectModule} from '@angular/material/select';
     FormComponent,
     GestionVisitaComponent,
     ProgramarVisitaComponent,
-    ModalBuscarVisitanteComponent
+    ModalBuscarVisitanteComponent,
+    ModalFinalizarVisitaComponent
   ],
   imports: [
     

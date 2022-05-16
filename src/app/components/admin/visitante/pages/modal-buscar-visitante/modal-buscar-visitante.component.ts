@@ -18,6 +18,7 @@ export class ModalBuscarVisitanteComponent implements OnInit {
   public pageSize=4;
   public filtro:string='';
   public filtroBy:string="nombreyapellido"
+  
   constructor(public modalService:ModalService,
     private visitanteService: VisitanteService) { }
 

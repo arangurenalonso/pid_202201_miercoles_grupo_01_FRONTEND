@@ -7,18 +7,30 @@ import { Visitante } from '../model/visitante';
 export class ModalService {
   modalMascota:boolean=false;
   modalFamiliar:boolean=false;
-  modalPropietarioDepartamento:boolean=false;
-  
+  modalPropietarioDepartamento:boolean=false;  
   switchModalBuscarVisitante:boolean=false;
+  switchModalFinalizarVisita:boolean=false;
   
   private _notificarAbrirModalBuscarVisitante=new EventEmitter<any>();
   private _notificarCerrarModalBuscarVisitante=new EventEmitter<any>();
+
+  private _notificarAbrirModalFinalizarVisita=new EventEmitter<any>();
+  private _notificarCerrarModalFinalizarVisita=new EventEmitter<any>();
 
   private _notificarMascota=new EventEmitter<any>();
   private _notificarFamiliar=new EventEmitter<any>();
   private _notificarPropietarioDepartamento=new EventEmitter<any>();
   private _notificarAbrirModalPropietarioDepartamento=new EventEmitter<any>();
-  
+
+
+
+  get notificarAbrirModalFinalizarVisita():EventEmitter<any>{
+    return this._notificarAbrirModalFinalizarVisita
+  }
+  get notificarCerrarModalFinalizarVisita():EventEmitter<any>{
+    return this._notificarCerrarModalFinalizarVisita
+  }
+
   get notificarAbrirModalBuscarVisitante():EventEmitter<any>{
     return this._notificarAbrirModalBuscarVisitante
   }
@@ -41,12 +53,22 @@ export class ModalService {
  
   constructor() { }
 
+
+  abrirModalFinalizarVisita(id:number){
+    this.switchModalFinalizarVisita=true
+    this._notificarAbrirModalFinalizarVisita.emit(id)
+  }
+
+  cerrarModalFinalizarVisita(){
+    this.switchModalFinalizarVisita=false
+    this._notificarCerrarModalFinalizarVisita.emit()
+  }
+
+
   abrirModalBuscarVisitante(){
-    console.log("BBBBBBBBBBBBBBBBBBBBBBBB")
     this.switchModalBuscarVisitante=true
     this._notificarAbrirModalBuscarVisitante.emit()
   }
-
 
   cerrarModalBuscarVisitante(visitante:Visitante){
     this.switchModalBuscarVisitante=false

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Visita } from 'src/app/model/visita';
 import { VisitaService } from 'src/app/services/visita.service';
 import { Estado } from 'src/app/model/Estado';
+import { ModalService } from 'src/app/services/modal.service';
 
 
 
@@ -34,13 +35,26 @@ export class GestionVisitaComponent implements OnInit {
 
 
   constructor(private visitaService: VisitaService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public modalService:ModalService) { }
 
   ngOnInit(): void {
     this.selectedEstado = 2
     this.listarVisitas()
+    this.escucharCierreModalVisitante()
 
   }
+  escucharCierreModalVisitante() {
+   
+    this.modalService.notificarCerrarModalFinalizarVisita.subscribe(() => {
+      this.listarVisitas()
+    })
+  }
+
+  abrirModalFinalizarVisita(id) {
+    this.modalService.abrirModalFinalizarVisita(id)
+  }
+
   listarVisitas() {
     let filtroURL = `/page?numeroDePagina=${this.pageNumber}&pageSize=${this.pageSize}&sortBy=visPer.nombre&sortDir=asc&filtroNombre=${this.filtroNombre}&filtroDNI=${this.filtroDni}&estado=${this.selectedEstado}`
 
