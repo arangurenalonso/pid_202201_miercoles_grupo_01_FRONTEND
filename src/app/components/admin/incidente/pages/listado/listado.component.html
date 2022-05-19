@@ -1,0 +1,121 @@
+<div class="body d-flex py-lg-3 py-md-2">
+    <div class="container-xxl">
+      <div class="row align-items-center">
+        <div class="border-0 mb-4">
+          <div
+            class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+          >
+            <h3 class="fw-bold mb-0">Incidente</h3>
+            <div class="col-auto d-flex w-sm-100">
+              <a
+                [routerLink]="['/admin/incidente/crear']"
+                class="btn btn-primary btn-set-task w-sm-100"
+              >
+                <i class="icofont-plus-circle me-2 fs-6"></i>Agregar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Row end  -->
+      <div class="row clearfix g-3">
+        <div class="col-sm-12">
+          <div class="card mb-3">
+            <div class="card-body">
+              <table
+                id="myProjectTable"
+                class="table table-hover align-middle mb-0"
+                style="width: 100%"
+              >
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>descripcion</th>
+                    <th>Fecha de Creación</th>
+                    <th>Registrado por?</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+                  <tr *ngFor="let incidente of incidentes">
+                    <td class="cursor-pointer-g">{{ incidente.id }}</td>
+                    <td>{{ incidente.nombre }}</td>
+                    <td>{{ incidente.descripcion }}</td>
+                    <td>{{ incidente.createAt }}</td>
+                    <td>
+                      {{ incidente.personaRegistro.nombre }}
+                      {{ incidente.personaRegistro.apellido }}
+                    </td>
+                    <td
+                      (click)="
+                        changeActive(incidente);
+                        $event.stopPropagation()
+                      "
+                    >
+                      <span *ngIf="incidente.isActive" class="badge bg-success"
+                        ><strong>Activo</strong>
+                      </span>
+  
+                      <span *ngIf="!incidente.isActive" class="badge bg-danger"
+                        ><strong>Inactivo</strong></span
+                      >
+                    </td>
+  
+                    <td>
+                      <button
+                        type="button"
+                        name="editar"
+                        class="btn btn-primary btn-sm"
+                        [routerLink]="[
+                          '/admin/incidente/update',
+                          incidente.id
+                        ]"
+                      >
+                        editar
+                      </button>
+                      <button
+                        type="button"
+                        name="eliminar"
+                        class="btn btn-sm"
+                        (click)="
+                          changeActive(incidente);
+                          $event.stopPropagation()
+                        "
+                      >
+                        <span
+                          class="btn btn-sm btn-danger"
+                          *ngIf="incidente.isActive"
+                          >Desactivar</span
+                        >
+                        <span
+                          class="btn btn-sm btn-warning"
+                          *ngIf="!incidente.isActive"
+                          >Activar</span
+                        >
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-paginator 
+        class=""
+        *ngIf="paginator"
+        [length]="paginator.totalElementos"
+        [pageSize]="pageSize"
+        [pageIndex]="pageNumber"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="pagSizeOption"
+        aria-label="Select page"
+        (page)="handlePage($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  

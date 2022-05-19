@@ -1,0 +1,97 @@
+<!--
+  VALIDATOR EN EL FORMULARIO
+  https://angular.io/api/forms/Validators
+-->
+<div class="container">
+  <div class="alert alert-danger" *ngIf="errores">
+    <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+    <div class="text-danger" *ngFor="let err of errores | keyvalue">
+      <b *ngIf="err.key == 'nombre'"> Campo 'Nombre': </b>
+      <b *ngIf="err.key == 'descripcion'"> Campo 'Descripcion: </b>
+      {{ err.value }}
+    </div>
+  </div>
+  <div class="card bg-dark text-white">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
+      <form #validForm="ngForm">
+        <!--Nombre Incidente-->
+        <div class="form-group row my-5">
+          <label for="" class="col-form-label col-sm-2">Nombre</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="incidente.nombre"
+              name="nombre"
+              #nombre="ngModel"
+              required
+              minlength="3"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+            >
+              <div *ngIf="nombre.errors.required">
+                El campo 'Nombre'es Requerido
+              </div>
+              <div *ngIf="nombre.errors.minlength">
+                El Campo Nombre debe tener mínimo 3 caracteres
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Descripción-->
+        <div class="form-group row my-5">
+          <label for="" class="col-form-label col-sm-2">Descripcion</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="incidente.descripcion"
+              name="descripcion"
+              #descripcion="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="
+                descripcion.invalid &&
+                (descripcion.dirty || descripcion.touched)
+              "
+            >
+              <div *ngIf="descripcion.errors.required">
+                El campo 'Descripcion'es Requerido
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row"></div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="create()"
+              *ngIf="!incidente.id; else elseBlock"
+              [disabled]="!validForm.form.valid"
+            >
+              Registrar
+            </button>
+            <ng-template #elseBlock>
+              <button
+                class="btn btn-primary"
+                role="button"
+                (click)="update()"
+                [disabled]="!validForm.form.valid"
+              >
+                Actualizar
+              </button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

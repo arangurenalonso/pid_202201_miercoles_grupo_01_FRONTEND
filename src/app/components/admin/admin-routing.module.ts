@@ -20,6 +20,14 @@ const routes: Routes = [
         path: 'visitante',
         loadChildren: () => import('./visitante/visitante.module').then(m=>m.VisitanteModule)
       },
+      {
+        path: 'servicio',
+        loadChildren: () => import('./servicio/servicio.module').then(m=>m.ServicioModule)
+      },
+      {
+        path: 'incidente',
+        loadChildren: () => import('./incidente/incidente.module').then(m=>m.IncidenteModule)
+      },
       { path: '**', redirectTo: 'departamentos' }
     ]
   },

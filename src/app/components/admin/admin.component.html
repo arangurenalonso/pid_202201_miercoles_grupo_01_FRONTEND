@@ -86,12 +86,62 @@
             </li>
             <li>
               <a class="ms-link" [routerLink]="['/admin/visitante/programar_visita']"
-                >Programar Visita</a
+                >Registrar Visita</a
               >
             </li>
             <li>
               <a class="ms-link" [routerLink]="['/admin/visitante/gestion_visita']"
                 >Gestion de Visita</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-incidente"
+            href="#"
+          >
+          <i class="icofont-broken fs-5"></i> <span>Incidente</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-incidente">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/incidente/listado']"
+                >Lista Incidente</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/incidente/crear']"
+                >Agregar</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-servicio"
+            href="#"
+          >
+          <i class="icofont-bucket fs-5"></i> <span>Servicio</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-servicio">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/servicio/listado']"
+                >Lista Servicio</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/servicio/crear']"
+                >Agregar</a
               >
             </li>
           </ul>

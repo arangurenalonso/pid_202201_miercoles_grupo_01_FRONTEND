@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared/shared.module';
     ListadoComponent,
     FormComponent,
   ],
-  imports: [
+  imports: [ 
     CommonModule,    
     FormsModule,
     DepartamentosRoutingModule,
