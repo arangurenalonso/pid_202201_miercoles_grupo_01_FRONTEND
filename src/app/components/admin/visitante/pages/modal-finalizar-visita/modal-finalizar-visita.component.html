@@ -10,6 +10,7 @@
     style="display: block"
   >
     <div
+    *ngIf="mostrar"
       class="modal-dialog modal-lg ancho-modal"
       role="document"
       (click)="$event.stopPropagation()"

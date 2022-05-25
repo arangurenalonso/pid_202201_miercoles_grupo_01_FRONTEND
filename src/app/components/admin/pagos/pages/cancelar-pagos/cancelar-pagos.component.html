@@ -1,0 +1,70 @@
+<div class="body d-flex py-lg-3 py-md-2">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+        >
+          <h3 class="fw-bold mb-0">{{ titulo }}</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Row Start  -->
+
+    <mat-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable"  errorMessage="Name is required." >
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Elija el Departamento</ng-template>
+          
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            formControlName="firstCtrl"
+            required
+          >
+            <mat-radio-button
+              class="example-radio-button"
+              *ngFor="let dep of departamentos"
+              [value]="dep"
+            >
+              Nº {{ dep.depnumero }}
+            </mat-radio-button>
+          </mat-radio-group>
+
+         
+          <div>
+            <button class="btn btn-success" mat-button *ngIf="firstFormGroup.valid" (click)="goForwardStep1(stepper)" >Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Elija los Servicios a pagar</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              formControlName="secondCtrl"
+              placeholder="Ex. 1 Main St, New York, NY"
+              required
+            />
+          </mat-form-field>
+          <div>
+            <button mat-button  (click)="stepper.reset()">Volver a empezar</button>
+            <button mat-button  (click)="goForwardStep2(stepper)">Procesar el Pago</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Pago Realizado</ng-template>
+        <p>You are now done.</p>
+        <div>
+            <button mat-button  (click)="stepper.reset()">Nuevo Pago</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+    <!--Row End-->
+  </div>
+</div>

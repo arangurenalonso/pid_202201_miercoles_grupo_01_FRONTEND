@@ -1,0 +1,77 @@
+<!--https://fossies.org/linux/components/src/material/datepicker/calendar.html-->
+<!--https://stackoverflow.com/questions/58676974/angular-material-datepicker-month-year-only-->
+<!--https://www.freakyjolly.com/angular-material-datepicker-tutorial-with-examples/-->
+<!--https://stackblitz.com/angular/ekjvrbglvnb?file=src%2Fmain.ts-->
+<!--https://www.freakyjolly.com/angular-material-datepicker-change-format-of-selected-date/-->
+<!--https://stackblitz.com/edit/angular-mulitdate-picker-demo?file=app%2Fapp.component.html-->
+
+<!--Elegido para ser el mejor-->
+<!--style="width:1px;visibility:hidden;"-->
+<!--https://stackoverflow.com/questions/48583243/use-mat-datepicker-directly-without-input-->
+
+<div class="body d-flex py-lg-3 py-md-2">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="border-0 mb-4">
+        <div
+          class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+        >
+          <h3 class="fw-bold mb-0">Programación de Pagos</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Row end  -->
+    <div class="row clearfix g-3">
+      <div class="d-flex justify-content-center flex-column align-items-center">
+        <div>
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              [matDatepicker]="dp"
+              [min]="sixMonthsAgo"
+              [max]="sixMonthsLater"
+              placeholder="Month and Year"
+              [formControl]="date"
+              [disabled]="false"
+              (click)="openDatePicker(dp)"
+            />
+           
+            <mat-datepicker
+            [calendarHeaderComponent]="exampleHeader"
+              #dp
+              startView="multi-year"
+              (yearSelected)="chosenYearHandler($event)"
+              (monthSelected)="chosenMonthHandler($event, dp)"
+              panelClass="example-month-picker"
+            >
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+          <div class=" box  mx-5">
+            <p class="text-center h1 border "  style = "height:20%; background-color: #e91e63;">Mes</p>
+            <div class="d-flex justify-content-center align-items-center w-100 "  style = "height:80%">
+              <p class="texto_mes_ano">{{monthSelected}}</p>
+            </div>   
+          </div>
+          <div class=" box  mx-5  ">
+            <p class="text-center h2 border  " style = "height:20%; background-color: #e91e63;">Año</p>
+            <div class="d-flex justify-content-center align-items-center w-100 " style = "height:80%">
+              <p class="texto_mes_ano">{{yearSelected}}</p>
+            </div>   
+          </div>
+        </div>
+      
+        <div class=" my-5 row">
+          <button type="button" class="btn btn-link" (click)="programarPagos()">Programar pagos del mes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--https://stackblitz.com/edit/angular-spdnvk-agzbmp?file=src%2Fstyles.scss-->
+<!--https://stackoverflow.com/questions/61012490/how-to-hide-calendar-header-calendarheadercomponent-in-mat-date-picker-->

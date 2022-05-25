@@ -40,6 +40,17 @@ export class DepartamentoService {
     );
   }
 
+  getDepartamentosDisponibles(): Observable<any> { 
+    console.log("+Entro al metodo de obtener departamento")
+    return this.http.get(this.urlEndPoint + `/disponible`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+    .pipe(
+      catchError(e => {
+        this.authService.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
+
   getDepartamento(id): Observable<any> {
     return this.http.get<DepartamentoDTO>(`${this.urlEndPoint}/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) }).pipe(
       

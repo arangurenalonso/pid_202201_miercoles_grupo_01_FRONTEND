@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 
@@ -27,6 +26,10 @@ const routes: Routes = [
       {
         path: 'incidente',
         loadChildren: () => import('./incidente/incidente.module').then(m=>m.IncidenteModule)
+      },
+      {
+        path: 'pagos',
+        loadChildren: () => import('./pagos/pagos.module').then(m=>m.PagosModule)
       },
       { path: '**', redirectTo: 'departamentos' }
     ]

@@ -146,6 +146,36 @@
             </li>
           </ul>
         </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-pagos"
+            href="#"
+          >
+          <i class="icofont-dollar fs-5"></i> <span>Pagos</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-pagos">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/pagos/listadoPagos']"
+                >Listado Pagos</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/pagos/programarPagos']"
+                >Programar Pagos</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/pagos/cancelarPagos']"
+                >Cancelar Pagos</a
+              >
+            </li>
+          </ul>
+        </li>
        </ul>
     </div>
   </div>

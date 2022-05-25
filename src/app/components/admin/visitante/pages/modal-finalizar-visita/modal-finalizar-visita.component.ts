@@ -14,6 +14,7 @@ export class ModalFinalizarVisitaComponent implements OnInit {
   titulo:String ="Finalizar Visita"
   visita:Visita
   visitaDTO:VisitaDTO=new VisitaDTO()
+  mostrar:boolean=true
   constructor(public modalService:ModalService,
     public visitaService:VisitaService) { }
 
@@ -26,13 +27,16 @@ export class ModalFinalizarVisitaComponent implements OnInit {
   }
 
   escucharAperturaModalFinalizarVisita() {   
+   
     this.modalService.notificarAbrirModalFinalizarVisita.subscribe((id) => {
+      this.mostrar=false
+      this.visitaDTO=new VisitaDTO()
       this.visitaService.buscarVisita(id).subscribe(response=>{
         
         this.visita = response.detalle.data as Visita;
-        console.log(this.visita)
         this.visitaDTO.id=this.visita.id
         this.visitaDTO.fechaHoraSalida=new Date()
+        this.mostrar=true
       })
     })
   }

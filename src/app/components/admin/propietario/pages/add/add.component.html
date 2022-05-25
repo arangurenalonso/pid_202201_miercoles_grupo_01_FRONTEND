@@ -3,19 +3,21 @@
   https://angular.io/api/forms/Validators
 -->
 <div class="container">
-  <div class="alert alert-danger" *ngIf="errores" >
+  <div class="alert alert-danger" *ngIf="errores">
     <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
     <div class="text-danger" *ngFor="let err of errores | keyvalue">
-      <b *ngIf="err.key=='nombre'"> Campo 'Nombre': </b> 
-      <b *ngIf="err.key=='apellido'"> Campo 'Apellido': </b> 
-      <b *ngIf="err.key=='dni'"> Campo 'DNI': </b> 
-      <b *ngIf="err.key=='numeroCelular'"> Campo 'Número de numeroCelular': </b>
-       <b *ngIf="err.key=='email'"> Campo 'Aforo': </b>
-      {{err.value}} 
+      <b *ngIf="err.key == 'nombre'"> Campo 'Nombre': </b>
+      <b *ngIf="err.key == 'apellido'"> Campo 'Apellido': </b>
+      <b *ngIf="err.key == 'dni'"> Campo 'DNI': </b>
+      <b *ngIf="err.key == 'numeroCelular'">
+        Campo 'Número de numeroCelular':
+      </b>
+      <b *ngIf="err.key == 'email'"> Campo 'Aforo': </b>
+      {{ err.value }}
     </div>
   </div>
-  <div class="card ">
-    <div class="card-header  bg-dark text-white">{{ titulo }}</div>
+  <div class="card">
+    <div class="card-header bg-dark text-white">{{ titulo }}</div>
     <div class="card-body">
       <form #propietarioDTOForm="ngForm">
         <!--NOMBE-->
@@ -123,60 +125,79 @@
               class="alert alert-danger"
               *ngIf="email.invalid && (email.dirty || email.touched)"
             >
-              <div *ngIf="email.errors.required">
-                El email es requerido
-              </div>
+              <div *ngIf="email.errors.required">El email es requerido</div>
             </div>
           </div>
         </div>
         <!--Fecha de Nacimiento-->
         <div class="form-group row">
-          <label for="" class="col-form-label col-sm-2">Fecha de nacimiento</label>
+          <label for="" class="col-form-label col-sm-2"
+            >Fecha de nacimiento</label
+          >
           <div class="col-sm-6">
-              <mat-form-field class="example-full-width" appearance="fill" class="datepicker-class">
-                  <mat-label>Elije una fecha</mat-label>
-                  <input  matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"   [(ngModel)]="propietarioDTO.birthdayDate" name="birthdayDate" disabled>                   
-                  <mat-datepicker-toggle matSuffix [for]="picker">                     
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #picker disabled="false"></mat-datepicker>
-                </mat-form-field>                            
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+              class="datepicker-class"
+            >
+              <mat-label>Elije una fecha</mat-label>
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker"
+                [(ngModel)]="propietarioDTO.birthdayDate"
+                name="birthdayDate"
+                disabled
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
         <!--Asociar departamentos-->
         <div class="form-group row">
-          <label for="" class="col-form-label ">Seleccione Departamento(s) que es propietario</label>
+          <label for="" class="col-form-label"
+            >Seleccione Departamento(s) que es propietario</label
+          >
           <div class="card-body d-flex justify-content-between">
-            <div  class=" w-50"> 
+            <div class="w-50">
               <select
-              id="departamento"
-              name="departamento"
-              class="form-control w-45"
-              multiple="multiple"
-            >
-              <option *ngFor="let departamento of departamentos" value="{{ departamento.id }}" (click)="agregarDepartamento(departamento)">
-                {{ departamento.depnumero }}
-              </option>
-            </select>
+                id="departamento"
+                name="departamento"
+                class="form-control w-45"
+                multiple="multiple"
+              >
+                <option
+                  *ngFor="let departamento of departamentos"
+                  value="{{ departamento.id }}"
+                  (click)="agregarDepartamento(departamento)"
+                >
+                  {{ departamento.depnumero }}
+                </option>
+              </select>
             </div>
-            <div  class=" w-50"> 
+            <div class="w-50">
               <select
-              id="propietarioDepartamentos"
-              name="propietarioDepartamentos"
-              class="form-control w-45"
-              multiple="multiple"
-            >
-              <option *ngFor="let dep of departamentosSeleccionados" value="{{ dep.id }}" (click)="desAgregarDepartamento(dep)">
-                {{ dep.depnumero }}
-              </option>
-            </select>
+                id="propietarioDepartamentos"
+                name="propietarioDepartamentos"
+                class="form-control w-45"
+                multiple="multiple"
+              >
+                <option
+                  *ngFor="let dep of departamentosSeleccionados"
+                  value="{{ dep.id }}"
+                  (click)="desAgregarDepartamento(dep)"
+                >
+                  {{ dep.depnumero }}
+                </option>
+              </select>
             </div>
-           
           </div>
-      </div>
-        
+        </div>
 
         <!-- Botones-->
-        <div class="form-group row ">
+        <div class="form-group row">
           <div class="col-sm-6">
             <button
               class="btn btn-primary"
