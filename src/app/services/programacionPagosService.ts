@@ -43,6 +43,29 @@ export class ProgramacionPagosService {
         );
     }
 
+    obtenerPagosPendientes(id: number): Observable<any> {
+      return this.http.get(this.urlEndPoint+`/PagosPendientes/${id}`, { headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
 
+        .pipe(
+         
+          catchError(e => {
+            if (this.authService.isNoAutorizado(e)) {
+              return throwError(e);
+            }
+            Swal.fire({
+    
+              position: 'center',
+              
+              title: `${e.error.reason} `,
+              icon: 'error',
+              text: `${e.error.detalle.mensaje} `,
+              showConfirmButton: false,
+              timer: 2500
+            })
+            console.log(e)
+            return throwError(e);
+          })
+        );
+    }
 
 }

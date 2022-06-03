@@ -18,6 +18,7 @@ import { CustomMatCalendarHeaderComponent } from './pages/custom-mat-calendar-he
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 // const MY_FORMATS = {
 //   parse: {
 //     dateInput: 'DD MMMM YYYY',
@@ -53,7 +54,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     MatMomentDateModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCheckboxModule
   ],
   
   // providers: [

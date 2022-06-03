@@ -12,10 +12,14 @@
     <!-- Row Start  -->
 
     <mat-stepper linear #stepper>
-      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable"  errorMessage="Name is required." >
+      <mat-step
+        [stepControl]="firstFormGroup"
+        [editable]="isEditable"
+        errorMessage="Name is required."
+      >
         <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Elija el Departamento</ng-template>
-          
+          <ng-template matStepLabel>Elija el Departamento</ng-template>
+
           <mat-radio-group
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
@@ -31,37 +35,156 @@
             </mat-radio-button>
           </mat-radio-group>
 
-         
           <div>
-            <button class="btn btn-success" mat-button *ngIf="firstFormGroup.valid" (click)="goForwardStep1(stepper)" >Next</button>
+            <button
+              class="btn btn-success"
+              mat-button
+              *ngIf="firstFormGroup.valid"
+              (click)="goForwardStep1(stepper)"
+            >
+              Next
+            </button>
           </div>
-
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+      <!--[stepControl]="secondFormGroup"
+      
+      
+                formControlName="secondCtrl"-->
+      <mat-step [editable]="isEditable">
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Elija los Servicios a pagar</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Address</mat-label>
-            <input
-              matInput
-              formControlName="secondCtrl"
-              placeholder="Ex. 1 Main St, New York, NY"
-              required
-            />
-          </mat-form-field>
-          <div>
-            <button mat-button  (click)="stepper.reset()">Volver a empezar</button>
-            <button mat-button  (click)="goForwardStep2(stepper)">Procesar el Pago</button>
+
+          <div class="row align-items-center" *ngIf="departamentoSeleccionado">
+            <div class="border-0 mb-4">
+              <div
+                class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+              >
+                <h3 class="fw-bold mb-0">
+                  Pagos Pendientes Departamento Nº
+                  {{ departamentoSeleccionado.depnumero }}
+                </h3>
+               
+              </div>
+            </div>
+          </div>
+
+          <table
+            id="myProjectTable"
+            class="table table-hover align-middle mb-0"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>descripcion</th>
+                <th>Fecha de Servicio</th>
+                <th>Costo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr></tr>
+              <tr *ngFor="let pp of pagosPendientes">
+                <td>
+                  <mat-checkbox
+                    [checked]="pp.checked"
+                    (change)="valueChange(pp, $event)"
+                  ></mat-checkbox>
+                </td>
+                <td>
+                  {{ pp.servicio.nombre }}
+                </td>
+                <td>{{ pp.servicio.descripcion }}</td>
+                <td>
+                  {{ pp.fechaVenciemintoPago | date: "dd MMMM yyyy" }}
+                </td>
+                <td>S/. {{ pp.costo | number: "1.2" }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class=" d-flex justify-content-between">
+            <button mat-button (click)="volverPrincipio(stepper)" class="btn btn-link">
+             Volver a empezar
+            </button>
+            <button mat-button (click)="goForwardStep2(stepper)" *ngIf="pagosACancelar.length>0" class="btn btn-link">
+              Procesar el Pago
+            </button>
           </div>
         </form>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Pago Realizado</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button mat-button  (click)="stepper.reset()">Nuevo Pago</button>
+
+        <div class="col mt-5" *ngIf="departamentoSeleccionado" >
+          <div class="card auth-detailblock">
+            <div class="card-header">
+              <div class="row g-3">
+                <div class="row d-flex justify-content-center my-4">
+                  <h1 class="mb-0 fw-bold text-success text-center">Detalle de Pago</h1>
+                </div>
+               
+                <div class="col-6">
+                  <label class="form-label col-6 col-sm-5">Departamento:</label>
+                  <span> {{ departamentoSeleccionado.depnumero }}</span>
+                </div>
+                <div class="col-6">
+                  <label class="form-label col-6 col-sm-5">Fecha:</label>
+                  <span>{{ now | date: "dd MMMM yyyy" }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table
+                id="myProjectTable"
+                class="table table-hover align-middle mb-0"
+                style="width: 100%"
+              >
+                <thead>
+                  <tr>
+                    <th>Servicio</th>
+                    <th>descripcion</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Costo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+                  <tr *ngFor="let pp of pagosACancelar">
+                    <td>
+                      {{ pp.servicio.nombre }}
+                    </td>
+                    <td>{{ pp.servicio.descripcion }}</td>
+                    <td>{{ pp.monthYear.month }}</td>
+                    <td>{{ pp.monthYear.year }}</td>
+                    <td>S/. {{ pp.costo | number: "1.2" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <div class="col-auto d-flex justify-content-between">
+                <div>
+                  <button mat-button (click)="volverPrincipio(stepper)" class="btn btn-link">Volver a Empezar</button>
+                </div>
+                <div class="btn-set-task w-sm-100">
+                  Monto Total Cancelar
+                  <button
+                    type="button"
+                    class="btn btn-outline-info"
+                    (click)="procesarPago()"
+                  >
+                    S/.{{ montoTotalPagar | number: "1.2" }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        
       </mat-step>
     </mat-stepper>
 

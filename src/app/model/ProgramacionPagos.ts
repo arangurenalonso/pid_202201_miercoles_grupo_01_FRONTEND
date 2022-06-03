@@ -9,9 +9,11 @@ export class ProgramacionPagos {
     servicio:Servicio;
     monthYear:MonthYear;
     createAt:Date;
+    fechaVenciemintoPago:Date;
+    costo:number;
     estado:number
     personaRegistro:Persona;
-
+    checked:boolean
   
 
   }
