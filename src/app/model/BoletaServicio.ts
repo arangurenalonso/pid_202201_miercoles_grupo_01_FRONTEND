@@ -3,7 +3,7 @@ import { MonthYear } from "./MonthYear";
 import { Persona } from "./persona";
 import { Servicio } from "./servicio";
 
-export class ProgramacionPagos {
+export class BoletaServicio {
     id:number;
     departamento:Departamento;
     servicio:Servicio;

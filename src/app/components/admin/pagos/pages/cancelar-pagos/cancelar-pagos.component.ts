@@ -2,12 +2,13 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { CancelarPagoDTO } from 'src/app/dto/CancelarPagoDTO';
+import { BoletaServicio } from 'src/app/model/BoletaServicio';
 import { Departamento } from 'src/app/model/departamento';
-import { ProgramacionPagos } from 'src/app/model/ProgramacionPagos';
+import { BoletaServicioService } from 'src/app/services/BoletaServicioService';
 import { DepartamentoService } from 'src/app/services/departamentoservice';
 import { PagosServicioService } from 'src/app/services/pagosServicioService';
-import { ProgramacionPagosService } from 'src/app/services/programacionPagosService';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,17 +22,18 @@ export class CancelarPagosComponent implements OnInit {
   secondFormGroup: FormGroup;
   isEditable = false;
   departamentos: Departamento[];
-  pagosPendientes: ProgramacionPagos[];
+  pagosPendientes: BoletaServicio[];
   departamentoSeleccionado: Departamento
   montoTotalPagar:number=0.00
 
-  pagosACancelar: ProgramacionPagos[]=[];
+  pagosACancelar: BoletaServicio[]=[];
   //(change)="valueChange(model.units,unit,$event)"
   now:Date=new Date()
   constructor(private _formBuilder: FormBuilder,
     private departamentoService: DepartamentoService,
-    private programacionPagosService: ProgramacionPagosService,
-    private pagosServicioService:PagosServicioService
+    private boletaServicioService: BoletaServicioService,
+    private pagosServicioService:PagosServicioService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class CancelarPagosComponent implements OnInit {
 
   goForwardStep1(stepper: MatStepper) {
     this.departamentoSeleccionado = this.firstFormGroup.value.firstCtrl
-    this.programacionPagosService.obtenerPagosPendientes(this.departamentoSeleccionado.id)
+    this.boletaServicioService.obtenerPagosPendientes(this.departamentoSeleccionado.id)
       .subscribe(response => {
         let ppLista=response.detalle.data
         let ppListaChecked=ppLista.map(x=>{
@@ -79,7 +81,7 @@ export class CancelarPagosComponent implements OnInit {
     this.pagosACancelar=[]
     stepper.reset()
   }
-  valueChange(pp:ProgramacionPagos,$event){
+  valueChange(pp:BoletaServicio,$event){
     this.pagosPendientes=this.pagosPendientes.map(
         x=>{
           if(x.id==pp.id){
@@ -119,7 +121,7 @@ export class CancelarPagosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
-          //this.router.navigate(['/admin/departamentos/listado'])
+          this.router.navigate(['/admin/pagos/listadoPagos'])
         },
           err => {
             console.log(err)

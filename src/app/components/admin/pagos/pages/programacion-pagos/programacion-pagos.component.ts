@@ -5,8 +5,8 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepi
 import { Router } from '@angular/router';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
-import { ProgramacionPagosDTO } from 'src/app/dto/ProgramacionPagosDTO';
-import { ProgramacionPagosService } from 'src/app/services/programacionPagosService';
+import { BoletaServicioDTO } from 'src/app/dto/BoletaServicioDTO';
+import { BoletaServicioService } from 'src/app/services/BoletaServicioService';
 import Swal from 'sweetalert2';
 import { CustomMatCalendarHeaderComponent } from '../custom-mat-calendar-header/custom-mat-calendar-header.component';
 const moment = _moment;
@@ -43,7 +43,7 @@ export class ProgramacionPagosComponent implements OnInit {
   yearSelected:number
 
   constructor(
-    private programacionPagosService:ProgramacionPagosService,
+    private boletaServicioService:BoletaServicioService,
     private router: Router,) { }
 
   ngOnInit(): void {
@@ -83,10 +83,10 @@ export class ProgramacionPagosComponent implements OnInit {
   programarPagos(){
     console.log(this.monthSelected)
     console.log(this.yearSelected)
-    let pp:ProgramacionPagosDTO =new ProgramacionPagosDTO()
+    let pp:BoletaServicioDTO =new BoletaServicioDTO()
     pp.month=this.monthSelected
     pp.year=this.yearSelected
-    this.programacionPagosService.registrarPagos(pp)
+    this.boletaServicioService.registrarPagos(pp)
     .subscribe(response => {
       console.log(response)
       this.router.navigate(['/admin/pagos/listadoPagos'])

@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ModalFamiliarComponent implements OnInit {
 
-  @Input() familiarSeleccionado: FamiliarDTO
+  @Input() familiarSeleccionado: FamiliarDTO 
   @Input() propietario: Propietario
   public errores: any
   myFilter = (d: Date | null): boolean => {

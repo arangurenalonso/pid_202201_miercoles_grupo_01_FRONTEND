@@ -1,0 +1,101 @@
+<div
+  class="abrir-modal animacion fadeIn"
+  *ngIf="this.modalService.switchModalDetallePago"
+  (click)="cerrarModal()"
+>
+  <div
+    class="modal color-fondo d-flex justify-content-center align-items-center"
+    tabindex="-1"
+    role="dialog"
+    style="display: block"
+  >
+    <div
+      class="modal-dialog modal-lg ancho-modal"
+      role="document"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-success"  >Mostrar Pago</h1>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="cerrarModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--Inicio-->
+          <div class="col " *ngIf="pagoServicio" >
+            <div class="card auth-detailblock">
+              <div class="card-heade r">
+                <div class="row px-4">
+                  <div class="row d-flex justify-content-center my-4">
+                    <h1 class="mb-0 fw-bold  text-center text-muted">Boleta de Pago</h1>
+                  </div>
+                 
+                  <div class="col-6">
+                    <label class="form-label col-6 col-sm-5">Departamento:</label>
+                    <span> {{ pagoServicio.departamento.depnumero }}</span>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label col-6 col-sm-5">Fecha  Cancelación:</label>
+                    <span>{{ pagoServicio.createAt | date: "dd MMMM yyyy" }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <table
+                  id="myProjectTable"
+                  class="table table-hover align-middle mb-0 mb-4"
+                  style="width: 100%"
+                >
+                  <thead>
+                    <tr>
+                      <th>Servicio</th>
+                      <th>descripcion</th>
+                      <th>Mes</th>
+                      <th>Año</th>
+                      <th>Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
+                    <tr *ngFor="let pp of pagoServicio.pagoServicioDetalle">
+                      <td>
+                        {{ pp.boletaServicio.servicio.nombre }}
+                      </td>
+                      <td>{{ pp.boletaServicio.servicio.descripcion }}</td>
+                      <td>{{pp.boletaServicio.monthYear.month }}</td>
+                      <td>{{ pp.boletaServicio.monthYear.year }}</td>
+                      <td>S/. {{ pp.boletaServicio.costo | number: "1.2" }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <div class="col-auto d-flex justify-content-end">
+
+                  <div class="btn-set-task w-sm-100">
+                    Monto Total Cancelado : 
+                    <strong class="">
+                        S/.{{ pagoServicio.montoTotal | number: "1.2" }}
+                    </strong>
+                 
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <!--FIN-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

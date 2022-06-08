@@ -1,1 +1,76 @@
-<p>listado-pagos works!</p>
+<app-modal-detalle-pagos 
+></app-modal-detalle-pagos>
+<div class="body d-flex py-lg-3 py-md-2">
+    <div class="container-xxl">
+      <div class="row align-items-center">
+        <div class="border-0 mb-4">
+          <div
+            class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
+          >
+            <h3 class="fw-bold mb-0">Pagos Servicios Realizado</h3>
+
+          </div>
+        </div>
+      </div>
+      <!-- Row end  -->
+      <div class="row clearfix g-3">
+        <div class="col-sm-12">
+          <div class="card mb-3">
+            <div class="card-body">
+              <table
+                id="myProjectTable"
+                class="table table-hover align-middle mb-0"
+                style="width: 100%"
+              >
+                <thead class="text-center">
+                  <tr>
+                    <th>id</th>
+                    <th>Departamento</th>
+                    <th >Monto Total Cancelado</th>
+                    <th>Fecha de Registro</th>
+                    <th>Registrado por?</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr></tr>
+                  <tr *ngFor="let obj of pagoServicio">
+                    <td class="cursor-pointer-g">{{ obj.id }}</td>
+                    <td>{{ obj.departamento.depnumero }}</td>
+                    <td >
+                      S/.{{ obj.montoTotal | number: "1.2" }}
+                    </td>
+                    <td>{{ obj.createAt | date:'dd-MM-yyyy, h:mm a'}}</td>
+                    
+                    <td>
+                      {{ obj.personaRegistro.nombre }}
+                      {{ obj.personaRegistro.apellido }}
+                    </td>
+                    <td class="">
+                        <button (click)="abrirModalDetallePago(obj)">
+                            <i class="icofont-eye-alt"></i>
+                        </button>                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-paginator 
+        class=""
+        *ngIf="paginator"
+        [length]="paginator.totalElementos"
+        [pageSize]="pageSize"
+        [pageIndex]="pageNumber"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="pagSizeOption"
+        aria-label="Select page"
+        
+      >
+      </mat-paginator>
+      <!--(page)="handlePage($event)"-->
+    </div>
+  </div>
+  

@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { PagoServicio } from '../model/PagoServicio';
 import { Visitante } from '../model/visitante';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class ModalService {
   modalPropietarioDepartamento:boolean=false;  
   switchModalBuscarVisitante:boolean=false;
   switchModalFinalizarVisita:boolean=false;
+  switchModalDetallePago:boolean=false;
   
   private _notificarAbrirModalBuscarVisitante=new EventEmitter<any>();
   private _notificarCerrarModalBuscarVisitante=new EventEmitter<any>();
@@ -17,11 +19,22 @@ export class ModalService {
   private _notificarAbrirModalFinalizarVisita=new EventEmitter<any>();
   private _notificarCerrarModalFinalizarVisita=new EventEmitter<any>();
 
+  private _notificarAbrirModalDetallePago=new EventEmitter<any>();
+  private _notificarCerrarModalDetallePago=new EventEmitter<any>();
+
   private _notificarMascota=new EventEmitter<any>();
   private _notificarFamiliar=new EventEmitter<any>();
   private _notificarPropietarioDepartamento=new EventEmitter<any>();
   private _notificarAbrirModalPropietarioDepartamento=new EventEmitter<any>();
 
+
+
+  get notificarAbrirModalDetallePago():EventEmitter<any>{
+    return this._notificarAbrirModalDetallePago
+  }
+  get notificarCerrarModalDetallePago():EventEmitter<any>{
+    return this._notificarCerrarModalDetallePago
+  }
 
 
   get notificarAbrirModalFinalizarVisita():EventEmitter<any>{
@@ -53,6 +66,15 @@ export class ModalService {
  
   constructor() { }
 
+  abrirModalDetallePago(ps:PagoServicio){
+    this.switchModalDetallePago=true
+    this._notificarAbrirModalDetallePago.emit(ps)
+  }
+
+  cerrarModalDetallePago(){
+    this.switchModalDetallePago=false
+    this._notificarCerrarModalDetallePago.emit()
+  }
 
   abrirModalFinalizarVisita(id:number){
     this.switchModalFinalizarVisita=true

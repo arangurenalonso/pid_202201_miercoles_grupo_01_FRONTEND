@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ModalDetallePagosComponent } from './pages/listado-pagos/modal-detalle-pagos/modal-detalle-pagos.component';
 // const MY_FORMATS = {
 //   parse: {
 //     dateInput: 'DD MMMM YYYY',
@@ -36,7 +37,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ProgramacionPagosComponent,
     CancelarPagosComponent,
     ListadoPagosComponent,
-    CustomMatCalendarHeaderComponent
+    CustomMatCalendarHeaderComponent,
+    ModalDetallePagosComponent
   ],
   imports: [
     CommonModule,

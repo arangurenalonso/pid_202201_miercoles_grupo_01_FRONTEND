@@ -1,11 +1,11 @@
+import { BoletaServicio } from "../model/BoletaServicio";
 import { Departamento } from "../model/departamento";
-import { ProgramacionPagos } from "../model/ProgramacionPagos";
 
 
 export class CancelarPagoDTO {
 
   idPersonaRegistro: Number
-  pagosACancelar: ProgramacionPagos[];
+  pagosACancelar: BoletaServicio[];
   departamento:Departamento
 
 }
