@@ -1,3 +1,5 @@
+<app-modal-finalizacion-incidente 
+></app-modal-finalizacion-incidente>
 <div class="body d-flex py-lg-3 py-md-2">
   <div class="container-xxl">
     <div class="row align-items-center">
@@ -7,13 +9,47 @@
         >
           <h3 class="fw-bold mb-0">Eventos Ocurrido</h3>
         </div>
-      </div>
+      </div> 
     </div>
     <!-- Row end  -->
     <div class="row clearfix g-3">
       <div class="col-sm-12">
         <div class="card mb-3">
           <div class="card-body">
+            <div class="row">
+              <div class="form-group col-6">
+                <div class="">
+                  <select
+                    [(ngModel)]="depId"
+                    class="form-control"
+                    (change)="filtrarDepartamento()"
+                  >
+                    <option value=-1 >[Filtro Departamento]</option>
+                    <option *ngFor="let aux of departamentos" value="{{ aux.id }}" >
+                      {{ aux.depnumero }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+      
+          
+      
+              <div class="form-group col-6">
+                  <div class="">
+                    <select
+                      [(ngModel)]="inciID"
+                      class="form-control"
+                      (change)="filtraIncidente()"
+                    >
+                      <option value=-1>[Filtro Incidente]</option>
+                      <option *ngFor="let aux of incidentes" value="{{ aux.id }}">
+                        {{ aux.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+        
+            </div>
             <table
               id="myProjectTable"
               class="table table-hover align-middle mb-0"
@@ -44,7 +80,7 @@
                     >
                   </td>
                   <td>
-                    <button *ngIf="obj.estado == 1">Finalizar</button>
+                    <button *ngIf="obj.estado == 1" (click)="abrirModalFinalizarVisita(obj)">Finalizar</button>
                   </td>
                   <td>
                     <a
@@ -54,7 +90,7 @@
                       role="button"
                       aria-expanded="false"
                       aria-controls="multiCollapseExample1"
-                      >+</a
+                      ><i class="icofont-eye-alt"></i></a
                     >
                   </td>
                 </tr>

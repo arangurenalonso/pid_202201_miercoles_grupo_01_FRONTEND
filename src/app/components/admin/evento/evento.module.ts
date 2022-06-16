@@ -18,11 +18,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ModalFinalizacionIncidenteComponent } from './pages/modal-finalizacion-incidente/modal-finalizacion-incidente.component';
 
 @NgModule({
   declarations: [
     ListadoComponent,
-    FormComponent
+    FormComponent,
+    ModalFinalizacionIncidenteComponent
   ],
   imports: [
     CommonModule,

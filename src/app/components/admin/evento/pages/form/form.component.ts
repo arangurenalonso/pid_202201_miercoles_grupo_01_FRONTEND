@@ -46,11 +46,12 @@ export class FormComponent implements OnInit {
   public incidentes: Incidente[] = []
   public titulo: String = "Registrar Evento"
   public errores: any
-  constructor(private departamentoService: DepartamentoService,
+  constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private eventoService: EventoService,
-    private incidenteService: IncidenteService
+    private incidenteService: IncidenteService,
+    private departamentoService: DepartamentoService,
   ) { }
 
   ngOnInit(): void {

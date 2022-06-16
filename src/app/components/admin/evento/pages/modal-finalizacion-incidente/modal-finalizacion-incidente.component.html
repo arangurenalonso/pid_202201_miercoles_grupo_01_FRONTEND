@@ -1,0 +1,116 @@
+<div
+  class="abrir-modal animacion fadeIn"
+  *ngIf="this.modalService.switchModalFinalizarIncidente"
+  (click)="cerrarModal()"
+>
+  <div
+    class="modal color-fondo d-flex justify-content-center align-items-center"
+    tabindex="-1"
+    role="dialog"
+    style="display: block"
+  >
+    <div
+      class="modal-dialog modal-lg ancho-modal"
+      role="document"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-success"  >Mostrar Pago</h1>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="cerrarModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--Inicio-->
+          <form #formValid="ngForm" *ngIf="evento">
+            <div class="form-group row mb-4">
+              <div class="col-sm-2 fw-bold">ID:</div>
+              <div class="col-sm-6 ">{{ evento.id }}</div>
+            </div>
+            <div class="form-group row mb-4">
+              <div class="col-sm-2 fw-bold"> Incidente:</div>
+              <div class="col-sm-6">
+                {{ evento.incidente.nombre }}: {{ evento.incidente.descripcion }}
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <div class="col-sm-2 fw-bold">Departamento
+                  :</div>
+              <div class="col-sm-6">
+                <p>
+                    {{ evento.departamento.depnumero }}
+                </p>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <div class="col-sm-2 fw-bold">Fecha Registro:</div>
+              <div class="col-sm-6">{{ evento.historialIncidentes[0].fecha | date: "dd-MM-yyyy, h:mm a" }}</div>
+            </div>
+            <div class="form-group row mb-4">
+              <label for="" class="col-form-label col-sm-2 fw-bold"
+                >Observación de Salida</label
+              >
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="eventoDTO.comentario"
+                  name="comentario"
+                  #comentario="ngModel"
+                  required
+                  minlength="3"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                  comentario.invalid &&
+                    (comentario.dirty || comentario.touched)
+                  "
+                >
+                  <div *ngIf="comentario.errors.required">
+                    Campo Comentario es obligatorio!!
+                  </div>
+                  <div *ngIf="comentario.errors.minlength">
+                    minimo 3 caracteres
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  <button
+                    class="btn btn-primary"
+                    role="button"
+                    (click)="finalizarEvento()"
+                    [disabled]="!formValid.form.valid"
+                  >
+                    Finalizar
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                (click)="cerrarModal()"
+              >
+                Close
+              </button>
+            </div>
+          </form>
+          
+          
+          <!--FIN-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

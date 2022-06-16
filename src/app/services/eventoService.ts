@@ -57,4 +57,22 @@ export class EventoService {
           })
         );
     }
+
+    actualizarEstado(obj: EventoIncidenteDTO): Observable<any> {
+      let usuarioConectado = this.authService.usuario
+      obj.idPersonaRegistro = usuarioConectado.persona.id
+      return this.http.post(this.urlEndPoint+`/actualizar_estado`, obj,{ headers: this.authService.agregarAuthorizationHeader(this.httpHeaders) })
+
+        .pipe(
+         
+          catchError(e => {
+            if (this.authService.isNoAutorizado(e)) {
+              return throwError(e);
+            }
+            
+            console.log(e)
+            return throwError(e);
+          })
+        );
+    }
 }

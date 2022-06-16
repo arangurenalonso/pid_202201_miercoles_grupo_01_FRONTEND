@@ -96,31 +96,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
-          <a
-            class="m-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#menu-incidente"
-            href="#"
-          >
-          <i class="icofont-broken fs-5"></i> <span>Incidente</span>
-            <span
-              class="arrow icofont-rounded-down ms-auto text-end fs-5"
-            ></span
-          ></a>
-          <ul class="sub-menu collapse" id="menu-incidente">
-            <li>
-              <a class="ms-link" [routerLink]="['/admin/incidente/listado']"
-                >Lista Incidente</a
-              >
-            </li>
-            <li>
-              <a class="ms-link" [routerLink]="['/admin/incidente/crear']"
-                >Agregar</a
-              >
-            </li>
-          </ul>
-        </li>
+       
         <li class="collapsed">
           <a
             class="m-link"
@@ -181,10 +157,35 @@
           <a
             class="m-link"
             data-bs-toggle="collapse"
+            data-bs-target="#menu-incidente"
+            href="#"
+          >
+          <i class="icofont-broken fs-5"></i> <span>Incidente-Causa</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-incidente">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/incidente/listado']"
+                >Lista Incidente</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/incidente/crear']"
+                >Agregar</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
             data-bs-target="#menu-evento"
             href="#"
           >
-          <i class="icofont-exclamation fs-5"></i> <span>Eventos</span>
+          <i class="icofont-exclamation fs-5"></i> <span>Incidente-Eventos</span>
             <span
               class="arrow icofont-rounded-down ms-auto text-end fs-5"
             ></span

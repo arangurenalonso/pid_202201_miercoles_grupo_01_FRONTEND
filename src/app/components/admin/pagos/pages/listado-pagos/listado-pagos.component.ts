@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { PagoServicio } from 'src/app/model/PagoServicio';
 import { ModalService } from 'src/app/services/modal.service';
 import { PagosServicioService } from 'src/app/services/pagosServicioService';
@@ -49,6 +50,11 @@ export class ListadoPagosComponent implements OnInit {
     this.modalService.notificarCerrarModalDetallePago.subscribe(() => {
       
     })
+  }
+  handlePage(e:PageEvent){
+    this.pageSize=e.pageSize
+    this.pageNumber=e.pageIndex
+    this.paginacion()
   }
 }
  

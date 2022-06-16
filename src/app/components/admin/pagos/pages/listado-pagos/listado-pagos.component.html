@@ -67,10 +67,10 @@
         [showFirstLastButtons]="true"
         [pageSizeOptions]="pagSizeOption"
         aria-label="Select page"
+        (page)="handlePage($event)"
         
       >
       </mat-paginator>
-      <!--(page)="handlePage($event)"-->
     </div>
   </div>
   

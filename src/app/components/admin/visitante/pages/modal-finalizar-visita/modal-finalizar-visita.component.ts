@@ -39,7 +39,7 @@ export class ModalFinalizarVisitaComponent implements OnInit {
         this.mostrar=true
       })
     })
-  }
+  } 
 
   finalizarVisita(){
     console.log(this.visitaDTO)

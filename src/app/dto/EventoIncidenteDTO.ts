@@ -6,4 +6,5 @@ export class EventoIncidenteDTO {
   incidente_id: Number
   idPersonaRegistro: Number
   comentario: String
+  estado:Number
 }
