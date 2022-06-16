@@ -1,0 +1,124 @@
+<!--
+  VALIDATOR EN EL FORMULARIO
+  https://angular.io/api/forms/Validators
+-->
+<div class="container">
+  <div class="alert alert-danger" *ngIf="errores">
+    <h1 class="">ERROR EN EL INGRESO DE DATOS</h1>
+    <div class="text-danger" *ngFor="let err of errores | keyvalue">
+      <b *ngIf="err.key == 'depnumero'"> Campo 'Número de Departamento': </b>
+      <b *ngIf="err.key == 'deptelef'"> Campo 'Número de Telefono: </b>
+      <b *ngIf="err.key == 'piso'"> Campo 'Piso: </b>
+      <b *ngIf="err.key == 'aforo'"> Campo 'Aforo': </b>
+      {{ err.value }}
+    </div>
+  </div>
+  <div class="card bg-dark text-white">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
+      <form #ValidForm="ngForm">
+
+        
+        <div class="form-group row my-5">
+          <label for="" class="col-form-label col-sm-2"
+            >Seleccionar Departamento</label
+          >
+          <div class="col-sm-6">
+            <select
+              [(ngModel)]="evento.departamento.id"
+              class="form-control"
+              name="validaDepartamento"
+              #validaDepartamento="ngModel"
+              required
+            >
+              <option value=-1>[Seleccione]</option>
+              <option *ngFor="let aux of departamentos" value="{{ aux.id }}">
+                {{ aux.depnumero }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                validaDepartamento.invalid &&
+                (validaDepartamento.dirty || validaDepartamento.touched)
+              "
+              class="alert alert-danger"
+            >
+              El Departamento es obligatorio
+            </div>
+          </div>
+        </div>
+
+    
+
+        <div class="form-group row my-5">
+            <label for="" class="col-form-label col-sm-2"
+              >Seleccionar Incidente</label
+            >
+            <div class="col-sm-6">
+              <select
+                [(ngModel)]="evento.incidente.id"
+                class="form-control"
+                name="validaIncidente"
+                #validaIncidente="ngModel"
+                required
+              >
+                <option value=-1>[Seleccione]</option>
+                <option *ngFor="let aux of incidentes" value="{{ aux.id }}">
+                  {{ aux.nombre }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                validaIncidente.invalid &&
+                  (validaIncidente.dirty || validaIncidente.touched)
+                "
+                class="alert alert-danger"
+              >
+                El Incidente es obligatorio
+              </div>
+            </div>
+          </div>
+  
+
+        <div class="form-group row my-5">
+          <label for="" class="col-form-label col-sm-2">Comentario</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="evento.comentario"
+              name="comentario"
+              #comentario="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="comentario.invalid && (comentario.dirty || comentario.touched)"
+            >
+              <div *ngIf="comentario.errors.required">
+                Debe ingresar un comentario
+              </div>
+            </div>
+          </div>
+        </div>
+       
+
+        <div class="form-group row"></div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="create()"
+              
+              [disabled]="!ValidForm.form.valid"
+            >
+              Crear
+            </button>
+           
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

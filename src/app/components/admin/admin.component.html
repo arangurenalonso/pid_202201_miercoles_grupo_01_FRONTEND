@@ -177,6 +177,32 @@
             </li>
           </ul>
         </li>
+        <li class="collapsed">
+          <a
+            class="m-link"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu-evento"
+            href="#"
+          >
+          <i class="icofont-exclamation fs-5"></i> <span>Eventos</span>
+            <span
+              class="arrow icofont-rounded-down ms-auto text-end fs-5"
+            ></span
+          ></a>
+          <ul class="sub-menu collapse" id="menu-evento">
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/eventos/listado']"
+                >listado</a
+              >
+            </li>
+            <li>
+              <a class="ms-link" [routerLink]="['/admin/eventos/registro']"
+                >Registrar</a
+              >
+            </li>
+            
+          </ul>
+        </li>
        </ul>
     </div>
   </div>

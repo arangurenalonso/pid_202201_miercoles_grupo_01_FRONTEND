@@ -31,6 +31,10 @@ const routes: Routes = [
         path: 'pagos',
         loadChildren: () => import('./pagos/pagos.module').then(m=>m.PagosModule)
       },
+      {
+        path: 'eventos',
+        loadChildren: () => import('./evento/evento.module').then(m=>m.EventoModule)
+      },
       { path: '**', redirectTo: 'departamentos' }
     ]
   },
