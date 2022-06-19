@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigateByUrl('/admin/departamentos/listado');
+      this.router.navigateByUrl('/admin/');
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.notificationService.notify('success', 'Notification successfully opened.' )
         swal.fire('Login', `Hola ${response.usuario.persona.nombre}, has iniciado sesión con éxito!`, 'success');
         this.showLoading = false;
-        this.router.navigateByUrl('/admin/departamentos/listado');
+        this.router.navigateByUrl('/admin/');
       },
       err => {
           if(err.status==400){

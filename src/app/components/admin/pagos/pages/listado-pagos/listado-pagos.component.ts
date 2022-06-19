@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Departamento } from 'src/app/model/departamento';
 import { PagoServicio } from 'src/app/model/PagoServicio';
+import { DepartamentoService } from 'src/app/services/departamentoservice';
 import { ModalService } from 'src/app/services/modal.service';
 import { PagosServicioService } from 'src/app/services/pagosServicioService';
 
@@ -19,20 +21,32 @@ export class ListadoPagosComponent implements OnInit {
   
   public pageNumber=0;
   public pageSize=4;
-  //public filtro:string='';
-  //public filtroBy:string="nombreyapellido"
+  
+  public depId=-1;
+  public departamentos: Departamento[] = []
 
   constructor(
     private pagoServicioService: PagosServicioService,
-    public modalService:ModalService
+    public modalService:ModalService,
+    private departamentoService: DepartamentoService
   ) { }
 
   ngOnInit(): void {
+    
+    this.cargarComboBox()
     this.paginacion()
     this.escucharCierreModalVisitante()
   }
+  public cargarComboBox(): void {
+
+    this.departamentoService.getAllDepartamento().subscribe(
+      response => {
+        this.departamentos = response
+      }
+    )
+  }
   paginacion() {
-    let filtroURL=`/paginacion?numeroDePagina=${this.pageNumber}&pageSize=${this.pageSize}&sortDir=asc` //&filtro=${this.filtro}&filtroBy=${this.filtroBy}
+    let filtroURL=`/paginacion?numeroDePagina=${this.pageNumber}&pageSize=${this.pageSize}&sortDir=asc&departamento=${this.depId}` 
     this.pagoServicioService.paginacion(filtroURL)
     .subscribe(response => {
       console.log(response)
@@ -54,6 +68,10 @@ export class ListadoPagosComponent implements OnInit {
   handlePage(e:PageEvent){
     this.pageSize=e.pageSize
     this.pageNumber=e.pageIndex
+    this.paginacion()
+  }
+  filtrarDepartamento() {
+    this.pageNumber = 0
     this.paginacion()
   }
 }

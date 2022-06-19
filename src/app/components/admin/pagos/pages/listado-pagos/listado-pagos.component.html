@@ -17,6 +17,20 @@
         <div class="col-sm-12">
           <div class="card mb-3">
             <div class="card-body">
+              <div class="form-group col-6">
+                <div class="">
+                  <select
+                    [(ngModel)]="depId"
+                    class="form-control"
+                    (change)="filtrarDepartamento()"
+                  >
+                    <option value=-1 >[Filtro Departamento]</option>
+                    <option *ngFor="let aux of departamentos" value="{{ aux.id }}" >
+                      {{ aux.depnumero }}
+                    </option>
+                  </select>
+                </div>
+              </div>
               <table
                 id="myProjectTable"
                 class="table table-hover align-middle mb-0"

@@ -8,6 +8,10 @@ const routes: Routes = [
     component: AdminComponent, 
     children: [
       {
+        path: 'home',
+        loadChildren: () => import('./main/main.module').then(m=>m.MainModule)
+      },
+      {
         path: 'departamentos',
         loadChildren: () => import('./departamentos/departamentos.module').then(m=>m.DepartamentosModule)
       },
@@ -35,7 +39,7 @@ const routes: Routes = [
         path: 'eventos',
         loadChildren: () => import('./evento/evento.module').then(m=>m.EventoModule)
       },
-      { path: '**', redirectTo: 'departamentos' }
+      { path: '**', redirectTo: 'home' }
     ]
   },
 ]
