@@ -14,6 +14,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    window.watsonAssistantChatOptions = {
+        integrationID: "c5bb34d9-d75c-4eb2-bdba-0051ed406e64", // The ID of this integration.
+        region: "au-syd", // The region your integration is hosted in.
+        serviceInstanceID: "cee8d67b-deb9-47a7-b4dc-40e35748cdec", // The ID of your service instance.
+        onLoad: function(instance) { instance.render(); }
+      };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+      document.head.appendChild(t);
+    });
+  </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
