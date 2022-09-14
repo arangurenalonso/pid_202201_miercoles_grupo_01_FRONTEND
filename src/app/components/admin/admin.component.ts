@@ -13,28 +13,28 @@ import Swal from 'sweetalert2';
 })
 export class AdminComponent implements OnInit {
 
-  public userConected:Usuario;
+  public userConected: Usuario;
 
-  constructor(private authService: AuthService, private router: Router, private fileService:FileService) { }
+  constructor(private authService: AuthService, private router: Router, private fileService: FileService) { }
   ngOnInit(): void {
     console.log("INICIALIZO EL COMPONENTE de usuario")
-    
-    
-    this.userConected=this.authService.usuario
+
+
+    this.userConected = this.authService.usuario
     this.escucharCargaDeFoto()
   }
-  escucharCargaDeFoto(){
-    
-    this.fileService.notificarUploadFoto.subscribe((response)=>{
+  escucharCargaDeFoto() {
+
+    this.fileService.notificarUploadFoto.subscribe((response) => {
       console.log("Escucha la Notificación de Upload Foto")
-      let userConected=this.authService.usuario
-      let personaActualizad=response.detalle.data 
-      if(this.userConected.id==personaActualizad.usuario.id){
-        userConected.foto=personaActualizad.usuario.foto
-        this.userConected=userConected
+      let userConected = this.authService.usuario
+      let personaActualizad = response.detalle.data
+      if (this.userConected.id == personaActualizad.usuario.id) {
+        userConected.foto = personaActualizad.usuario.foto
+        this.userConected = userConected
         this.authService.guardarUsuario(userConected);
       }
-    
+
     })
   }
 
@@ -45,7 +45,16 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
- 
+  hasRole(roleName: string): boolean {
+    let hasRole = false;
+    this.userConected.permiso.forEach(permiso => {
+      if (permiso.role.name == roleName) {
+        hasRole = true
+        return
+      }
+    })
+    return hasRole;
+  }
 
 }
 //- File > Preferences > Settings. On macOS - Code > Preferences > Settings. 

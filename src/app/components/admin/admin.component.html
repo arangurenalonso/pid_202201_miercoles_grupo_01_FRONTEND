@@ -10,7 +10,7 @@
       </a>
       <!-- Menu: main ul -->
       <ul class="menu-list flex-grow-1 mt-3">
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_ADMINISTRADOR')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -36,7 +36,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
+        <li class="collapsed"  *ngIf="hasRole('ROLE_ADMINISTRADOR')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -61,7 +61,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_COUNTER')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -74,7 +74,7 @@
             ></span
           ></a>
           <ul class="sub-menu collapse" id="menu-visitante">
-            <li>
+            <li  >
               <a class="ms-link" [routerLink]="['/admin/visitante/listado']"
                 >Lista Visitante</a
               >
@@ -97,7 +97,7 @@
           </ul>
         </li>
        
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_ADMINISTRADOR')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -122,7 +122,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_ADMINISTRADOR')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -153,7 +153,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_COUNTER')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
@@ -178,7 +178,7 @@
             </li>
           </ul>
         </li>
-        <li class="collapsed">
+        <li class="collapsed" *ngIf="hasRole('ROLE_COUNTER')">
           <a
             class="m-link"
             data-bs-toggle="collapse"
